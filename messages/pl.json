@@ -10,20 +10,28 @@
     "title2": "Jasne wyniki.",
     "subtitle": "Star Electronic dostarcza niezawodne komponenty i szybką obsługę.",
     "ctaQuote": "Poproś o wycenę",
-    "ctaGallery": "Zobacz galerię"
+    "ctaGallery": "Zobacz galerię",
+    "years": "Lat",
+    "projects": "Projektów",
+    "support": "Wsparcie",
+    "statYears": "15+",
+    "statProjects": "500+",
+    "statSupport": "24/7"
   },
   "features": {
-    "supply": {
-      "title": "Zaopatrzenie",
-      "desc": "Zaufani dostawcy i pełna śledzalność."
+    "title": "Dlaczego warto wybrać Star Electronic?",
+    "subtitle": "Łączymy najnowocześniejszą technologię z rzemiosłem, aby dostarczać najlepsze rozwiązania IoT.",
+    "security": {
+      "title": "Najwyższe bezpieczeństwo",
+      "desc": "Nasze urządzenia są zbudowane w oparciu o architekturę security-first, aby Twój dom był bezpieczny i prywatny."
     },
-    "assembly": {
-      "title": "Wsparcie montażu",
-      "desc": "Od małych serii po skalowanie."
+    "performance": {
+      "title": "Wysoka wydajność",
+      "desc": "Zoptymalizowane pod kątem szybkości i niezawodności, zapewniające natychmiastową reakcję inteligentnego domu."
     },
-    "response": {
-      "title": "Szybka reakcja",
-      "desc": "Jasna komunikacja i krótkie terminy."
+    "support": {
+      "title": "Wsparcie 24/7",
+      "desc": "Nasz dedykowany zespół jest zawsze gotowy do pomocy w przypadku pytań lub konfiguracji."
     }
   },
   "gallery": {
@@ -33,14 +41,47 @@
   "contact": {
     "title": "Skontaktuj się z nami",
     "intro": "Odpowiemy w ciągu jednego dnia roboczego.",
+    "getInTouch": "Skontaktuj się",
+    "description": "Chcielibyśmy usłyszeć od Ciebie. Wypełnij ten formularz lub wyślij nam e-mail.",
+    "office": "Nasze biuro",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "name": "Imię",
+    "company": "Firma",
+    "subject": "Temat",
+    "message": "Wiadomość",
     "send": "Wyślij wiadomość",
-    "sending": "Wysyłam…"
+    "sending": "Wysyłam…",
+    "success": "Wiadomość wysłana. Wkrótce się odezwiemy.",
+    "placeholders": {
+      "name": "Jan Kowalski",
+      "company": "Star Sp. z o.o.",
+      "email": "jan@example.com",
+      "phone": "+48 123 456 789",
+      "subject": "Jak możemy pomóc?",
+      "message": "Opowiedz nam o swoim projekcie..."
+    }
   },
   "dashboard": {
     "title": "Panel",
     "enterKey": "Wprowadź klucz dostępu",
     "upload": "Prześlij",
     "refresh": "Odśwież",
-    "save": "Zapisz opisy"
+    "save": "Zapisz opisy",
+    "access": {
+      "title": "Dostęp do panelu",
+      "desc": "Wprowadź klucz autoryzacyjny, aby kontynuować.",
+      "button": "Wprowadź klucz"
+    }
+  },
+  "footer": {
+    "description": "Dostarczamy niezawodne komponenty IoT i szybki serwis dla inteligentnych domów i firm od 2010 roku.",
+    "quickLinks": "Szybkie linki",
+    "contactUs": "Skontaktuj się z nami",
+    "address": "123 Star Street, Tech City, TC 90210",
+    "email": "info@star-electronic.example",
+    "phone": "+1 (555) 123-4567",
+    "followUs": "Obserwuj nas",
+    "copyright": "© {year} Star Electronic. Wszelkie prawa zastrzeżone."
   }
 }

@@ -10,20 +10,28 @@
     "title2": "Clear results.",
     "subtitle": "Star Electronic delivers reliable components and responsive service for projects that demand more.",
     "ctaQuote": "Get a quote",
-    "ctaGallery": "View gallery"
+    "ctaGallery": "View gallery",
+    "years": "Years",
+    "projects": "Projects",
+    "support": "Support",
+    "statYears": "15+",
+    "statProjects": "500+",
+    "statSupport": "24/7"
   },
   "features": {
-    "supply": {
-      "title": "Sourcing & Supply",
-      "desc": "Trusted parts from vetted distributors with full traceability."
+    "title": "Why Choose Star Electronic?",
+    "subtitle": "We combine cutting-edge technology with artisanal craftsmanship to deliver the best IoT solutions.",
+    "security": {
+      "title": "Top Security",
+      "desc": "Our devices are built with security-first architecture to keep your home safe and private."
     },
-    "assembly": {
-      "title": "Assembly Support",
-      "desc": "From small runs to scale, we keep your line moving."
+    "performance": {
+      "title": "High Performance",
+      "desc": "Optimized for speed and reliability, ensuring your smart home responds instantly."
     },
-    "response": {
-      "title": "Rapid Response",
-      "desc": "Clear communication and quick turnarounds you can plan around."
+    "support": {
+      "title": "24/7 Support",
+      "desc": "Our dedicated team is always ready to assist you with any questions or setup needs."
     }
   },
   "gallery": {
@@ -33,8 +41,26 @@
   "contact": {
     "title": "Contact us",
     "intro": "Tell us about your needs and we’ll respond within one business day.",
+    "getInTouch": "Get in Touch",
+    "description": "We'd love to hear from you. Please fill out this form or shoot us an email.",
+    "office": "Our Office",
+    "email": "Email",
+    "phone": "Phone",
+    "name": "Name",
+    "company": "Company",
+    "subject": "Subject",
+    "message": "Message",
     "send": "Send message",
-    "sending": "Sending…"
+    "sending": "Sending…",
+    "success": "Message sent. We'll get back shortly.",
+    "placeholders": {
+      "name": "John Doe",
+      "company": "Star Inc.",
+      "email": "john@example.com",
+      "phone": "+1 (555) 000-0000",
+      "subject": "How can we help?",
+      "message": "Tell us about your project..."
+    }
   },
   "dashboard": {
     "title": "Dashboard",
@@ -42,5 +68,15 @@
     "upload": "Upload",
     "refresh": "Refresh",
     "save": "Save descriptions"
+  },
+  "footer": {
+    "description": "Delivering reliable IoT components and responsive service for smart homes and businesses since 2010.",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "address": "123 Star Street, Tech City, TC 90210",
+    "email": "info@star-electronic.example",
+    "phone": "+1 (555) 123-4567",
+    "followUs": "Follow Us",
+    "copyright": "© {year} Star Electronic. All rights reserved."
   }
 }

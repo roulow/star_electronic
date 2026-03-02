@@ -10,20 +10,28 @@
     "title2": "Résultats clairs.",
     "subtitle": "Star Electronic fournit des composants fiables et un service réactif.",
     "ctaQuote": "Demander un devis",
-    "ctaGallery": "Voir la galerie"
+    "ctaGallery": "Voir la galerie",
+    "years": "Années",
+    "projects": "Projets",
+    "support": "Support",
+    "statYears": "15+",
+    "statProjects": "500+",
+    "statSupport": "24/7"
   },
   "features": {
-    "supply": {
-      "title": "Approvisionnement",
-      "desc": "Fournisseurs fiables avec traçabilité complète."
+    "title": "Pourquoi choisir Star Electronic ?",
+    "subtitle": "Nous combinons technologie de pointe et savoir-faire artisanal pour offrir les meilleures solutions IoT.",
+    "security": {
+      "title": "Sécurité maximale",
+      "desc": "Nos appareils sont construits avec une architecture axée sur la sécurité pour garder votre maison sûre et privée."
     },
-    "assembly": {
-      "title": "Support d'assemblage",
-      "desc": "Des petites séries à l'échelle."
+    "performance": {
+      "title": "Haute performance",
+      "desc": "Optimisé pour la vitesse et la fiabilité, assurant une réponse instantanée de votre maison intelligente."
     },
-    "response": {
-      "title": "Réactivité",
-      "desc": "Communication claire et délais rapides."
+    "support": {
+      "title": "Support 24/7",
+      "desc": "Notre équipe dédiée est toujours prête à vous aider pour toute question ou besoin de configuration."
     }
   },
   "gallery": {
@@ -33,14 +41,47 @@
   "contact": {
     "title": "Contactez-nous",
     "intro": "Réponse sous un jour ouvré.",
+    "getInTouch": "Entrer en contact",
+    "description": "Nous aimerions avoir de vos nouvelles. Veuillez remplir ce formulaire ou nous envoyer un e-mail.",
+    "office": "Notre bureau",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "name": "Nom",
+    "company": "Société",
+    "subject": "Sujet",
+    "message": "Message",
     "send": "Envoyer le message",
-    "sending": "Envoi…"
+    "sending": "Envoi…",
+    "success": "Message envoyé. Nous vous répondrons sous peu.",
+    "placeholders": {
+      "name": "Jean Dupont",
+      "company": "Star SAS",
+      "email": "jean@example.com",
+      "phone": "+33 1 23 45 67 89",
+      "subject": "Comment pouvons-nous aider ?",
+      "message": "Parlez-nous de votre projet..."
+    }
   },
   "dashboard": {
     "title": "Admin",
     "enterKey": "Entrer la clé d'accès",
     "upload": "Téléverser",
     "refresh": "Rafraîchir",
-    "save": "Enregistrer les descriptions"
+    "save": "Enregistrer les descriptions",
+    "access": {
+      "title": "Accès au tableau de bord",
+      "desc": "Veuillez entrer votre clé d'autorisation pour continuer.",
+      "button": "Entrer la clé"
+    }
+  },
+  "footer": {
+    "description": "Fourniture de composants IoT fiables et d'un service réactif pour les maisons intelligentes et les entreprises depuis 2010.",
+    "quickLinks": "Liens rapides",
+    "contactUs": "Contactez-nous",
+    "address": "123 Star Street, Tech City, TC 90210",
+    "email": "info@star-electronic.example",
+    "phone": "+1 (555) 123-4567",
+    "followUs": "Suivez-nous",
+    "copyright": "© {year} Star Electronic. Tous droits réservés."
   }
 }

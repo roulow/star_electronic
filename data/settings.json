@@ -1,0 +1,935 @@
+{
+  "emails": {
+    "ownerEnabled": true,
+    "userEnabled": true,
+    "ownerTemplate": "",
+    "userTemplate": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n<head>\n<!--[if gte mso 9]>\n<xml>\n  <o:OfficeDocumentSettings>\n    <o:AllowPNG/>\n    <o:PixelsPerInch>96</o:PixelsPerInch>\n  </o:OfficeDocumentSettings>\n</xml>\n<![endif]-->\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <meta name=\"x-apple-disable-message-reformatting\">\n  <!--[if !mso]><!--><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><!--<![endif]-->\n  <title></title>\n  \n    <style type=\"text/css\">\n      \n      @media only screen and (min-width: 520px) {\n        .u-row {\n          width: 500px !important;\n        }\n\n        .u-row .u-col {\n          vertical-align: top;\n        }\n\n        \n            .u-row .u-col-29p93 {\n              width: 149.65px !important;\n            }\n          \n\n            .u-row .u-col-70p07 {\n              width: 350.35px !important;\n            }\n          \n\n            .u-row .u-col-100 {\n              width: 500px !important;\n            }\n          \n      }\n\n      @media only screen and (max-width: 520px) {\n        .u-row-container {\n          max-width: 100% !important;\n          padding-left: 0px !important;\n          padding-right: 0px !important;\n        }\n\n        .u-row {\n          width: 100% !important;\n        }\n\n        .u-row .u-col {\n          display: block !important;\n          width: 100% !important;\n          min-width: 320px !important;\n          max-width: 100% !important;\n        }\n\n        .u-row .u-col > div {\n          margin: 0 auto;\n        }\n\n\n        .u-row .u-col img {\n          max-width: 100% !important;\n        }\n\n}\n    \nbody{margin:0;padding:0}table,td,tr{border-collapse:collapse;vertical-align:top}p{margin:0}.ie-container table,.mso-container table{table-layout:fixed}*{line-height:inherit}a[x-apple-data-detectors=true]{color:inherit!important;text-decoration:none!important}\n\n\ntable, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: underline; } #u_content_text_3 a { color: #aaaaaa; }\n    </style>\n  \n  \n\n</head>\n\n<body class=\"clean-body u_body\" style=\"margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #ffffff;color: #000000\">\n  <!--[if IE]><div class=\"ie-container\"><![endif]-->\n  <!--[if mso]><div class=\"mso-container\"><![endif]-->\n  <table role=\"presentation\" id=\"u_body\" style=\"border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #ffffff;width:100%\" cellpadding=\"0\" cellspacing=\"0\">\n  <tbody>\n  <tr style=\"vertical-align: top\">\n    <td style=\"word-break: break-word;border-collapse: collapse !important;vertical-align: top\">\n    <!--[if (mso)|(IE)]><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td align=\"center\" style=\"background-color: #ffffff;\"><![endif]-->\n    \n  \n  \n<div class=\"u-row-container\" style=\"padding: 0px;background-color: #f4f4f4\">\n  <div class=\"u-row\" style=\"margin: 0 auto;min-width: 320px;max-width: 500px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\">\n    <div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\">\n      <!--[if (mso)|(IE)]><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"padding: 0px;background-color: #f4f4f4;\" align=\"center\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:500px;\"><tr style=\"background-color: transparent;\"><![endif]-->\n      \n<!--[if (mso)|(IE)]><td align=\"center\" width=\"500\" style=\"width: 500px;padding: 40px 0px 5px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\" valign=\"top\"><![endif]-->\n<div class=\"u-col u-col-100\" style=\"max-width: 320px;min-width: 500px;display: table-cell;vertical-align: top;\">\n  <div style=\"height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\">\n  <!--[if (!mso)&(!IE)]><!--><div style=\"box-sizing: border-box; height: 100%; padding: 40px 0px 5px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><!--<![endif]-->\n  \n<table style=\"font-family:arial,helvetica,sans-serif;\" role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" border=\"0\">\n  <tbody>\n    <tr>\n      <td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\" align=\"left\">\n        \n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n  <tr>\n    <td style=\"padding-right: 0px;padding-left: 0px;\" align=\"left\">\n      \n      <img align=\"left\" border=\"0\" src=\"https://assets.unlayer.com/projects/0/1767058476352-logowtext.png?w=480px\" alt=\"\" title=\"\" style=\"outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 50%;max-width: 240px;\" width=\"240\"/>\n      \n    </td>\n  </tr>\n</table>\n\n      </td>\n    </tr>\n  </tbody>\n</table>\n\n  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->\n  </div>\n</div>\n<!--[if (mso)|(IE)]></td><![endif]-->\n      <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->\n    </div>\n  </div>\n  </div>\n  \n\n\n  \n  \n<div class=\"u-row-container\" style=\"padding: 0px;background-color: #ffffff\">\n  <div class=\"u-row\" style=\"margin: 0 auto;min-width: 320px;max-width: 500px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\">\n    <div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\">\n      <!--[if (mso)|(IE)]><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"padding: 0px;background-color: #ffffff;\" align=\"center\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:500px;\"><tr style=\"background-color: transparent;\"><![endif]-->\n      \n<!--[if (mso)|(IE)]><td align=\"center\" width=\"500\" style=\"width: 500px;padding: 10px 0px 20px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\" valign=\"top\"><![endif]-->\n<div class=\"u-col u-col-100\" style=\"max-width: 320px;min-width: 500px;display: table-cell;vertical-align: top;\">\n  <div style=\"height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\">\n  <!--[if (!mso)&(!IE)]><!--><div style=\"box-sizing: border-box; height: 100%; padding: 10px 0px 20px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><!--<![endif]-->\n  \n<table style=\"font-family:arial,helvetica,sans-serif;\" role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" border=\"0\">\n  <tbody>\n    <tr>\n      <td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\" align=\"left\">\n        \n  <div style=\"font-family: inherit; font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;\">\n    <p style=\"line-height: 140%;\">Hi {{name}},<br><br>Thank you for contacting Star Electronic! We are pleased to tell you that we have received your inquiry and are working on it right now. <br><br>Your inquiry with the subject {{subject}} will be tended to as soon as possible.</p>\n  </div>\n\n      </td>\n    </tr>\n  </tbody>\n</table>\n\n  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->\n  </div>\n</div>\n<!--[if (mso)|(IE)]></td><![endif]-->\n      <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->\n    </div>\n  </div>\n  </div>\n  \n\n\n  \n  \n<div class=\"u-row-container\" style=\"padding: 0px;background-color: #ffffff\">\n  <div class=\"u-row\" style=\"margin: 0 auto;min-width: 320px;max-width: 500px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\">\n    <div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\">\n      <!--[if (mso)|(IE)]><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"padding: 0px;background-color: #ffffff;\" align=\"center\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:500px;\"><tr style=\"background-color: transparent;\"><![endif]-->\n      \n<!--[if (mso)|(IE)]><td align=\"center\" width=\"350\" style=\"width: 350px;padding: 0px;border-top: 1px solid #cccccc;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\" valign=\"top\"><![endif]-->\n<div class=\"u-col u-col-70p07\" style=\"max-width: 320px;min-width: 350.35px;display: table-cell;vertical-align: top;\">\n  <div style=\"height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\">\n  <!--[if (!mso)&(!IE)]><!--><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 1px solid #cccccc;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><!--<![endif]-->\n  \n<table id=\"u_content_text_3\" style=\"font-family:arial,helvetica,sans-serif;\" role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" border=\"0\">\n  <tbody>\n    <tr>\n      <td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\" align=\"left\">\n        \n  <div style=\"font-size: 14px; color: #aaaaaa; line-height: 140%; text-align: left; word-wrap: break-word;\">\n    <p style=\"line-height: 140%;\">&copy; 2025 Star Electronic.</p>\n<p style=\"line-height: 140%;\">123 Star Street, Tech City, TC 90210<br>Follow us on <a rel=\"noopener\" href=\"https://www.linkedin.com/\" target=\"_blank\">LinkedIn</a>, <a rel=\"noopener\" href=\"hhtps://instagram.com\" target=\"_blank\">Instagram</a>, or <a rel=\"noopener\" href=\"https://facebook.com\" target=\"_blank\">Facebook<br>{</a>{date}}</p>\n  </div>\n\n      </td>\n    </tr>\n  </tbody>\n</table>\n\n  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->\n  </div>\n</div>\n<!--[if (mso)|(IE)]></td><![endif]-->\n<!--[if (mso)|(IE)]><td align=\"center\" width=\"149\" style=\"width: 149px;padding: 0px;border-top: 1px solid #CCC;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\" valign=\"top\"><![endif]-->\n<div class=\"u-col u-col-29p93\" style=\"max-width: 320px;min-width: 149.65px;display: table-cell;vertical-align: top;\">\n  <div style=\"height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\">\n  <!--[if (!mso)&(!IE)]><!--><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 1px solid #CCC;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><!--<![endif]-->\n  \n<table style=\"font-family:arial,helvetica,sans-serif;\" role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" border=\"0\">\n  <tbody>\n    <tr>\n      <td style=\"overflow-wrap:break-word;word-break:break-word;padding:20px 10px 10px;font-family:arial,helvetica,sans-serif;\" align=\"left\">\n        \n  <!--[if mso]><style>.v-button {background: transparent !important;}</style><![endif]-->\n<div align=\"center\">\n  <!--[if mso]><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://localhost:3000/en/contact\" style=\"height:37px; v-text-anchor:middle; width:129px;\" arcsize=\"11%\"  stroke=\"f\" fillcolor=\"#ff6464\"><w:anchorlock/><center style=\"color:#FFFFFF;\"><![endif]-->\n    <a href=\"http://localhost:3000/en/contact\" target=\"_blank\" class=\"v-button\" style=\"box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #ff6464; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;border-top-width: 0px; border-top-style: solid; border-left-width: 0px; border-left-style: solid; border-left-color: #CCC; border-right-width: 0px; border-right-style: solid; border-right-color: #CCC; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #CCC;font-size: 14px;font-weight: 700; \">\n      <span style=\"display:block;padding:10px 20px;line-height:120%;\"><span style=\"line-height: 16.8px;\">Contact Page</span></span>\n    </a>\n    <!--[if mso]></center></v:roundrect><![endif]-->\n</div>\n\n      </td>\n    </tr>\n  </tbody>\n</table>\n\n  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->\n  </div>\n</div>\n<!--[if (mso)|(IE)]></td><![endif]-->\n      <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->\n    </div>\n  </div>\n  </div>\n  \n\n\n    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->\n    </td>\n  </tr>\n  </tbody>\n  </table>\n  <!--[if mso]></div><![endif]-->\n  <!--[if IE]></div><![endif]-->\n</body>\n\n</html>\n",
+    "userTemplateJson": {
+      "counters": {
+        "u_column": 10,
+        "u_row": 7,
+        "u_content_heading": 2,
+        "u_content_text": 3,
+        "u_content_image": 2,
+        "u_content_button": 1
+      },
+      "body": {
+        "id": "qT57JkfY8e",
+        "rows": [
+          {
+            "id": "nfPwTKZnJr",
+            "cells": [
+              1
+            ],
+            "columns": [
+              {
+                "id": "ctqPqoudyg",
+                "contents": [
+                  {
+                    "id": "7uSBCSZW7o",
+                    "type": "image",
+                    "values": {
+                      "containerPadding": "10px",
+                      "anchor": "",
+                      "src": {
+                        "url": "https://assets.unlayer.com/projects/0/1767058476352-logowtext.png",
+                        "width": 5205,
+                        "height": 872,
+                        "filename": "logowtext.png",
+                        "contentType": "image/png",
+                        "size": 68833,
+                        "dynamic": true,
+                        "autoWidth": false,
+                        "maxWidth": "50%"
+                      },
+                      "textAlign": "left",
+                      "altText": "",
+                      "action": {
+                        "name": "web",
+                        "values": {
+                          "href": "",
+                          "target": "_blank"
+                        }
+                      },
+                      "displayCondition": null,
+                      "_styleGuide": null,
+                      "_meta": {
+                        "htmlID": "u_content_image_2",
+                        "htmlClassNames": "u_content_image"
+                      },
+                      "selectable": true,
+                      "draggable": true,
+                      "duplicatable": true,
+                      "deletable": true,
+                      "hideable": true,
+                      "locked": false,
+                      "pending": false
+                    }
+                  }
+                ],
+                "values": {
+                  "backgroundColor": "",
+                  "padding": "40px 0px 5px",
+                  "border": {
+                    "borderTopWidth": "0px",
+                    "borderTopStyle": "solid",
+                    "borderTopColor": "#CCC",
+                    "borderLeftWidth": "0px",
+                    "borderLeftStyle": "solid",
+                    "borderLeftColor": "#CCC",
+                    "borderRightWidth": "0px",
+                    "borderRightStyle": "solid",
+                    "borderRightColor": "#CCC",
+                    "borderBottomWidth": "0px",
+                    "borderBottomStyle": "solid"
+                  },
+                  "borderRadius": "0px",
+                  "_meta": {
+                    "htmlID": "u_column_5",
+                    "htmlClassNames": "u_column"
+                  },
+                  "deletable": true,
+                  "locked": false
+                }
+              }
+            ],
+            "values": {
+              "displayCondition": null,
+              "columns": false,
+              "_styleGuide": null,
+              "backgroundColor": "#f4f4f4",
+              "columnsBackgroundColor": "",
+              "backgroundImage": {
+                "url": "",
+                "fullWidth": true,
+                "repeat": "no-repeat",
+                "size": "custom",
+                "position": "center"
+              },
+              "padding": "0px",
+              "anchor": "",
+              "_meta": {
+                "htmlID": "u_row_4",
+                "htmlClassNames": "u_row"
+              },
+              "selectable": true,
+              "draggable": true,
+              "duplicatable": true,
+              "deletable": true,
+              "hideable": true,
+              "locked": false
+            }
+          },
+          {
+            "id": "vRc5dj36_7",
+            "cells": [
+              1
+            ],
+            "columns": [
+              {
+                "id": "UdQFfnGFsS",
+                "contents": [
+                  {
+                    "id": "YTL3zbtNQ6",
+                    "type": "text",
+                    "values": {
+                      "text": "<p style=\"line-height: 140%;\">Hi {{name}},<br><br>Thank you for contacting Star Electronic! We are pleased to tell you that we have received your inquiry and are working on it right now.&nbsp;<br><br>Your inquiry with the subject {{subject}} will be tended to as soon as possible.</p>",
+                      "containerPadding": "10px",
+                      "anchor": "",
+                      "fontFamily": {
+                        "label": "Global Font",
+                        "value": "inherit"
+                      },
+                      "fontSize": "14px",
+                      "textAlign": "left",
+                      "lineHeight": "140%",
+                      "linkStyle": {
+                        "inherit": true,
+                        "linkColor": "#0000ee",
+                        "linkHoverColor": "#0000ee",
+                        "linkUnderline": true,
+                        "linkHoverUnderline": true
+                      },
+                      "displayCondition": null,
+                      "_styleGuide": null,
+                      "_meta": {
+                        "htmlID": "u_content_text_1",
+                        "htmlClassNames": "u_content_text"
+                      },
+                      "selectable": true,
+                      "draggable": true,
+                      "duplicatable": true,
+                      "deletable": true,
+                      "hideable": true,
+                      "locked": false,
+                      "_languages": {}
+                    }
+                  }
+                ],
+                "values": {
+                  "backgroundColor": "",
+                  "padding": "10px 0px 20px",
+                  "border": {},
+                  "borderRadius": "0px",
+                  "_meta": {
+                    "htmlID": "u_column_8",
+                    "htmlClassNames": "u_column"
+                  },
+                  "deletable": true,
+                  "locked": false
+                }
+              }
+            ],
+            "values": {
+              "displayCondition": null,
+              "columns": false,
+              "_styleGuide": null,
+              "backgroundColor": "#ffffff",
+              "columnsBackgroundColor": "",
+              "backgroundImage": {
+                "url": "",
+                "fullWidth": true,
+                "repeat": "no-repeat",
+                "size": "custom",
+                "position": "center"
+              },
+              "padding": "0px",
+              "anchor": "",
+              "_meta": {
+                "htmlID": "u_row_6",
+                "htmlClassNames": "u_row"
+              },
+              "selectable": true,
+              "draggable": true,
+              "duplicatable": true,
+              "deletable": true,
+              "hideable": true,
+              "locked": false
+            }
+          },
+          {
+            "id": "9gwCb5KdMD",
+            "cells": [
+              70.07,
+              29.93
+            ],
+            "columns": [
+              {
+                "id": "Dl9aVVHXSY",
+                "contents": [
+                  {
+                    "id": "3DiZfIylRQ",
+                    "type": "text",
+                    "values": {
+                      "text": "<p style=\"line-height: 140%;\">&copy; 2025 Star Electronic.</p>\n<p style=\"line-height: 140%;\">123 Star Street, Tech City, TC 90210<br>Follow us on <a rel=\"noopener\" href=\"https://www.linkedin.com/\" target=\"_blank\" data-u-link-value=\"eyJuYW1lIjoid2ViIiwiYXR0cnMiOnsiaHJlZiI6Int7aHJlZn19IiwidGFyZ2V0Ijoie3t0YXJnZXR9fSJ9LCJ2YWx1ZXMiOnsiaHJlZiI6Imh0dHBzOi8vd3d3LmxpbmtlZGluLmNvbS8iLCJ0YXJnZXQiOiJfYmxhbmsifX0=\">LinkedIn</a>, <a rel=\"noopener\" href=\"hhtps://instagram.com\" target=\"_blank\" data-u-link-value=\"eyJuYW1lIjoid2ViIiwiYXR0cnMiOnsiaHJlZiI6Int7aHJlZn19IiwidGFyZ2V0Ijoie3t0YXJnZXR9fSJ9LCJ2YWx1ZXMiOnsiaHJlZiI6ImhodHBzOi8vaW5zdGFncmFtLmNvbSIsInRhcmdldCI6Il9ibGFuayJ9fQ==\">Instagram</a>, or <a rel=\"noopener\" href=\"https://facebook.com\" target=\"_blank\" data-u-link-value=\"eyJuYW1lIjoid2ViIiwiYXR0cnMiOnsiaHJlZiI6Int7aHJlZn19IiwidGFyZ2V0Ijoie3t0YXJnZXR9fSJ9LCJ2YWx1ZXMiOnsiaHJlZiI6Imh0dHBzOi8vZmFjZWJvb2suY29tIiwidGFyZ2V0IjoiX2JsYW5rIn19\">Facebook<br>{</a>{date}}</p>",
+                      "containerPadding": "10px",
+                      "anchor": "",
+                      "fontSize": "14px",
+                      "color": "#aaaaaa",
+                      "textAlign": "left",
+                      "lineHeight": "140%",
+                      "linkStyle": {
+                        "body": false,
+                        "inherit": false,
+                        "linkColor": "#aaaaaa",
+                        "linkUnderline": true,
+                        "linkHoverColor": "#0000ee",
+                        "linkHoverUnderline": true
+                      },
+                      "displayCondition": null,
+                      "_styleGuide": null,
+                      "_meta": {
+                        "htmlID": "u_content_text_3",
+                        "htmlClassNames": "u_content_text"
+                      },
+                      "selectable": true,
+                      "draggable": true,
+                      "duplicatable": true,
+                      "deletable": true,
+                      "hideable": true,
+                      "locked": false,
+                      "_languages": {}
+                    }
+                  }
+                ],
+                "values": {
+                  "backgroundColor": "",
+                  "padding": "0px",
+                  "border": {
+                    "borderTopWidth": "1px",
+                    "borderTopStyle": "solid",
+                    "borderTopColor": "#cccccc",
+                    "borderLeftWidth": "0px",
+                    "borderLeftStyle": "solid",
+                    "borderLeftColor": "#CCC",
+                    "borderRightWidth": "0px",
+                    "borderRightStyle": "solid",
+                    "borderRightColor": "#CCC",
+                    "borderBottomWidth": "0px",
+                    "borderBottomStyle": "solid",
+                    "borderBottomColor": "#CCC"
+                  },
+                  "borderRadius": "0px",
+                  "_meta": {
+                    "htmlID": "u_column_9",
+                    "htmlClassNames": "u_column"
+                  },
+                  "deletable": true,
+                  "locked": false
+                }
+              },
+              {
+                "id": "KaR1Di7aSC",
+                "contents": [
+                  {
+                    "id": "eNU8xUfrTN",
+                    "type": "button",
+                    "values": {
+                      "text": "<span style=\"line-height: 16.8px;\">Contact Page</span>",
+                      "href": {
+                        "name": "web",
+                        "attrs": {
+                          "href": "{{href}}",
+                          "target": "{{target}}"
+                        },
+                        "values": {
+                          "href": "http://localhost:3000/en/contact",
+                          "target": "_blank"
+                        }
+                      },
+                      "buttonColors": {
+                        "color": "#FFFFFF",
+                        "backgroundColor": "#ff6464",
+                        "hoverColor": "#FFFFFF",
+                        "hoverBackgroundColor": "#0879A1"
+                      },
+                      "size": {
+                        "autoWidth": true,
+                        "width": "100%"
+                      },
+                      "fontWeight": 700,
+                      "fontSize": "14px",
+                      "lineHeight": "120%",
+                      "textAlign": "center",
+                      "padding": "10px 20px",
+                      "border": {
+                        "borderTopWidth": "0px",
+                        "borderTopStyle": "solid",
+                        "borderLeftWidth": "0px",
+                        "borderLeftStyle": "solid",
+                        "borderLeftColor": "#CCC",
+                        "borderRightWidth": "0px",
+                        "borderRightStyle": "solid",
+                        "borderRightColor": "#CCC",
+                        "borderBottomWidth": "0px",
+                        "borderBottomStyle": "solid",
+                        "borderBottomColor": "#CCC"
+                      },
+                      "borderRadius": "4px",
+                      "displayCondition": null,
+                      "_styleGuide": null,
+                      "containerPadding": "20px 10px 10px",
+                      "anchor": "",
+                      "_meta": {
+                        "htmlID": "u_content_button_1",
+                        "htmlClassNames": "u_content_button"
+                      },
+                      "selectable": true,
+                      "draggable": true,
+                      "duplicatable": true,
+                      "deletable": true,
+                      "hideable": true,
+                      "locked": false,
+                      "_languages": {},
+                      "calculatedWidth": 129,
+                      "calculatedHeight": 37,
+                      "_override": {
+                        "desktop": {}
+                      }
+                    }
+                  }
+                ],
+                "values": {
+                  "backgroundColor": "",
+                  "padding": "0px",
+                  "border": {
+                    "borderTopWidth": "1px",
+                    "borderTopStyle": "solid",
+                    "borderTopColor": "#CCC",
+                    "borderLeftWidth": "0px",
+                    "borderLeftStyle": "solid",
+                    "borderLeftColor": "#CCC",
+                    "borderRightWidth": "0px",
+                    "borderRightStyle": "solid",
+                    "borderRightColor": "#CCC",
+                    "borderBottomWidth": "0px",
+                    "borderBottomStyle": "solid",
+                    "borderBottomColor": "#CCC"
+                  },
+                  "borderRadius": "0px",
+                  "_meta": {
+                    "htmlID": "u_column_10",
+                    "htmlClassNames": "u_column"
+                  },
+                  "deletable": true,
+                  "locked": false
+                }
+              }
+            ],
+            "values": {
+              "displayCondition": null,
+              "columns": false,
+              "_styleGuide": null,
+              "backgroundColor": "#ffffff",
+              "columnsBackgroundColor": "",
+              "backgroundImage": {
+                "url": "",
+                "fullWidth": true,
+                "repeat": "no-repeat",
+                "size": "custom",
+                "position": "center"
+              },
+              "padding": "0px",
+              "anchor": "",
+              "_meta": {
+                "htmlID": "u_row_7",
+                "htmlClassNames": "u_row"
+              },
+              "selectable": true,
+              "draggable": true,
+              "duplicatable": true,
+              "deletable": true,
+              "hideable": true,
+              "locked": false
+            }
+          }
+        ],
+        "headers": [],
+        "footers": [],
+        "values": {
+          "_styleGuide": null,
+          "popupPosition": "center",
+          "popupDisplayDelay": 0,
+          "popupWidth": "600px",
+          "popupHeight": "auto",
+          "borderRadius": "10px",
+          "contentAlign": "center",
+          "contentVerticalAlign": "center",
+          "contentWidth": "500px",
+          "fontFamily": {
+            "label": "Arial",
+            "value": "arial,helvetica,sans-serif"
+          },
+          "textColor": "#000000",
+          "popupBackgroundColor": "#FFFFFF",
+          "popupBackgroundImage": {
+            "url": "",
+            "fullWidth": true,
+            "repeat": "no-repeat",
+            "size": "cover",
+            "position": "center"
+          },
+          "popupOverlay_backgroundColor": "rgba(0, 0, 0, 0.1)",
+          "popupCloseButton_position": "top-right",
+          "popupCloseButton_backgroundColor": "#DDDDDD",
+          "popupCloseButton_iconColor": "#000000",
+          "popupCloseButton_borderRadius": "0px",
+          "popupCloseButton_margin": "0px",
+          "popupCloseButton_action": {
+            "name": "close_popup",
+            "attrs": {
+              "onClick": "document.querySelector('.u-popup-container').style.display = 'none';"
+            }
+          },
+          "language": {},
+          "backgroundColor": "#ffffff",
+          "preheaderText": "",
+          "linkStyle": {
+            "body": true,
+            "linkColor": "#0000ee",
+            "linkHoverColor": "#0000ee",
+            "linkUnderline": true,
+            "linkHoverUnderline": true
+          },
+          "backgroundImage": {
+            "url": "",
+            "fullWidth": true,
+            "repeat": "no-repeat",
+            "size": "custom",
+            "position": "center"
+          },
+          "_meta": {
+            "htmlID": "u_body",
+            "htmlClassNames": "u_body"
+          }
+        }
+      },
+      "schemaVersion": 21
+    },
+    "userTemplateHtml": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n<head>\n<!--[if gte mso 9]>\n<xml>\n  <o:OfficeDocumentSettings>\n    <o:AllowPNG/>\n    <o:PixelsPerInch>96</o:PixelsPerInch>\n  </o:OfficeDocumentSettings>\n</xml>\n<![endif]-->\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <meta name=\"x-apple-disable-message-reformatting\">\n  <!--[if !mso]><!--><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><!--<![endif]-->\n  <title></title>\n  \n    <style type=\"text/css\">\n      \n      @media only screen and (min-width: 520px) {\n        .u-row {\n          width: 500px !important;\n        }\n\n        .u-row .u-col {\n          vertical-align: top;\n        }\n\n        \n            .u-row .u-col-29p93 {\n              width: 149.65px !important;\n            }\n          \n\n            .u-row .u-col-70p07 {\n              width: 350.35px !important;\n            }\n          \n\n            .u-row .u-col-100 {\n              width: 500px !important;\n            }\n          \n      }\n\n      @media only screen and (max-width: 520px) {\n        .u-row-container {\n          max-width: 100% !important;\n          padding-left: 0px !important;\n          padding-right: 0px !important;\n        }\n\n        .u-row {\n          width: 100% !important;\n        }\n\n        .u-row .u-col {\n          display: block !important;\n          width: 100% !important;\n          min-width: 320px !important;\n          max-width: 100% !important;\n        }\n\n        .u-row .u-col > div {\n          margin: 0 auto;\n        }\n\n\n        .u-row .u-col img {\n          max-width: 100% !important;\n        }\n\n}\n    \nbody{margin:0;padding:0}table,td,tr{border-collapse:collapse;vertical-align:top}p{margin:0}.ie-container table,.mso-container table{table-layout:fixed}*{line-height:inherit}a[x-apple-data-detectors=true]{color:inherit!important;text-decoration:none!important}\n\n\ntable, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: underline; } #u_content_text_3 a { color: #aaaaaa; }\n    </style>\n  \n  \n\n</head>\n\n<body class=\"clean-body u_body\" style=\"margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #ffffff;color: #000000\">\n  <!--[if IE]><div class=\"ie-container\"><![endif]-->\n  <!--[if mso]><div class=\"mso-container\"><![endif]-->\n  <table role=\"presentation\" id=\"u_body\" style=\"border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #ffffff;width:100%\" cellpadding=\"0\" cellspacing=\"0\">\n  <tbody>\n  <tr style=\"vertical-align: top\">\n    <td style=\"word-break: break-word;border-collapse: collapse !important;vertical-align: top\">\n    <!--[if (mso)|(IE)]><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td align=\"center\" style=\"background-color: #ffffff;\"><![endif]-->\n    \n  \n  \n<div class=\"u-row-container\" style=\"padding: 0px;background-color: #f4f4f4\">\n  <div class=\"u-row\" style=\"margin: 0 auto;min-width: 320px;max-width: 500px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\">\n    <div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\">\n      <!--[if (mso)|(IE)]><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"padding: 0px;background-color: #f4f4f4;\" align=\"center\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:500px;\"><tr style=\"background-color: transparent;\"><![endif]-->\n      \n<!--[if (mso)|(IE)]><td align=\"center\" width=\"500\" style=\"width: 500px;padding: 40px 0px 5px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\" valign=\"top\"><![endif]-->\n<div class=\"u-col u-col-100\" style=\"max-width: 320px;min-width: 500px;display: table-cell;vertical-align: top;\">\n  <div style=\"height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\">\n  <!--[if (!mso)&(!IE)]><!--><div style=\"box-sizing: border-box; height: 100%; padding: 40px 0px 5px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><!--<![endif]-->\n  \n<table style=\"font-family:arial,helvetica,sans-serif;\" role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" border=\"0\">\n  <tbody>\n    <tr>\n      <td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\" align=\"left\">\n        \n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n  <tr>\n    <td style=\"padding-right: 0px;padding-left: 0px;\" align=\"left\">\n      \n      <img align=\"left\" border=\"0\" src=\"https://assets.unlayer.com/projects/0/1767058476352-logowtext.png?w=480px\" alt=\"\" title=\"\" style=\"outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 50%;max-width: 240px;\" width=\"240\"/>\n      \n    </td>\n  </tr>\n</table>\n\n      </td>\n    </tr>\n  </tbody>\n</table>\n\n  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->\n  </div>\n</div>\n<!--[if (mso)|(IE)]></td><![endif]-->\n      <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->\n    </div>\n  </div>\n  </div>\n  \n\n\n  \n  \n<div class=\"u-row-container\" style=\"padding: 0px;background-color: #ffffff\">\n  <div class=\"u-row\" style=\"margin: 0 auto;min-width: 320px;max-width: 500px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\">\n    <div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\">\n      <!--[if (mso)|(IE)]><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"padding: 0px;background-color: #ffffff;\" align=\"center\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:500px;\"><tr style=\"background-color: transparent;\"><![endif]-->\n      \n<!--[if (mso)|(IE)]><td align=\"center\" width=\"500\" style=\"width: 500px;padding: 10px 0px 20px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\" valign=\"top\"><![endif]-->\n<div class=\"u-col u-col-100\" style=\"max-width: 320px;min-width: 500px;display: table-cell;vertical-align: top;\">\n  <div style=\"height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\">\n  <!--[if (!mso)&(!IE)]><!--><div style=\"box-sizing: border-box; height: 100%; padding: 10px 0px 20px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><!--<![endif]-->\n  \n<table style=\"font-family:arial,helvetica,sans-serif;\" role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" border=\"0\">\n  <tbody>\n    <tr>\n      <td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\" align=\"left\">\n        \n  <div style=\"font-family: inherit; font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;\">\n    <p style=\"line-height: 140%;\">Hi {{name}},<br><br>Thank you for contacting Star Electronic! We are pleased to tell you that we have received your inquiry and are working on it right now. <br><br>Your inquiry with the subject {{subject}} will be tended to as soon as possible.</p>\n  </div>\n\n      </td>\n    </tr>\n  </tbody>\n</table>\n\n  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->\n  </div>\n</div>\n<!--[if (mso)|(IE)]></td><![endif]-->\n      <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->\n    </div>\n  </div>\n  </div>\n  \n\n\n  \n  \n<div class=\"u-row-container\" style=\"padding: 0px;background-color: #ffffff\">\n  <div class=\"u-row\" style=\"margin: 0 auto;min-width: 320px;max-width: 500px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;\">\n    <div style=\"border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;\">\n      <!--[if (mso)|(IE)]><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"padding: 0px;background-color: #ffffff;\" align=\"center\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:500px;\"><tr style=\"background-color: transparent;\"><![endif]-->\n      \n<!--[if (mso)|(IE)]><td align=\"center\" width=\"350\" style=\"width: 350px;padding: 0px;border-top: 1px solid #cccccc;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\" valign=\"top\"><![endif]-->\n<div class=\"u-col u-col-70p07\" style=\"max-width: 320px;min-width: 350.35px;display: table-cell;vertical-align: top;\">\n  <div style=\"height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\">\n  <!--[if (!mso)&(!IE)]><!--><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 1px solid #cccccc;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><!--<![endif]-->\n  \n<table id=\"u_content_text_3\" style=\"font-family:arial,helvetica,sans-serif;\" role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" border=\"0\">\n  <tbody>\n    <tr>\n      <td style=\"overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;\" align=\"left\">\n        \n  <div style=\"font-size: 14px; color: #aaaaaa; line-height: 140%; text-align: left; word-wrap: break-word;\">\n    <p style=\"line-height: 140%;\">&copy; 2025 Star Electronic.</p>\n<p style=\"line-height: 140%;\">123 Star Street, Tech City, TC 90210<br>Follow us on <a rel=\"noopener\" href=\"https://www.linkedin.com/\" target=\"_blank\">LinkedIn</a>, <a rel=\"noopener\" href=\"hhtps://instagram.com\" target=\"_blank\">Instagram</a>, or <a rel=\"noopener\" href=\"https://facebook.com\" target=\"_blank\">Facebook<br>{</a>{date}}</p>\n  </div>\n\n      </td>\n    </tr>\n  </tbody>\n</table>\n\n  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->\n  </div>\n</div>\n<!--[if (mso)|(IE)]></td><![endif]-->\n<!--[if (mso)|(IE)]><td align=\"center\" width=\"149\" style=\"width: 149px;padding: 0px;border-top: 1px solid #CCC;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\" valign=\"top\"><![endif]-->\n<div class=\"u-col u-col-29p93\" style=\"max-width: 320px;min-width: 149.65px;display: table-cell;vertical-align: top;\">\n  <div style=\"height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\">\n  <!--[if (!mso)&(!IE)]><!--><div style=\"box-sizing: border-box; height: 100%; padding: 0px;border-top: 1px solid #CCC;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;\"><!--<![endif]-->\n  \n<table style=\"font-family:arial,helvetica,sans-serif;\" role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" border=\"0\">\n  <tbody>\n    <tr>\n      <td style=\"overflow-wrap:break-word;word-break:break-word;padding:20px 10px 10px;font-family:arial,helvetica,sans-serif;\" align=\"left\">\n        \n  <!--[if mso]><style>.v-button {background: transparent !important;}</style><![endif]-->\n<div align=\"center\">\n  <!--[if mso]><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://localhost:3000/en/contact\" style=\"height:37px; v-text-anchor:middle; width:129px;\" arcsize=\"11%\"  stroke=\"f\" fillcolor=\"#ff6464\"><w:anchorlock/><center style=\"color:#FFFFFF;\"><![endif]-->\n    <a href=\"http://localhost:3000/en/contact\" target=\"_blank\" class=\"v-button\" style=\"box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #ff6464; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;border-top-width: 0px; border-top-style: solid; border-left-width: 0px; border-left-style: solid; border-left-color: #CCC; border-right-width: 0px; border-right-style: solid; border-right-color: #CCC; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #CCC;font-size: 14px;font-weight: 700; \">\n      <span style=\"display:block;padding:10px 20px;line-height:120%;\"><span style=\"line-height: 16.8px;\">Contact Page</span></span>\n    </a>\n    <!--[if mso]></center></v:roundrect><![endif]-->\n</div>\n\n      </td>\n    </tr>\n  </tbody>\n</table>\n\n  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->\n  </div>\n</div>\n<!--[if (mso)|(IE)]></td><![endif]-->\n      <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->\n    </div>\n  </div>\n  </div>\n  \n\n\n    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->\n    </td>\n  </tr>\n  </tbody>\n  </table>\n  <!--[if mso]></div><![endif]-->\n  <!--[if IE]></div><![endif]-->\n</body>\n\n</html>\n",
+    "ownerTemplateJson": {
+      "counters": {
+        "u_column": 10,
+        "u_row": 7,
+        "u_content_heading": 2,
+        "u_content_text": 3,
+        "u_content_image": 2,
+        "u_content_button": 1
+      },
+      "body": {
+        "id": "qT57JkfY8e",
+        "rows": [
+          {
+            "id": "nfPwTKZnJr",
+            "cells": [
+              1
+            ],
+            "columns": [
+              {
+                "id": "ctqPqoudyg",
+                "contents": [
+                  {
+                    "id": "7uSBCSZW7o",
+                    "type": "image",
+                    "values": {
+                      "containerPadding": "10px",
+                      "anchor": "",
+                      "src": {
+                        "url": "https://assets.unlayer.com/projects/0/1767058476352-logowtext.png",
+                        "width": 5205,
+                        "height": 872,
+                        "filename": "logowtext.png",
+                        "contentType": "image/png",
+                        "size": 68833,
+                        "dynamic": true,
+                        "autoWidth": false,
+                        "maxWidth": "50%"
+                      },
+                      "textAlign": "left",
+                      "altText": "",
+                      "action": {
+                        "name": "web",
+                        "values": {
+                          "href": "",
+                          "target": "_blank"
+                        }
+                      },
+                      "displayCondition": null,
+                      "_styleGuide": null,
+                      "_meta": {
+                        "htmlID": "u_content_image_2",
+                        "htmlClassNames": "u_content_image"
+                      },
+                      "selectable": true,
+                      "draggable": true,
+                      "duplicatable": true,
+                      "deletable": true,
+                      "hideable": true,
+                      "locked": false,
+                      "pending": false
+                    }
+                  }
+                ],
+                "values": {
+                  "backgroundColor": "",
+                  "padding": "40px 0px 5px",
+                  "border": {
+                    "borderTopWidth": "0px",
+                    "borderTopStyle": "solid",
+                    "borderTopColor": "#CCC",
+                    "borderLeftWidth": "0px",
+                    "borderLeftStyle": "solid",
+                    "borderLeftColor": "#CCC",
+                    "borderRightWidth": "0px",
+                    "borderRightStyle": "solid",
+                    "borderRightColor": "#CCC",
+                    "borderBottomWidth": "0px",
+                    "borderBottomStyle": "solid"
+                  },
+                  "borderRadius": "0px",
+                  "_meta": {
+                    "htmlID": "u_column_5",
+                    "htmlClassNames": "u_column"
+                  },
+                  "deletable": true,
+                  "locked": false
+                }
+              }
+            ],
+            "values": {
+              "displayCondition": null,
+              "columns": false,
+              "_styleGuide": null,
+              "backgroundColor": "#f4f4f4",
+              "columnsBackgroundColor": "",
+              "backgroundImage": {
+                "url": "",
+                "fullWidth": true,
+                "repeat": "no-repeat",
+                "size": "custom",
+                "position": "center"
+              },
+              "padding": "0px",
+              "anchor": "",
+              "_meta": {
+                "htmlID": "u_row_4",
+                "htmlClassNames": "u_row"
+              },
+              "selectable": true,
+              "draggable": true,
+              "duplicatable": true,
+              "deletable": true,
+              "hideable": true,
+              "locked": false
+            }
+          },
+          {
+            "id": "vRc5dj36_7",
+            "cells": [
+              1
+            ],
+            "columns": [
+              {
+                "id": "UdQFfnGFsS",
+                "contents": [
+                  {
+                    "id": "YTL3zbtNQ6",
+                    "type": "text",
+                    "values": {
+                      "text": "<p style=\"line-height: 140%;\"><strong>New Inquiry Received!</strong><br><br><strong>From:</strong> {{name}}<br><strong>Email:</strong> {{email}}<br><strong>Phone:</strong> {{phone}}<br><strong>Company:</strong> {{company}}<br><strong>Subject:</strong> {{subject}}<br><br><strong>Message:</strong><br>{{message}}</p>",
+                      "containerPadding": "10px",
+                      "anchor": "",
+                      "fontFamily": {
+                        "label": "Global Font",
+                        "value": "inherit"
+                      },
+                      "fontSize": "14px",
+                      "textAlign": "left",
+                      "lineHeight": "140%",
+                      "linkStyle": {
+                        "inherit": true,
+                        "linkColor": "#0000ee",
+                        "linkHoverColor": "#0000ee",
+                        "linkUnderline": true,
+                        "linkHoverUnderline": true
+                      },
+                      "displayCondition": null,
+                      "_styleGuide": null,
+                      "_meta": {
+                        "htmlID": "u_content_text_1",
+                        "htmlClassNames": "u_content_text"
+                      },
+                      "selectable": true,
+                      "draggable": true,
+                      "duplicatable": true,
+                      "deletable": true,
+                      "hideable": true,
+                      "locked": false,
+                      "_languages": {}
+                    }
+                  }
+                ],
+                "values": {
+                  "backgroundColor": "",
+                  "padding": "10px 0px 20px",
+                  "border": {},
+                  "borderRadius": "0px",
+                  "_meta": {
+                    "htmlID": "u_column_8",
+                    "htmlClassNames": "u_column"
+                  },
+                  "deletable": true,
+                  "locked": false
+                }
+              }
+            ],
+            "values": {
+              "displayCondition": null,
+              "columns": false,
+              "_styleGuide": null,
+              "backgroundColor": "#ffffff",
+              "columnsBackgroundColor": "",
+              "backgroundImage": {
+                "url": "",
+                "fullWidth": true,
+                "repeat": "no-repeat",
+                "size": "custom",
+                "position": "center"
+              },
+              "padding": "0px",
+              "anchor": "",
+              "_meta": {
+                "htmlID": "u_row_6",
+                "htmlClassNames": "u_row"
+              },
+              "selectable": true,
+              "draggable": true,
+              "duplicatable": true,
+              "deletable": true,
+              "hideable": true,
+              "locked": false
+            }
+          },
+          {
+            "id": "9gwCb5KdMD",
+            "cells": [
+              70.07,
+              29.93
+            ],
+            "columns": [
+              {
+                "id": "Dl9aVVHXSY",
+                "contents": [
+                  {
+                    "id": "3DiZfIylRQ",
+                    "type": "text",
+                    "values": {
+                      "text": "<p style=\"line-height: 140%;\">&copy; 2025 Star Electronic.</p>\n<p style=\"line-height: 140%;\">123 Star Street, Tech City, TC 90210<br>Follow us on <a rel=\"noopener\" href=\"https://www.linkedin.com/\" target=\"_blank\" data-u-link-value=\"eyJuYW1lIjoid2ViIiwiYXR0cnMiOnsiaHJlZiI6Int7aHJlZn19IiwidGFyZ2V0Ijoie3t0YXJnZXR9fSJ9LCJ2YWx1ZXMiOnsiaHJlZiI6Imh0dHBzOi8vd3d3LmxpbmtlZGluLmNvbS8iLCJ0YXJnZXQiOiJfYmxhbmsifX0=\">LinkedIn</a>, <a rel=\"noopener\" href=\"hhtps://instagram.com\" target=\"_blank\" data-u-link-value=\"eyJuYW1lIjoid2ViIiwiYXR0cnMiOnsiaHJlZiI6Int7aHJlZn19IiwidGFyZ2V0Ijoie3t0YXJnZXR9fSJ9LCJ2YWx1ZXMiOnsiaHJlZiI6ImhodHBzOi8vaW5zdGFncmFtLmNvbSIsInRhcmdldCI6Il9ibGFuayJ9fQ==\">Instagram</a>, or <a rel=\"noopener\" href=\"https://facebook.com\" target=\"_blank\" data-u-link-value=\"eyJuYW1lIjoid2ViIiwiYXR0cnMiOnsiaHJlZiI6Int7aHJlZn19IiwidGFyZ2V0Ijoie3t0YXJnZXR9fSJ9LCJ2YWx1ZXMiOnsiaHJlZiI6Imh0dHBzOi8vZmFjZWJvb2suY29tIiwidGFyZ2V0IjoiX2JsYW5rIn19\">Facebook<br>{</a>{date}}</p>",
+                      "containerPadding": "10px",
+                      "anchor": "",
+                      "fontSize": "14px",
+                      "color": "#aaaaaa",
+                      "textAlign": "left",
+                      "lineHeight": "140%",
+                      "linkStyle": {
+                        "body": false,
+                        "inherit": false,
+                        "linkColor": "#aaaaaa",
+                        "linkUnderline": true,
+                        "linkHoverColor": "#0000ee",
+                        "linkHoverUnderline": true
+                      },
+                      "displayCondition": null,
+                      "_styleGuide": null,
+                      "_meta": {
+                        "htmlID": "u_content_text_3",
+                        "htmlClassNames": "u_content_text"
+                      },
+                      "selectable": true,
+                      "draggable": true,
+                      "duplicatable": true,
+                      "deletable": true,
+                      "hideable": true,
+                      "locked": false,
+                      "_languages": {}
+                    }
+                  }
+                ],
+                "values": {
+                  "backgroundColor": "",
+                  "padding": "0px",
+                  "border": {
+                    "borderTopWidth": "1px",
+                    "borderTopStyle": "solid",
+                    "borderTopColor": "#cccccc",
+                    "borderLeftWidth": "0px",
+                    "borderLeftStyle": "solid",
+                    "borderLeftColor": "#CCC",
+                    "borderRightWidth": "0px",
+                    "borderRightStyle": "solid",
+                    "borderRightColor": "#CCC",
+                    "borderBottomWidth": "0px",
+                    "borderBottomStyle": "solid",
+                    "borderBottomColor": "#CCC"
+                  },
+                  "borderRadius": "0px",
+                  "_meta": {
+                    "htmlID": "u_column_9",
+                    "htmlClassNames": "u_column"
+                  },
+                  "deletable": true,
+                  "locked": false
+                }
+              },
+              {
+                "id": "KaR1Di7aSC",
+                "contents": [
+                  {
+                    "id": "eNU8xUfrTN",
+                    "type": "button",
+                    "values": {
+                      "text": "<span style=\"line-height: 16.8px;\">Contact Page</span>",
+                      "href": {
+                        "name": "web",
+                        "attrs": {
+                          "href": "{{href}}",
+                          "target": "{{target}}"
+                        },
+                        "values": {
+                          "href": "http://localhost:3000/en/contact",
+                          "target": "_blank"
+                        }
+                      },
+                      "buttonColors": {
+                        "color": "#FFFFFF",
+                        "backgroundColor": "#ff6464",
+                        "hoverColor": "#FFFFFF",
+                        "hoverBackgroundColor": "#0879A1"
+                      },
+                      "size": {
+                        "autoWidth": true,
+                        "width": "100%"
+                      },
+                      "fontWeight": 700,
+                      "fontSize": "14px",
+                      "lineHeight": "120%",
+                      "textAlign": "center",
+                      "padding": "10px 20px",
+                      "border": {
+                        "borderTopWidth": "0px",
+                        "borderTopStyle": "solid",
+                        "borderLeftWidth": "0px",
+                        "borderLeftStyle": "solid",
+                        "borderLeftColor": "#CCC",
+                        "borderRightWidth": "0px",
+                        "borderRightStyle": "solid",
+                        "borderRightColor": "#CCC",
+                        "borderBottomWidth": "0px",
+                        "borderBottomStyle": "solid",
+                        "borderBottomColor": "#CCC"
+                      },
+                      "borderRadius": "4px",
+                      "displayCondition": null,
+                      "_styleGuide": null,
+                      "containerPadding": "20px 10px 10px",
+                      "anchor": "",
+                      "_meta": {
+                        "htmlID": "u_content_button_1",
+                        "htmlClassNames": "u_content_button"
+                      },
+                      "selectable": true,
+                      "draggable": true,
+                      "duplicatable": true,
+                      "deletable": true,
+                      "hideable": true,
+                      "locked": false,
+                      "_languages": {},
+                      "calculatedWidth": 129,
+                      "calculatedHeight": 37,
+                      "_override": {
+                        "desktop": {}
+                      }
+                    }
+                  }
+                ],
+                "values": {
+                  "backgroundColor": "",
+                  "padding": "0px",
+                  "border": {
+                    "borderTopWidth": "1px",
+                    "borderTopStyle": "solid",
+                    "borderTopColor": "#CCC",
+                    "borderLeftWidth": "0px",
+                    "borderLeftStyle": "solid",
+                    "borderLeftColor": "#CCC",
+                    "borderRightWidth": "0px",
+                    "borderRightStyle": "solid",
+                    "borderRightColor": "#CCC",
+                    "borderBottomWidth": "0px",
+                    "borderBottomStyle": "solid",
+                    "borderBottomColor": "#CCC"
+                  },
+                  "borderRadius": "0px",
+                  "_meta": {
+                    "htmlID": "u_column_10",
+                    "htmlClassNames": "u_column"
+                  },
+                  "deletable": true,
+                  "locked": false
+                }
+              }
+            ],
+            "values": {
+              "displayCondition": null,
+              "columns": false,
+              "_styleGuide": null,
+              "backgroundColor": "#ffffff",
+              "columnsBackgroundColor": "",
+              "backgroundImage": {
+                "url": "",
+                "fullWidth": true,
+                "repeat": "no-repeat",
+                "size": "custom",
+                "position": "center"
+              },
+              "padding": "0px",
+              "anchor": "",
+              "_meta": {
+                "htmlID": "u_row_7",
+                "htmlClassNames": "u_row"
+              },
+              "selectable": true,
+              "draggable": true,
+              "duplicatable": true,
+              "deletable": true,
+              "hideable": true,
+              "locked": false
+            }
+          }
+        ],
+        "headers": [],
+        "footers": [],
+        "values": {
+          "_styleGuide": null,
+          "popupPosition": "center",
+          "popupDisplayDelay": 0,
+          "popupWidth": "600px",
+          "popupHeight": "auto",
+          "borderRadius": "10px",
+          "contentAlign": "center",
+          "contentVerticalAlign": "center",
+          "contentWidth": "500px",
+          "fontFamily": {
+            "label": "Arial",
+            "value": "arial,helvetica,sans-serif"
+          },
+          "textColor": "#000000",
+          "popupBackgroundColor": "#FFFFFF",
+          "popupBackgroundImage": {
+            "url": "",
+            "fullWidth": true,
+            "repeat": "no-repeat",
+            "size": "cover",
+            "position": "center"
+          },
+          "popupOverlay_backgroundColor": "rgba(0, 0, 0, 0.1)",
+          "popupCloseButton_position": "top-right",
+          "popupCloseButton_backgroundColor": "#DDDDDD",
+          "popupCloseButton_iconColor": "#000000",
+          "popupCloseButton_borderRadius": "0px",
+          "popupCloseButton_margin": "0px",
+          "popupCloseButton_action": {
+            "name": "close_popup",
+            "attrs": {
+              "onClick": "document.querySelector('.u-popup-container').style.display = 'none';"
+            }
+          },
+          "language": {},
+          "backgroundColor": "#ffffff",
+          "preheaderText": "",
+          "linkStyle": {
+            "body": true,
+            "linkColor": "#0000ee",
+            "linkHoverColor": "#0000ee",
+            "linkUnderline": true,
+            "linkHoverUnderline": true
+          },
+          "backgroundImage": {
+            "url": "",
+            "fullWidth": true,
+            "repeat": "no-repeat",
+            "size": "custom",
+            "position": "center"
+          },
+          "_meta": {
+            "htmlID": "u_body",
+            "htmlClassNames": "u_body"
+          }
+        }
+      },
+      "schemaVersion": 21
+    },
+    "userSubject": "Thank you for contacting Star Electronic",
+    "ownerSubject": "New Inquiry: {{subject}}"
+  }
+}

@@ -1,11 +1,12 @@
 /** @format */
 
-import "./globals.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import './globals.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import ThemeApplicator from '@/components/ThemeApplicator';
 
 export const metadata = {
-  title: "Star Electronic",
-  description: "Star Electronic Official Website",
+  title: 'Star Electronic',
+  description: 'Star Electronic Official Website',
 };
 
 export default function RootLayout({ children }) {
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <ThemeApplicator />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -40,11 +42,22 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Star Electronic",
-              url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-              logo: "/favicon.ico",
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Star Electronic',
+              alternateName: [
+                'Star Electric',
+                'Star Electricity',
+                'Star Electronics',
+              ],
+              url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+              logo: '/onebyone.png',
+              address: {
+                '@type': 'PostalAddress',
+                addressCountry: 'Slovakia',
+              },
+              description:
+                'Leading provider of IoT and Smart Home solutions in Slovakia.',
             }),
           }}
         />

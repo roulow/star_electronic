@@ -1,8 +1,8 @@
 /** @format */
-/* eslint-disable @next/next/no-img-element */
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 export default function Carousel({ folder }) {
   const [items, setItems] = useState([]);
@@ -28,8 +28,8 @@ export default function Carousel({ folder }) {
   useEffect(() => {
     let active = true;
     fetch(`/api/media?folder=${encodeURIComponent(folder)}`)
-      .then((r) => r.json())
-      .then((d) => {
+      .then(r => r.json())
+      .then(d => {
         if (!active) return;
         setItems(d.items || []);
         setIdx(0);
@@ -67,7 +67,7 @@ export default function Carousel({ folder }) {
     // after animation completes, update idx and reset anim
     animTimeout.current && clearTimeout(animTimeout.current);
     animTimeout.current = setTimeout(() => {
-      setIdx((i) => (i - 1 + items.length) % items.length);
+      setIdx(i => (i - 1 + items.length) % items.length);
       setAnim(0);
     }, 350); // must match CSS transition duration
   };
@@ -77,12 +77,12 @@ export default function Carousel({ folder }) {
     setAnim(1);
     animTimeout.current && clearTimeout(animTimeout.current);
     animTimeout.current = setTimeout(() => {
-      setIdx((i) => (i + 1) % items.length);
+      setIdx(i => (i + 1) % items.length);
       setAnim(0);
     }, 350);
   };
 
-  const jumpTo = (targetIdx) => {
+  const jumpTo = targetIdx => {
     if (targetIdx === idx) return;
     // stop auto timer
     clearInterval(timer.current);
@@ -96,13 +96,13 @@ export default function Carousel({ folder }) {
   };
 
   // Pointer (drag/swipe) handlers
-  const onPointerDown = (e) => {
+  const onPointerDown = e => {
     if (anim !== 0) return;
     if (items.length <= 1) return;
     // if the pointerdown started on a control (button), do not start dragging here
     try {
       const tgt = e.target;
-      if (tgt && tgt.closest && tgt.closest("button")) return;
+      if (tgt && tgt.closest && tgt.closest('button')) return;
     } catch (err) {}
     isDraggingRef.current = true;
     setIsDragging(true);
@@ -136,7 +136,7 @@ export default function Carousel({ folder }) {
   };
 
   // Touch handlers (mirror pointer handlers but work reliably on some mobile browsers)
-  const onTouchStart = (e) => {
+  const onTouchStart = e => {
     // single-finger touch only
     if (anim !== 0) return;
     if (items.length <= 1) return;
@@ -145,7 +145,7 @@ export default function Carousel({ folder }) {
     // if the touch started on a control (button), do not start dragging here
     try {
       const tgt = e.target;
-      if (tgt && tgt.closest && tgt.closest("button")) return;
+      if (tgt && tgt.closest && tgt.closest('button')) return;
     } catch (err) {}
     // mark that we are on a touch device so hover-only arrows don't show
     setIsTouchDevice(true);
@@ -156,7 +156,7 @@ export default function Carousel({ folder }) {
     clearInterval(timer.current);
   };
 
-  const onTouchMove = (e) => {
+  const onTouchMove = e => {
     if (!isDraggingRef.current) return;
     const touch = e.touches && e.touches[0];
     if (!touch) return;
@@ -168,7 +168,7 @@ export default function Carousel({ folder }) {
     setOffsetPercent(percent);
   };
 
-  const onTouchEnd = (e) => {
+  const onTouchEnd = e => {
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
     setIsDragging(false);
@@ -194,7 +194,7 @@ export default function Carousel({ folder }) {
     }
   };
 
-  const onPointerMove = (e) => {
+  const onPointerMove = e => {
     if (!isDraggingRef.current) return;
     const dx = e.clientX - startXRef.current;
     const container = containerRef.current;
@@ -205,7 +205,7 @@ export default function Carousel({ folder }) {
     setOffsetPercent(percent);
   };
 
-  const endDrag = (e) => {
+  const endDrag = e => {
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
     setIsDragging(false);
@@ -239,7 +239,7 @@ export default function Carousel({ folder }) {
   // (do not return early here — hooks must be declared unconditionally)
 
   // utility to pick safely when items < 3
-  const pick = (offset) => {
+  const pick = offset => {
     if (!items.length) return null;
     if (items.length === 1) return items[0];
     const i = (idx + offset + items.length) % items.length;
@@ -283,10 +283,10 @@ export default function Carousel({ folder }) {
         const container = containerRef.current;
         if (node && container) {
           const st = window.getComputedStyle(node).transform;
-          if (st && st !== "none") {
+          if (st && st !== 'none') {
             const m = st.match(/matrix.*\((.+)\)/);
             if (m) {
-              const parts = m[1].split(",").map((p) => parseFloat(p));
+              const parts = m[1].split(',').map(p => parseFloat(p));
               const tx = parts.length === 6 ? parts[4] : parts[12] || 0;
               // tx is px relative to track width
               const pctOfTrack = (tx / node.clientWidth) * 100;
@@ -307,7 +307,7 @@ export default function Carousel({ folder }) {
       mounted = false;
       cancelAnimationFrame(rafId);
     };
-  }, [offsetPercent]);
+  }, [offsetPercent, CENTER, SLIDE_WIDTH_PERCENT]);
 
   // render placeholder while loading items (must be after hooks)
   if (!items.length) {
@@ -328,31 +328,33 @@ export default function Carousel({ folder }) {
         onTouchCancel={onTouchEnd}
         className={`relative size-full`}
         style={{
-          touchAction: "pan-y",
-          cursor: isDragging ? "grabbing" : "grab",
+          touchAction: 'pan-y',
+          cursor: isDragging ? 'grabbing' : 'grab',
         }}
       >
         <div
           ref={trackRef}
           className="absolute left-0 top-0 h-full flex"
           style={{
-            width: "300%",
+            width: '300%',
             transform: `translateX(${translatePercent}%)`,
             transition: disableTransition
-              ? "none"
+              ? 'none'
               : anim === 0
-              ? "none"
-              : "transform 350ms ease-in-out",
+              ? 'none'
+              : 'transform 350ms ease-in-out',
           }}
         >
           {/* left */}
           <div className="w-1/3 h-full flex-shrink-0 relative">
             {left ? (
-              <img
+              <Image
                 src={left.url}
-                alt={left.name}
-                className={`w-full h-full object-cover`}
-                onDragStart={(e) => e.preventDefault()}
+                alt={left.name || 'Carousel Image'}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className={`object-cover`}
+                onDragStart={e => e.preventDefault()}
               />
             ) : (
               <div className="skeleton h-full w-full" />
@@ -362,11 +364,14 @@ export default function Carousel({ folder }) {
           {/* center */}
           <div className="w-1/3 h-full flex-shrink-0 relative">
             {center ? (
-              <img
+              <Image
                 src={center.url}
-                alt={center.name}
-                className={`w-full h-full object-cover`}
-                onDragStart={(e) => e.preventDefault()}
+                alt={center.name || 'Carousel Image'}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className={`object-cover`}
+                onDragStart={e => e.preventDefault()}
+                priority
               />
             ) : (
               <div className="skeleton h-full w-full" />
@@ -381,11 +386,13 @@ export default function Carousel({ folder }) {
           {/* right */}
           <div className="w-1/3 h-full flex-shrink-0 relative">
             {right ? (
-              <img
+              <Image
                 src={right.url}
-                alt={right.name}
-                className={`w-full h-full object-cover`}
-                onDragStart={(e) => e.preventDefault()}
+                alt={right.name || 'Carousel Image'}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className={`object-cover`}
+                onDragStart={e => e.preventDefault()}
               />
             ) : (
               <div className="skeleton h-full w-full" />
@@ -407,7 +414,7 @@ export default function Carousel({ folder }) {
         {/* left/right hover zones (invisible) that reveal arrows when pointer is near */}
         <div
           className="absolute left-0 top-1/2 -translate-y-1/2 bottom-0 rounded-r-full"
-          style={{ width: "25%", height: "50%" }}
+          style={{ width: '25%', height: '50%' }}
           onPointerEnter={() => {
             clearTimeout(leftHoverTimeoutRef.current);
             setShowLeftArrow(true);
@@ -422,7 +429,7 @@ export default function Carousel({ folder }) {
         />
         <div
           className="absolute right-0 top-1/2 -translate-y-1/2 bottom-0 rounded-l-full"
-          style={{ width: "25%", height: "50%" }}
+          style={{ width: '25%', height: '50%' }}
           onPointerEnter={() => {
             clearTimeout(rightHoverTimeoutRef.current);
             setShowRightArrow(true);
@@ -452,14 +459,14 @@ export default function Carousel({ folder }) {
             }}
             style={{
               opacity: isTouchDevice ? 0 : showLeftArrow || isDragging ? 1 : 0,
-              transition: "opacity 180ms ease-in-out",
+              transition: 'opacity 180ms ease-in-out',
             }}
             className={`${
               isTouchDevice
-                ? "pointer-events-none"
+                ? 'pointer-events-none'
                 : showLeftArrow || isDragging
-                ? "pointer-events-auto cursor-pointer"
-                : "pointer-events-none"
+                ? 'pointer-events-auto cursor-pointer'
+                : 'pointer-events-none'
             } bg-white text-black shadow-md text-2xl md:size-10 flex justify-center items-center rounded-full`}
             onClick={() => {
               clearInterval(timer.current);
@@ -484,14 +491,14 @@ export default function Carousel({ folder }) {
             }}
             style={{
               opacity: isTouchDevice ? 0 : showRightArrow || isDragging ? 1 : 0,
-              transition: "opacity 180ms ease-in-out",
+              transition: 'opacity 180ms ease-in-out',
             }}
             className={`${
               isTouchDevice
-                ? "pointer-events-none"
+                ? 'pointer-events-none'
                 : showRightArrow || isDragging
-                ? "pointer-events-auto cursor-pointer"
-                : "pointer-events-none"
+                ? 'pointer-events-auto cursor-pointer'
+                : 'pointer-events-none'
             } bg-white text-black shadow-md text-2xl md:size-10 flex justify-center items-center rounded-full`}
             onClick={() => {
               clearInterval(timer.current);
@@ -532,7 +539,7 @@ export default function Carousel({ folder }) {
               const style = {
                 transform: `scale(${scale})`,
                 background: bg,
-                border: "none",
+                border: 'none',
                 padding: 0,
                 width: undefined,
                 height: undefined,
@@ -542,16 +549,16 @@ export default function Carousel({ folder }) {
                   key={i}
                   type="button"
                   onClick={() => jumpTo(i)}
-                  onPointerDown={(e) => {
+                  onPointerDown={e => {
                     // prevent the pointerdown from starting a drag on the track
                     e.stopPropagation();
                   }}
-                  onTouchStart={(e) => {
+                  onTouchStart={e => {
                     // stop drag start and let the click/touch trigger jumpTo
                     e.stopPropagation();
                   }}
                   aria-label={`Go to slide ${i + 1}`}
-                  aria-current={i === idx ? "true" : "false"}
+                  aria-current={i === idx ? 'true' : 'false'}
                   style={style}
                   className={`w-3 h-3 md:w-4 md:h-4 rounded-full flex items-center justify-center cursor-pointer`}
                 />

@@ -6,24 +6,32 @@
     "dashboard": "Admin"
   },
   "hero": {
-    "title": "Präzisionselektronik.",
+    "title": "Präzise Elektronik.",
     "title2": "Klare Ergebnisse.",
     "subtitle": "Star Electronic liefert zuverlässige Komponenten und schnellen Service.",
     "ctaQuote": "Angebot anfordern",
-    "ctaGallery": "Galerie ansehen"
+    "ctaGallery": "Galerie ansehen",
+    "years": "Jahre",
+    "projects": "Projekte",
+    "support": "Support",
+    "statYears": "15+",
+    "statProjects": "500+",
+    "statSupport": "24/7"
   },
   "features": {
-    "supply": {
-      "title": "Beschaffung",
-      "desc": "Vertrauenswürdige Lieferanten mit vollständiger Rückverfolgbarkeit."
+    "title": "Warum Star Electronic wählen?",
+    "subtitle": "Wir kombinieren Spitzentechnologie mit handwerklichem Können für die besten IoT-Lösungen.",
+    "security": {
+      "title": "Höchste Sicherheit",
+      "desc": "Unsere Geräte basieren auf einer Security-First-Architektur, um Ihr Zuhause sicher und privat zu halten."
     },
-    "assembly": {
-      "title": "Montageunterstützung",
-      "desc": "Von Kleinserien bis zur Skalierung."
+    "performance": {
+      "title": "Hohe Leistung",
+      "desc": "Optimiert für Geschwindigkeit und Zuverlässigkeit, damit Ihr Smart Home sofort reagiert."
     },
-    "response": {
-      "title": "Schnelle Reaktion",
-      "desc": "Klare Kommunikation und kurze Durchlaufzeiten."
+    "support": {
+      "title": "24/7 Support",
+      "desc": "Unser engagiertes Team steht Ihnen jederzeit bei Fragen oder Einrichtungswünschen zur Verfügung."
     }
   },
   "gallery": {
@@ -33,14 +41,47 @@
   "contact": {
     "title": "Kontaktieren Sie uns",
     "intro": "Wir melden uns innerhalb eines Werktags.",
+    "getInTouch": "Kontakt aufnehmen",
+    "description": "Wir freuen uns, von Ihnen zu hören. Bitte füllen Sie dieses Formular aus oder senden Sie uns eine E-Mail.",
+    "office": "Unser Büro",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "name": "Name",
+    "company": "Firma",
+    "subject": "Betreff",
+    "message": "Nachricht",
     "send": "Nachricht senden",
-    "sending": "Senden…"
+    "sending": "Senden…",
+    "success": "Nachricht gesendet. Wir melden uns in Kürze.",
+    "placeholders": {
+      "name": "Max Mustermann",
+      "company": "Star GmbH",
+      "email": "max@example.com",
+      "phone": "+49 123 456789",
+      "subject": "Wie können wir helfen?",
+      "message": "Erzählen Sie uns von Ihrem Projekt..."
+    }
   },
   "dashboard": {
     "title": "Admin",
     "enterKey": "Zugangsschlüssel eingeben",
     "upload": "Hochladen",
     "refresh": "Aktualisieren",
-    "save": "Beschreibungen speichern"
+    "save": "Beschreibungen speichern",
+    "access": {
+      "title": "Dashboard-Zugriff",
+      "desc": "Bitte geben Sie Ihren Autorisierungsschlüssel ein, um fortzufahren.",
+      "button": "Schlüssel eingeben"
+    }
+  },
+  "footer": {
+    "description": "Wir liefern zuverlässige IoT-Komponenten und reaktionsschnellen Service für Smart Homes und Unternehmen seit 2010.",
+    "quickLinks": "Schnelllinks",
+    "contactUs": "Kontaktieren Sie uns",
+    "address": "123 Star Street, Tech City, TC 90210",
+    "email": "info@star-electronic.example",
+    "phone": "+1 (555) 123-4567",
+    "followUs": "Folgen Sie uns",
+    "copyright": "© {year} Star Electronic. Alle Rechte vorbehalten."
   }
 }

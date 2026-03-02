@@ -10,20 +10,28 @@
     "title2": "Jasné výsledky.",
     "subtitle": "Star Electronic dodáva spoľahlivé komponenty a rýchlu podporu pre náročné projekty.",
     "ctaQuote": "Získať ponuku",
-    "ctaGallery": "Zobraziť galériu"
+    "ctaGallery": "Zobraziť galériu",
+    "years": "Rokov",
+    "projects": "Projektov",
+    "support": "Podpora",
+    "statYears": "15+",
+    "statProjects": "500+",
+    "statSupport": "24/7"
   },
   "features": {
-    "supply": {
-      "title": "Zabezpečenie dodávok",
-      "desc": "Overené súčiastky od preverovaných dodávateľov s plnou sledovateľnosťou."
+    "title": "Prečo si vybrať Star Electronic?",
+    "subtitle": "Kombinujeme špičkovú technológiu s remeselným spracovaním pre najlepšie IoT riešenia.",
+    "security": {
+      "title": "Špičková bezpečnosť",
+      "desc": "Naše zariadenia sú postavené na architektúre security-first, aby bol váš domov v bezpečí a súkromí."
     },
-    "assembly": {
-      "title": "Podpora montáže",
-      "desc": "Od malých sérií po škálovanie, udržíme vašu výrobu v chode."
+    "performance": {
+      "title": "Vysoký výkon",
+      "desc": "Optimalizované pre rýchlosť a spoľahlivosť, zaisťujúce okamžitú odozvu vašej inteligentnej domácnosti."
     },
-    "response": {
-      "title": "Rýchla odozva",
-      "desc": "Jasná komunikácia a krátke dodacie lehoty, na ktoré sa dá spoľahnúť."
+    "support": {
+      "title": "Podpora 24/7",
+      "desc": "Náš špecializovaný tím je vždy pripravený vám pomôcť s akýmikoľvek otázkami alebo nastavením."
     }
   },
   "gallery": {
@@ -33,14 +41,47 @@
   "contact": {
     "title": "Kontaktujte nás",
     "intro": "Napíšte nám vaše požiadavky a ozveme sa do jedného pracovného dňa.",
+    "getInTouch": "Napíšte nám",
+    "description": "Radi o vás budeme počuť. Vyplňte prosím tento formulár alebo nám pošlite e-mail.",
+    "office": "Naša kancelária",
+    "email": "E-mail",
+    "phone": "Telefón",
+    "name": "Meno",
+    "company": "Spoločnosť",
+    "subject": "Predmet",
+    "message": "Správa",
     "send": "Odoslať správu",
-    "sending": "Odosielam…"
+    "sending": "Odosielam…",
+    "success": "Správa odoslaná. Čoskoro sa vám ozveme.",
+    "placeholders": {
+      "name": "Ján Novák",
+      "company": "Star s.r.o.",
+      "email": "jan@example.com",
+      "phone": "+421 901 234 567",
+      "subject": "Ako vám môžeme pomôcť?",
+      "message": "Povedzte nám o svojom projekte..."
+    }
   },
   "dashboard": {
     "title": "Správa",
     "enterKey": "Zadajte prístupový kľúč",
     "upload": "Nahrať",
     "refresh": "Obnoviť",
-    "save": "Uložiť popisy"
+    "save": "Uložiť popisy",
+    "access": {
+      "title": "Prístup do správy",
+      "desc": "Pre pokračovanie zadajte svoj autorizačný kľúč.",
+      "button": "Zadať kľúč"
+    }
+  },
+  "footer": {
+    "description": "Dodávame spoľahlivé IoT komponenty a rýchly servis pre inteligentné domácnosti a firmy už od roku 2010.",
+    "quickLinks": "Rýchle odkazy",
+    "contactUs": "Kontaktujte nás",
+    "address": "123 Star Street, Tech City, TC 90210",
+    "email": "info@star-electronic.example",
+    "phone": "+1 (555) 123-4567",
+    "followUs": "Sledujte nás",
+    "copyright": "© {year} Star Electronic. Všetky práva vyhradené."
   }
 }

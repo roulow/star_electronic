@@ -10,20 +10,28 @@
     "title2": "Tiszta eredmények.",
     "subtitle": "A Star Electronic megbízható alkatrészeket és gyors támogatást nyújt.",
     "ctaQuote": "Árajánlat kérése",
-    "ctaGallery": "Galéria megtekintése"
+    "ctaGallery": "Galéria megtekintése",
+    "years": "Év",
+    "projects": "Projekt",
+    "support": "Támogatás",
+    "statYears": "15+",
+    "statProjects": "500+",
+    "statSupport": "24/7"
   },
   "features": {
-    "supply": {
-      "title": "Beszerzés",
-      "desc": "Megbízható beszállítók teljes nyomon követhetőséggel."
+    "title": "Miért válassza a Star Electronic-ot?",
+    "subtitle": "A csúcstechnológiát ötvözzük a kézműves szakértelemmel a legjobb IoT megoldások érdekében.",
+    "security": {
+      "title": "Csúcsbiztonság",
+      "desc": "Eszközeink biztonság-első architektúrával készülnek, hogy otthona biztonságos és privát maradjon."
     },
-    "assembly": {
-      "title": "Összeszerelés támogatás",
-      "desc": "Kis szériától a skálázásig."
+    "performance": {
+      "title": "Nagy teljesítmény",
+      "desc": "Sebességre és megbízhatóságra optimalizálva, biztosítva okosotthona azonnali válaszát."
     },
-    "response": {
-      "title": "Gyors reagálás",
-      "desc": "Tiszta kommunikáció és rövid határidők."
+    "support": {
+      "title": "24/7 Támogatás",
+      "desc": "Elkötelezett csapatunk mindig készen áll, hogy segítsen bármilyen kérdésben vagy beállításban."
     }
   },
   "gallery": {
@@ -33,14 +41,47 @@
   "contact": {
     "title": "Lépjen kapcsolatba velünk",
     "intro": "Egy munkanapon belül válaszolunk.",
+    "getInTouch": "Lépjen kapcsolatba velünk",
+    "description": "Örömmel hallanánk Önről. Kérjük, töltse ki ezt az űrlapot, vagy küldjön e-mailt.",
+    "office": "Irodánk",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "name": "Név",
+    "company": "Cég",
+    "subject": "Tárgy",
+    "message": "Üzenet",
     "send": "Üzenet küldése",
-    "sending": "Küldés…"
+    "sending": "Küldés…",
+    "success": "Üzenet elküldve. Hamarosan jelentkezünk.",
+    "placeholders": {
+      "name": "Kovács János",
+      "company": "Star Kft.",
+      "email": "janos@example.com",
+      "phone": "+36 1 234 5678",
+      "subject": "Miben segíthetünk?",
+      "message": "Meséljen a projektjéről..."
+    }
   },
   "dashboard": {
     "title": "Admin",
     "enterKey": "Adja meg a hozzáférési kulcsot",
     "upload": "Feltöltés",
     "refresh": "Frissítés",
-    "save": "Leírások mentése"
+    "save": "Leírások mentése",
+    "access": {
+      "title": "Irányítópult hozzáférés",
+      "desc": "Kérjük, adja meg az engedélyezési kulcsot a folytatáshoz.",
+      "button": "Kulcs megadása"
+    }
+  },
+  "footer": {
+    "description": "Megbízható IoT alkatrészek és gyors szolgáltatás okos otthonok és vállalkozások számára 2010 óta.",
+    "quickLinks": "Gyors linkek",
+    "contactUs": "Lépjen kapcsolatba velünk",
+    "address": "123 Star Street, Tech City, TC 90210",
+    "email": "info@star-electronic.example",
+    "phone": "+1 (555) 123-4567",
+    "followUs": "Kövessen minket",
+    "copyright": "© {year} Star Electronic. Minden jog fenntartva."
   }
 }
