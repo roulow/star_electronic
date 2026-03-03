@@ -1,9 +1,14 @@
 {
   "nav": {
-    "home": "O CANADA",
+    "home": "Home",
     "gallery": "Gallery",
     "contact": "Contact",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "homeDesc": "Return home",
+    "galleryDesc": "Browse our gallery",
+    "contactDesc": "Send us a message",
+    "language": "Language",
+    "theme": "Theme"
   },
   "hero": {
     "title": "Precision electronics.",
@@ -36,7 +41,8 @@
   },
   "gallery": {
     "title": "Gallery",
-    "intro": "A selection of recent products and projects."
+    "intro": "A selection of recent products and projects.",
+    "viewFull": "View Fullscreen"
   },
   "contact": {
     "title": "Contact us",

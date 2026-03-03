@@ -26,21 +26,16 @@ export default async function HomePage({ params }) {
       {/* --- MOBILE HERO (Premium App Design) --- */}
       <div className="lg:hidden relative w-full overflow-hidden bg-background">
         {/* Featured Carousel Card */}
-        <div className="relative z-10 px-4 mt-4">
-          <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
+        <div className="relative z-10">
+          <div className="relative w-full aspect-[4/3] rounded-b-4xl overflow-hidden shadow-2xl">
             <Carousel folder="star_electronic_carousel" />
             {/* Subtle gradient overlay at bottom for polish */}
             <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
-            {/* Badge */}
-            <div className="absolute top-4 left-4 bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-              <i className="fas fa-bolt mr-1.5"></i>
-              {t("hero.featured", "Featured")}
-            </div>
           </div>
         </div>
 
         {/* Content Section */}
-        <div className="relative z-20 px-6 mt-6 flex-1 flex flex-col">
+        <div className="relative z-20 px-6 mt-8 flex-1 flex flex-col">
           <h1 className="text-2xl font-bold text-foreground leading-tight mb-3">
             {t("hero.title", "Professional Solutions")}
           </h1>

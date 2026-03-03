@@ -3,7 +3,12 @@
     "home": "Accueil",
     "gallery": "Galerie",
     "contact": "Contact",
-    "dashboard": "Admin"
+    "dashboard": "Admin",
+    "homeDesc": "Retour à l'accueil",
+    "galleryDesc": "Parcourez notre galerie",
+    "contactDesc": "Envoyez-nous un message",
+    "language": "Langue",
+    "theme": "Thème"
   },
   "hero": {
     "title": "Électronique de précision.",
@@ -36,7 +41,8 @@
   },
   "gallery": {
     "title": "Galerie",
-    "intro": "Une sélection de produits et projets récents."
+    "intro": "Une sélection de produits et projets récents.",
+    "viewFull": "Plein écran"
   },
   "contact": {
     "title": "Contactez-nous",

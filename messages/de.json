@@ -3,7 +3,12 @@
     "home": "Start",
     "gallery": "Galerie",
     "contact": "Kontakt",
-    "dashboard": "Admin"
+    "dashboard": "Admin",
+    "homeDesc": "Zurück zur Startseite",
+    "galleryDesc": "Durchsuchen Sie unsere Galerie",
+    "contactDesc": "Senden Sie uns eine Nachricht",
+    "language": "Sprache",
+    "theme": "Design"
   },
   "hero": {
     "title": "Präzise Elektronik.",
@@ -36,7 +41,8 @@
   },
   "gallery": {
     "title": "Galerie",
-    "intro": "Eine Auswahl aktueller Produkte und Projekte."
+    "intro": "Eine Auswahl aktueller Produkte und Projekte.",
+    "viewFull": "Vollbild"
   },
   "contact": {
     "title": "Kontaktieren Sie uns",

@@ -3,7 +3,12 @@
     "home": "Strona główna",
     "gallery": "Galeria",
     "contact": "Kontakt",
-    "dashboard": "Panel"
+    "dashboard": "Panel",
+    "homeDesc": "Powrót na stronę główną",
+    "galleryDesc": "Przeglądaj galerię",
+    "contactDesc": "Wyślij nam wiadomość",
+    "language": "Język",
+    "theme": "Motyw"
   },
   "hero": {
     "title": "Precyzyjna elektronika.",
@@ -36,7 +41,8 @@
   },
   "gallery": {
     "title": "Galeria",
-    "intro": "Wybrane ostatnie produkty i projekty."
+    "intro": "Wybrane ostatnie produkty i projekty.",
+    "viewFull": "Pełny ekran"
   },
   "contact": {
     "title": "Skontaktuj się z nami",

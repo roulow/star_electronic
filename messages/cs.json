@@ -3,7 +3,12 @@
     "home": "Domů",
     "gallery": "Galerie",
     "contact": "Kontakt",
-    "dashboard": "Správa"
+    "dashboard": "Správa",
+    "homeDesc": "Zpět na úvodní stránku",
+    "galleryDesc": "Prohlédněte si galerii",
+    "contactDesc": "Pošlete nám zprávu",
+    "language": "Jazyk",
+    "theme": "Motiv"
   },
   "hero": {
     "title": "Precizní elektronika.",
@@ -36,7 +41,8 @@
   },
   "gallery": {
     "title": "Galerie",
-    "intro": "Výběr nedávných produktů a projektů."
+    "intro": "Výběr nedávných produktů a projektů.",
+    "viewFull": "Zobrazit"
   },
   "contact": {
     "title": "Kontaktujte nás",
@@ -73,26 +79,6 @@
       "desc": "Pro pokračování zadejte svůj autorizační klíč.",
       "button": "Zadat klíč"
     }
-  },
-  "footer": {
-    "brand": {
-      "title": "Star Electronic",
-      "desc": "Delivering reliable IoT components and responsive service for smart homes and businesses since 2010."
-    },
-    "quickLinks": {
-      "title": "Quick Links",
-      "home": "Home",
-      "gallery": "Gallery",
-      "contact": "Contact"
-    },
-    "contact": {
-      "title": "Contact Us",
-      "address": "123 Star Street, Tech City, TC 90210"
-    },
-    "follow": {
-      "title": "Follow Us"
-    },
-    "rights": "Star Electronic. All rights reserved."
   },
   "footer": {
     "description": "Dodáváme spolehlivé IoT komponenty a rychlý servis pro chytré domácnosti a firmy již od roku 2010.",

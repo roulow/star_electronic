@@ -35,9 +35,24 @@ export default function Navbar({ messages, locale }) {
   const pathname = usePathname();
   const base = `/${locale || "en"}`;
   const links = [
-    { href: `${base}`, label: t ? t("nav.home") : "Home" },
-    { href: `${base}/gallery`, label: t ? t("nav.gallery") : "Gallery" },
-    { href: `${base}/contact`, label: t ? t("nav.contact") : "Contact" },
+    {
+      href: `${base}`,
+      label: t("nav.home", "Home"),
+      desc: t("nav.homeDesc", "Main page"),
+      icon: "fa-home",
+    },
+    {
+      href: `${base}/gallery`,
+      label: t("nav.gallery", "Gallery"),
+      desc: t("nav.galleryDesc", "Browse our gallery"),
+      icon: "fa-image",
+    },
+    {
+      href: `${base}/contact`,
+      label: t("nav.contact", "Contact"),
+      desc: t("nav.contactDesc", "Get in touch"),
+      icon: "fa-envelope",
+    },
   ];
   return (
     <>
@@ -168,13 +183,24 @@ export default function Navbar({ messages, locale }) {
                     <Link
                       href={l.href}
                       onClick={() => setOpen(false)}
-                      className={`block px-4 py-3 rounded-lg text-lg font-medium transition-all duration-200 ${
+                      className={`flex items-start gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                         pathname === l.href
                           ? "bg-primary/10 text-primary"
                           : "text-muted-foreground hover:text-foreground hover:bg-muted/5"
                       }`}
                     >
-                      {l.label}
+                      <span className="w-6 text-center pt-1">
+                        <i
+                          className={`fas ${l.icon} text-lg`}
+                          aria-hidden="true"
+                        ></i>
+                      </span>
+                      <div className="text-left">
+                        <div className="text-lg font-medium">{l.label}</div>
+                        <div className="text-sm text-muted-foreground mt-1">
+                          {l.desc}
+                        </div>
+                      </div>
                     </Link>
                   </li>
                 ))}
@@ -182,10 +208,10 @@ export default function Navbar({ messages, locale }) {
             </nav>
 
             <div className="p-6 border-t border-border bg-muted/5">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-[2fr_1fr] gap-4">
                 <div className="flex flex-col gap-2">
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                    Language
+                    {t("nav.language", "Language")}
                   </span>
                   <div className="bg-background rounded-lg border border-border shadow-sm">
                     <LangSwitcher
@@ -197,7 +223,7 @@ export default function Navbar({ messages, locale }) {
                 </div>
                 <div className="flex flex-col gap-2">
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                    Theme
+                    {t("nav.theme", "Theme")}
                   </span>
                   <div className="bg-background rounded-lg border border-border shadow-sm h-[42px] flex items-center justify-center">
                     <ThemeToggle mobile={true} />

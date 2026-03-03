@@ -1,9 +1,14 @@
 {
   "nav": {
     "home": "Domov",
+    "homeDesc": "Naspäť na úvodnú stránku",
     "gallery": "Galéria",
+    "galleryDesc": "Prezrite si obrázky našich nedávnych projektov",
     "contact": "Kontakt",
-    "dashboard": "Správa"
+    "contactDesc": "Napíšte nám, alebo si nás nájdite na mape",
+    "dashboard": "Správa",
+    "language": "Jazyk",
+    "theme": "Motív"
   },
   "hero": {
     "title": "Presná elektronika.",
@@ -36,7 +41,8 @@
   },
   "gallery": {
     "title": "Galéria",
-    "intro": "Výber nedávnych produktov a projektov."
+    "intro": "Výber nedávnych produktov a projektov.",
+    "viewFull": "Zväčšiť"
   },
   "contact": {
     "title": "Kontaktujte nás",

@@ -3,7 +3,12 @@
     "home": "Főoldal",
     "gallery": "Galéria",
     "contact": "Kapcsolat",
-    "dashboard": "Admin"
+    "dashboard": "Admin",
+    "homeDesc": "Vissza a kezdőlapra",
+    "galleryDesc": "Böngésszen galériánkban",
+    "contactDesc": "Küldjön nekünk üzenetet",
+    "language": "Nyelv",
+    "theme": "Téma"
   },
   "hero": {
     "title": "Precíz elektronika.",
@@ -36,7 +41,8 @@
   },
   "gallery": {
     "title": "Galéria",
-    "intro": "Válogatás a legutóbbi termékekből és projektekből."
+    "intro": "Válogatás a legutóbbi termékekből és projektekből.",
+    "viewFull": "Teljes képernyő"
   },
   "contact": {
     "title": "Lépjen kapcsolatba velünk",

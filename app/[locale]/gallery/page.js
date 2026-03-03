@@ -25,7 +25,10 @@ export default async function GalleryPage({ params }) {
             {t("gallery.intro")}
           </p>
         </div>
-        <GalleryGrid folder="star_electronic_gallery" />
+        <GalleryGrid
+          folder="star_electronic_gallery"
+          viewFullText={t("gallery.viewFull")}
+        />
       </div>
     </>
   );

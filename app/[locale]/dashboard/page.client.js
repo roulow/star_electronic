@@ -111,7 +111,7 @@ export default function DashboardClient({ locale, messages }) {
   ];
 
   return (
-    <div className="flex h-screen bg-background overflow-hidden relative">
+    <div className="flex min-h-screen bg-background relative">
       <StarBackground className="-z-10 opacity-50" />
 
       {/* Locked State Overlay & Modal */}
@@ -186,15 +186,12 @@ export default function DashboardClient({ locale, messages }) {
       {/* Mobile Header */}
       <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-background/80 backdrop-blur-md border-b border-border z-30 flex items-center justify-center px-4">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold">
-            S
-          </div>
-          <h1 className="text-lg font-bold tracking-tight">Star Admin</h1>
+          <h1 className="text-lg font-bold tracking-tight">Admin Panel</h1>
         </div>
       </header>
 
       {/* Mobile Bottom Nav */}
-      <div className="lg:hidden fixed -bottom-1 left-0 right-0 bg-background/90 backdrop-blur-xl border-t border-border z-40 flex justify-around items-center h-16 px-1 pb-safe">
+      <div className="lg:hidden fixed -bottom-1 left-0 right-0 bg-background z-40 flex justify-around items-center h-16 px-1 pb-safe top-shadow-middle">
         {bottomNavItems.map((item) => (
           <button
             key={item.id}
@@ -220,14 +217,11 @@ export default function DashboardClient({ locale, messages }) {
       <aside className="hidden lg:flex flex-col w-64 bg-background/60 backdrop-blur-xl border-r border-border z-50">
         <div className="p-6 border-b border-border">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold">
-              S
-            </div>
-            <h1 className="text-lg font-bold tracking-tight">Star Admin</h1>
+            <h1 className="text-lg font-bold tracking-tight">Admin Panel</h1>
           </div>
         </div>
 
-        <nav className="flex-1 p-4 overflow-y-auto space-y-6">
+        <nav className="flex-1 p-4 space-y-6">
           <div>
             <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 px-4">
               Media Library
@@ -283,7 +277,7 @@ export default function DashboardClient({ locale, messages }) {
               setAuthed(false);
               window.localStorage.removeItem("dashboard_key");
             }}
-            className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors"
+            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
           >
             <i className="fas fa-sign-out-alt"></i> Sign Out
           </button>
@@ -291,11 +285,7 @@ export default function DashboardClient({ locale, messages }) {
       </aside>
 
       {/* Main Content */}
-      <main
-        className={`flex-1 p-4 pt-8 pb-24 lg:p-8 relative z-10 ${
-          !authed ? "overflow-hidden" : "overflow-auto"
-        }`}
-      >
+      <main className={`flex-1 p-4 pt-8 pb-24 lg:p-8 relative z-10`}>
         <div className="max-w-6xl mx-auto">
           {activeTab === "carousel" && (
             <MediaManager
@@ -328,6 +318,7 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
   const [loading, setLoading] = useState(false);
   const [descMap, setDescMap] = useState({});
   const [deletingItem, setDeletingItem] = useState(null);
+  const [isMobileView, setIsMobileView] = useState(false);
 
   // Use folderKey immediately
   const folder = folderKey;
@@ -336,6 +327,14 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
     refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folder]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const check = () => setIsMobileView(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   async function refresh() {
     setLoading(true);
@@ -404,7 +403,7 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
       <div className="space-y-6 fade-in-up">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border pb-6">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">{title}</h2>
+            <h2 className="text-lg md:text-3xl font-bold mb-2">{title}</h2>
             <p className="text-muted-foreground text-sm md:text-base">
               Manage files for {title.toLowerCase()}.
             </p>
@@ -443,7 +442,11 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
                 className="group relative bg-card border border-border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
               >
                 <button
-                  className="absolute top-2 right-2 btn btn-xs btn-circle btn-error opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-md"
+                  className={`absolute top-2 right-2 size-8 rounded-full bg-white/10 hover:bg-white/20 text-white transition-opacity z-20 ${
+                    isMobileView
+                      ? "opacity-100"
+                      : "opacity-0 group-hover:opacity-100"
+                  }`}
                   onClick={() => setDeletingItem(item)}
                   title="Remove image"
                 >
@@ -455,7 +458,13 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
                     alt={item.name}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 backdrop-blur-[2px]">
+                  <div
+                    className={`absolute inset-0 bg-black/40 transition-opacity flex items-center justify-center gap-2 backdrop-blur-[2px] ${
+                      isMobileView
+                        ? "opacity-100 bg-black/20"
+                        : "opacity-0 group-hover:opacity-100"
+                    }`}
+                  >
                     <button
                       className="h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                       disabled={idx === 0}
@@ -586,8 +595,8 @@ function ContentEditor({ currentLocale }) {
     <div className="space-y-6 fade-in-up">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border pb-6">
         <div>
-          <h2 className="text-3xl font-bold mb-2">Content Editor</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-lg md:text-3xl font-bold mb-2">Content Editor</h2>
+          <p className="text-muted-foreground text-sm">
             Modify site text and translations for all supported languages.
           </p>
         </div>
@@ -628,7 +637,7 @@ function ContentEditor({ currentLocale }) {
         ) : (
           <div className="relative">
             <textarea
-              className="w-full h-[65vh] font-mono text-sm p-6 bg-card focus:outline-none resize-none leading-relaxed"
+              className="w-full min-h-[65vh] font-mono text-sm p-6 bg-card focus:outline-none resize-none leading-relaxed"
               value={jsonString}
               onChange={(e) => setJsonString(e.target.value)}
               spellCheck={false}
@@ -886,12 +895,12 @@ function ColorEditor() {
     <div className="space-y-6 fade-in-up">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border pb-6">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">Theme Editor</h2>
+          <h2 className="text-lg md:text-3xl font-bold mb-2">Theme Editor</h2>
           <p className="text-muted-foreground text-sm md:text-base">
             Customize global styles for Light and Dark modes.
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center justify-between md:gap-3">
           <div className="bg-muted p-1 rounded-lg flex text-sm font-medium">
             <button
               className={`px-3 py-1.5 rounded-md transition-all ${
@@ -1138,6 +1147,130 @@ function EmailSettings({ type }) {
     }
   };
 
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Responsive scaling for the EmailEditor to avoid overflow on small screens
+  const editorContainerRef = useRef(null);
+  const [editorScale, setEditorScale] = useState(1);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const IDEAL_EDITOR_WIDTH = 900; // width the editor expects for comfortable layout
+  const IDEAL_EDITOR_HEIGHT = 800; // base height used for minHeight
+  const MOBILE_BREAKPOINT = 768;
+
+  useEffect(() => {
+    const check = () => {
+      if (typeof window === "undefined") return;
+      setIsDarkMode(document.documentElement.classList.contains("dark"));
+    };
+    check();
+    const mo = new MutationObserver(() => check());
+    mo.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => mo.disconnect();
+  }, []);
+
+  // Attempt to style the Unlayer/react-email-editor iframe when theme changes.
+  // If the iframe is same-origin we inject CSS into its document; otherwise
+  // we apply a visual `filter` to the iframe element as a fallback.
+  useEffect(() => {
+    const injectStyles = () => {
+      try {
+        const iframes = Array.from(document.querySelectorAll("iframe"));
+        for (const iframe of iframes) {
+          const src = iframe.getAttribute("src") || "";
+          if (
+            !src.includes("unlayer") &&
+            !src.includes("editor") &&
+            !src.includes("email")
+          ) {
+            // keep scanning
+          }
+
+          try {
+            const doc =
+              iframe.contentDocument || iframe.contentWindow?.document;
+            if (doc) {
+              let style = doc.getElementById("unlayer-dark-style");
+              if (!style) {
+                style = doc.createElement("style");
+                style.id = "unlayer-dark-style";
+                doc.head.appendChild(style);
+              }
+              if (isDarkMode) {
+                style.innerHTML = `html, body { background: #0b0b0b !important; color: #ddd !important; } .viewer, .unlayer, .editor { background: #0b0b0b !important; color: #ddd !important; } .canvas, .canvas-body { background: #0b0b0b !important; }`;
+                doc.body.style.background = "#0b0b0b";
+              } else {
+                style.innerHTML = "";
+                doc.body.style.background = "";
+              }
+              return true;
+            }
+          } catch (e) {
+            // cross-origin or access denied -> fallback later
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+      return false;
+    };
+
+    const applyIframeFilterFallback = () => {
+      try {
+        const iframes = Array.from(document.querySelectorAll("iframe"));
+        for (const iframe of iframes) {
+          const src = iframe.getAttribute("src") || "";
+          if (
+            src.includes("unlayer") ||
+            src.includes("editor") ||
+            src.includes("email") ||
+            iframes.length === 1
+          ) {
+            iframe.style.transition = "filter 240ms ease";
+            iframe.style.transformOrigin = "50% 50%";
+            if (isDarkMode) {
+              iframe.style.filter =
+                "invert(1) hue-rotate(180deg) brightness(0.95)";
+            } else {
+              iframe.style.filter = "";
+            }
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+    };
+
+    const injected = injectStyles();
+    if (!injected) applyIframeFilterFallback();
+
+    const t = setTimeout(() => {
+      const injected2 = injectStyles();
+      if (!injected2) applyIframeFilterFallback();
+    }, 700);
+
+    return () => clearTimeout(t);
+  }, [isDarkMode]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const measure = () => {
+      const w =
+        editorContainerRef.current?.clientWidth || window.innerWidth || 0;
+      setContainerWidth(w);
+      const newScale =
+        w < MOBILE_BREAKPOINT ? Math.min(1, w / IDEAL_EDITOR_WIDTH) : 1;
+      setEditorScale(newScale);
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
   async function save() {
     setSaving(true);
 
@@ -1182,8 +1315,8 @@ function EmailSettings({ type }) {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold">{title}</h2>
-          <p className="text-muted-foreground">{description}</p>
+          <h2 className="text-lg md:text-2xl font-bold mb-2">{title}</h2>
+          <p className="text-muted-foreground text-sm">{description}</p>
         </div>
         <button
           onClick={save}
@@ -1194,8 +1327,8 @@ function EmailSettings({ type }) {
         </button>
       </div>
 
-      {/* Status Card - Subtle Design */}
-      <div className="bg-card border border-border rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* Status Card */}
+      <div className="bg-card border border-border rounded-xl p-4 lg:p-6 flex flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4 w-full sm:w-auto">
           <div
             className={`w-10 h-10 rounded-full flex items-center justify-center text-lg shrink-0 ${
@@ -1240,7 +1373,7 @@ function EmailSettings({ type }) {
         </label>
       </div>
 
-      <div className="bg-card border border-border rounded-xl p-6 space-y-4">
+      <div className="bg-card border border-border rounded-xl p-4 lg:p-6 space-y-4">
         <div>
           <label className="block text-sm font-medium mb-2">
             Email Subject
@@ -1278,17 +1411,70 @@ function EmailSettings({ type }) {
               : "Available variables: {{name}}, {{subject}}, {{date}}"}
           </p>
 
-          <div className="border border-border rounded-lg overflow-hidden h-[800px]">
-            <EmailEditor
-              ref={emailEditorRef}
-              onLoad={onLoad}
-              minHeight="800px"
-              options={{
-                appearance: {
-                  theme: "modern_light",
-                },
-              }}
-            />
+          {/* Email editor wrapper - scaled only on mobile to avoid overflow */}
+          <div
+            ref={editorContainerRef}
+            className="border border-border rounded-lg"
+            style={{
+              padding:
+                containerWidth && containerWidth < MOBILE_BREAKPOINT
+                  ? "8px"
+                  : undefined,
+            }}
+          >
+            {containerWidth && containerWidth < MOBILE_BREAKPOINT ? (
+              // Mobile: absolutely position the inner editor and scale it so
+              // the outer container remains the device width (prevents overflow)
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: `${Math.max(360, Math.round(IDEAL_EDITOR_HEIGHT * editorScale))}px`,
+                  overflow: "hidden",
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    top: 0,
+                    width: IDEAL_EDITOR_WIDTH + "px",
+                    height: IDEAL_EDITOR_HEIGHT + "px",
+                    transform: `scale(${editorScale})`,
+                    transformOrigin: "0 0",
+                  }}
+                >
+                  <EmailEditor
+                    key={
+                      isDarkMode ? "email-editor-dark" : "email-editor-light"
+                    }
+                    ref={emailEditorRef}
+                    onLoad={onLoad}
+                    minHeight={IDEAL_EDITOR_HEIGHT + "px"}
+                    options={{
+                      appearance: {
+                        theme: isDarkMode ? "modern_dark" : "modern_light",
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+            ) : (
+              // Desktop: regular editor layout
+              <div className="overflow-hidden">
+                <EmailEditor
+                  key={isDarkMode ? "email-editor-dark" : "email-editor-light"}
+                  ref={emailEditorRef}
+                  onLoad={onLoad}
+                  minHeight={IDEAL_EDITOR_HEIGHT + "px"}
+                  options={{
+                    appearance: {
+                      theme: isDarkMode ? "modern_dark" : "modern_light",
+                    },
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

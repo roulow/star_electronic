@@ -4,7 +4,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function GalleryGrid({ folder }) {
+export default function GalleryGrid({ folder, viewFullText }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -49,12 +49,17 @@ export default function GalleryGrid({ folder }) {
             {/* Mobile: Bold Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent lg:hidden flex flex-col justify-end p-6">
               <div className="transform translate-y-0 transition-transform">
-                <p className="text-white font-bold text-xl tracking-tight mb-1 drop-shadow-md">
-                  {it.description || "Untitled"}
-                </p>
-                <div className="h-1 w-12 bg-primary rounded-full mb-2"></div>
+                {it.description ? (
+                  <>
+                    <p className="text-white font-bold text-xl tracking-tight mb-1 drop-shadow-md">
+                      {it.description}
+                    </p>
+                    <div className="h-1 w-12 bg-primary rounded-full mb-2"></div>
+                  </>
+                ) : null}
                 <p className="text-white/70 text-xs uppercase tracking-widest font-medium">
-                  View Fullscreen
+                  <i className="lg:hidden fas fa-up-right-and-down-left-from-center mr-2"></i>
+                  {viewFullText || "View Fullscreen"}
                 </p>
               </div>
             </div>
