@@ -1,19 +1,19 @@
 /** @format */
 /* eslint-disable @next/next/no-img-element */
-'use client';
+"use client";
 
-import StarBackground from '@/components/StarBackground';
-import { useEffect, useMemo, useState, useRef } from 'react';
-import { locales } from '../../../i18n.config';
-import EmailEditor from 'react-email-editor';
+import StarBackground from "@/components/StarBackground";
+import { useEffect, useMemo, useState, useRef } from "react";
+import { locales } from "../../../i18n.config";
+import EmailEditor from "react-email-editor";
 
 const FOLDERS = [
-  { key: 'star_electronic_carousel', label: 'Carousel' },
-  { key: 'star_electronic_gallery', label: 'Gallery' },
+  { key: "star_electronic_carousel", label: "Carousel" },
+  { key: "star_electronic_gallery", label: "Gallery" },
 ];
 
 export default function DashboardClient({ locale, messages }) {
-  const [activeTab, setActiveTab] = useState('carousel'); // 'carousel' | 'gallery' | 'content' | 'colors'
+  const [activeTab, setActiveTab] = useState("carousel"); // 'carousel' | 'gallery' | 'content' | 'colors'
   const [authed, setAuthed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -21,23 +21,23 @@ export default function DashboardClient({ locale, messages }) {
   const t = useMemo(() => {
     return (key, fallback) =>
       key
-        .split('.')
+        .split(".")
         .reduce(
           (o, k) => (o && o[k] !== undefined ? o[k] : undefined),
-          messages
+          messages,
         ) ??
       fallback ??
       key;
   }, [messages]);
 
-  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState(false);
 
   // Auth Effect
   useEffect(() => {
-    const key = window.localStorage.getItem('dashboard_key');
+    const key = window.localStorage.getItem("dashboard_key");
     if (key) {
-      checkKey(key).then(valid => {
+      checkKey(key).then((valid) => {
         if (valid) setAuthed(true);
       });
     }
@@ -46,20 +46,20 @@ export default function DashboardClient({ locale, messages }) {
   // Prevent scrolling when locked
   useEffect(() => {
     if (!authed) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [authed]);
 
   async function checkKey(k) {
     try {
-      const res = await fetch('/api/auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ key: k }),
       });
       return res.ok;
@@ -72,10 +72,10 @@ export default function DashboardClient({ locale, messages }) {
     e?.preventDefault();
     if (!passwordInput) return;
 
-    checkKey(passwordInput).then(valid => {
+    checkKey(passwordInput).then((valid) => {
       if (valid) {
         setAuthed(true);
-        window.localStorage.setItem('dashboard_key', passwordInput);
+        window.localStorage.setItem("dashboard_key", passwordInput);
         setError(false);
       } else {
         setError(true);
@@ -92,8 +92,8 @@ export default function DashboardClient({ locale, messages }) {
       }}
       className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
         activeTab === tab
-          ? 'bg-primary text-primary-foreground shadow-sm'
-          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+          ? "bg-primary text-primary-foreground shadow-sm"
+          : "text-muted-foreground hover:bg-muted hover:text-foreground"
       }`}
     >
       <i className={`fas ${icon} w-5 text-center`}></i>
@@ -102,12 +102,12 @@ export default function DashboardClient({ locale, messages }) {
   );
 
   const bottomNavItems = [
-    { id: 'carousel', icon: 'fa-images', label: 'Carousel' },
-    { id: 'gallery', icon: 'fa-photo-video', label: 'Gallery' },
-    { id: 'content', icon: 'fa-language', label: 'Content' },
-    { id: 'colors', icon: 'fa-palette', label: 'Theme' },
-    { id: 'user-emails', icon: 'fa-envelope-open-text', label: 'User Emails' },
-    { id: 'owner-emails', icon: 'fa-inbox', label: 'Owner Emails' },
+    { id: "carousel", icon: "fa-images", label: "Carousel" },
+    { id: "gallery", icon: "fa-photo-video", label: "Gallery" },
+    { id: "content", icon: "fa-language", label: "Content" },
+    { id: "colors", icon: "fa-palette", label: "Theme" },
+    { id: "user-emails", icon: "fa-envelope-open-text", label: "User Emails" },
+    { id: "owner-emails", icon: "fa-inbox", label: "Owner Emails" },
   ];
 
   return (
@@ -140,15 +140,15 @@ export default function DashboardClient({ locale, messages }) {
                     <input
                       type="password"
                       value={passwordInput}
-                      onChange={e => {
+                      onChange={(e) => {
                         setPasswordInput(e.target.value);
                         setError(false);
                       }}
                       placeholder="Enter access key..."
                       className={`w-full px-4 py-3 rounded-xl bg-muted/50 border ${
                         error
-                          ? 'border-red-500 focus:ring-red-500'
-                          : 'border-border focus:ring-primary'
+                          ? "border-red-500 focus:ring-red-500"
+                          : "border-border focus:ring-primary"
                       } focus:outline-none focus:ring-2 transition-all`}
                       autoFocus
                     />
@@ -195,7 +195,7 @@ export default function DashboardClient({ locale, messages }) {
 
       {/* Mobile Bottom Nav */}
       <div className="lg:hidden fixed -bottom-1 left-0 right-0 bg-background/90 backdrop-blur-xl border-t border-border z-40 flex justify-around items-center h-16 px-1 pb-safe">
-        {bottomNavItems.map(item => (
+        {bottomNavItems.map((item) => (
           <button
             key={item.id}
             onClick={() => {
@@ -204,8 +204,8 @@ export default function DashboardClient({ locale, messages }) {
             }}
             className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${
               activeTab === item.id
-                ? 'text-primary'
-                : 'text-muted-foreground hover:text-foreground'
+                ? "text-primary"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
             <i className={`fas ${item.icon} text-lg`}></i>
@@ -281,7 +281,7 @@ export default function DashboardClient({ locale, messages }) {
           <button
             onClick={() => {
               setAuthed(false);
-              window.localStorage.removeItem('dashboard_key');
+              window.localStorage.removeItem("dashboard_key");
             }}
             className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors"
           >
@@ -293,28 +293,28 @@ export default function DashboardClient({ locale, messages }) {
       {/* Main Content */}
       <main
         className={`flex-1 p-4 pt-8 pb-24 lg:p-8 relative z-10 ${
-          !authed ? 'overflow-hidden' : 'overflow-auto'
+          !authed ? "overflow-hidden" : "overflow-auto"
         }`}
       >
         <div className="max-w-6xl mx-auto">
-          {activeTab === 'carousel' && (
+          {activeTab === "carousel" && (
             <MediaManager
               folderKey="star_electronic_carousel"
               title="Carousel Manager"
               showDescriptions={false}
             />
           )}
-          {activeTab === 'gallery' && (
+          {activeTab === "gallery" && (
             <MediaManager
               folderKey="star_electronic_gallery"
               title="Gallery Manager"
               showDescriptions={true}
             />
           )}
-          {activeTab === 'content' && <ContentEditor currentLocale={locale} />}
-          {activeTab === 'colors' && <ColorEditor />}
-          {activeTab === 'user-emails' && <EmailSettings type="user" />}
-          {activeTab === 'owner-emails' && <EmailSettings type="owner" />}
+          {activeTab === "content" && <ContentEditor currentLocale={locale} />}
+          {activeTab === "colors" && <ColorEditor />}
+          {activeTab === "user-emails" && <EmailSettings type="user" />}
+          {activeTab === "owner-emails" && <EmailSettings type="owner" />}
         </div>
       </main>
     </div>
@@ -341,14 +341,14 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/media?folder=${encodeURIComponent(folder)}`
+        `/api/media?folder=${encodeURIComponent(folder)}`,
       );
       const data = await res.json();
       setItems(data.items || []);
       setDescMap(
         Object.fromEntries(
-          (data.items || []).map(i => [i.id, i.description || ''])
-        )
+          (data.items || []).map((i) => [i.id, i.description || ""]),
+        ),
       );
     } finally {
       setLoading(false);
@@ -359,27 +359,27 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
     const files = e.target.files;
     if (!files?.length) return;
     const form = new FormData();
-    [...files].forEach(f => form.append('files', f));
-    form.append('folder', folder);
-    await fetch('/api/media/upload', { method: 'POST', body: form });
-    e.target.value = '';
+    [...files].forEach((f) => form.append("files", f));
+    form.append("folder", folder);
+    await fetch("/api/media/upload", { method: "POST", body: form });
+    e.target.value = "";
     refresh();
   }
 
   async function onSaveDescriptions() {
-    await fetch('/api/media/descriptions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    await fetch("/api/media/descriptions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ folder, descriptions: descMap }),
     });
     refresh();
   }
 
   async function onReorder(newOrder) {
-    await fetch('/api/media/reorder', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ folder, order: newOrder.map(i => i.id) }),
+    await fetch("/api/media/reorder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ folder, order: newOrder.map((i) => i.id) }),
     });
     refresh();
   }
@@ -387,15 +387,15 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
   async function onConfirmDelete() {
     if (!deletingItem) return;
     try {
-      await fetch('/api/media/delete', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      await fetch("/api/media/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ folder, id: deletingItem.id }),
       });
       setDeletingItem(null);
       refresh();
     } catch (e) {
-      alert('Failed to delete item: ' + e.message);
+      alert("Failed to delete item: " + e.message);
     }
   }
 
@@ -496,9 +496,9 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
                     <textarea
                       className="textarea w-full text-sm resize-none bg-muted/30 focus:bg-background transition-colors min-h-[60px]"
                       placeholder="Enter caption..."
-                      value={descMap[item.id] || ''}
-                      onChange={e =>
-                        setDescMap(m => ({ ...m, [item.id]: e.target.value }))
+                      value={descMap[item.id] || ""}
+                      onChange={(e) =>
+                        setDescMap((m) => ({ ...m, [item.id]: e.target.value }))
                       }
                     />
                   </div>
@@ -545,7 +545,7 @@ function ContentEditor({ currentLocale }) {
   const [selectedLocale, setSelectedLocale] = useState(currentLocale);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [jsonString, setJsonString] = useState('');
+  const [jsonString, setJsonString] = useState("");
 
   useEffect(() => {
     loadContent(selectedLocale);
@@ -566,19 +566,19 @@ function ContentEditor({ currentLocale }) {
   async function handleSave() {
     try {
       const content = JSON.parse(jsonString);
-      const res = await fetch('/api/content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/content", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ locale: selectedLocale, content }),
       });
       if (res.ok) {
-        alert('Saved content successfully!');
+        alert("Saved content successfully!");
         loadContent(selectedLocale);
       } else {
-        alert('Failed to save content.');
+        alert("Failed to save content.");
       }
     } catch (e) {
-      alert('Invalid JSON. Please fix syntax errors.');
+      alert("Invalid JSON. Please fix syntax errors.");
     }
   }
 
@@ -607,9 +607,9 @@ function ContentEditor({ currentLocale }) {
             <select
               className="bg-transparent font-medium outline-none cursor-pointer hover:text-primary transition-colors"
               value={selectedLocale}
-              onChange={e => setSelectedLocale(e.target.value)}
+              onChange={(e) => setSelectedLocale(e.target.value)}
             >
-              {locales.map(l => (
+              {locales.map((l) => (
                 <option className="bg-background" key={l} value={l}>
                   {l.toUpperCase()} - {l}
                 </option>
@@ -630,7 +630,7 @@ function ContentEditor({ currentLocale }) {
             <textarea
               className="w-full h-[65vh] font-mono text-sm p-6 bg-card focus:outline-none resize-none leading-relaxed"
               value={jsonString}
-              onChange={e => setJsonString(e.target.value)}
+              onChange={(e) => setJsonString(e.target.value)}
               spellCheck={false}
             />
           </div>
@@ -642,14 +642,14 @@ function ContentEditor({ currentLocale }) {
 
 function ColorEditor() {
   const [allVariables, setAllVariables] = useState({ light: {}, dark: {} });
-  const [mode, setMode] = useState('light'); // 'light' | 'dark'
+  const [mode, setMode] = useState("light"); // 'light' | 'dark'
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    fetch('/api/colors')
-      .then(r => r.json())
-      .then(data => {
+    fetch("/api/colors")
+      .then((r) => r.json())
+      .then((data) => {
         if (data.variables) {
           setAllVariables(data.variables);
         }
@@ -658,27 +658,27 @@ function ColorEditor() {
   }, []);
 
   async function handleSave() {
-    const res = await fetch('/api/colors', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/colors", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(allVariables),
     });
 
-    if (res.ok) alert('Theme saved! Refresh to see changes.');
-    else alert('Failed to save theme.');
+    if (res.ok) alert("Theme saved! Refresh to see changes.");
+    else alert("Failed to save theme.");
   }
 
   // Helper: Convert "background-color" -> "Background Color"
-  const formatName = key => {
+  const formatName = (key) => {
     return key
-      .replace(/-/g, ' ')
-      .replace(/([A-Z])/g, ' $1') // if camelCase
-      .replace(/^./, str => str.toUpperCase());
+      .replace(/-/g, " ")
+      .replace(/([A-Z])/g, " $1") // if camelCase
+      .replace(/^./, (str) => str.toUpperCase());
   };
 
   // Detect if valid color format we can preview
   // Supports: "255 255 255", "255, 255, 255, 0.5", "rgb(...)", "rgba(...)", "#..."
-  const isColorValue = val => {
+  const isColorValue = (val) => {
     if (!val) return false;
     const v = val.trim();
     // Space separated rgb (Tailwind style sometimes)
@@ -688,43 +688,43 @@ function ColorEditor() {
     if (/^(\d{1,3},\s*){2,3}\d{1,3}(\.?\d+)?$/.test(v)) return true;
 
     // Standard css colors
-    if (v.startsWith('#')) return true;
-    if (v.startsWith('rgb')) return true;
+    if (v.startsWith("#")) return true;
+    if (v.startsWith("rgb")) return true;
     return false;
   };
 
   // Robust converter for the <input type="color"> value
-  const toHexForPicker = val => {
+  const toHexForPicker = (val) => {
     const v = val.trim();
 
     // Helper to match numbers
-    const getNumbers = str => str.match(/[\d\.]+/g)?.map(Number) || [0, 0, 0];
+    const getNumbers = (str) => str.match(/[\d\.]+/g)?.map(Number) || [0, 0, 0];
 
     // 1. Handle space separated "255 255 255"
     if (/^\d{1,3}\s+\d{1,3}\s+\d{1,3}$/.test(v)) {
       const [r, g, b] = getNumbers(v);
-      const hex = x => {
+      const hex = (x) => {
         const h = Math.round(x || 0).toString(16);
-        return h.length === 1 ? '0' + h : h;
+        return h.length === 1 ? "0" + h : h;
       };
       return `#${hex(r)}${hex(g)}${hex(b)}`;
     }
 
     // 2. Handle comma separated "255, 255, 255" or "255, 255, 255, 0.5"
-    if (v.includes(',')) {
+    if (v.includes(",")) {
       const nums = getNumbers(v);
       if (nums.length >= 3) {
         const [r, g, b] = nums;
-        const hex = x => {
+        const hex = (x) => {
           const h = Math.round(x || 0).toString(16);
-          return h.length === 1 ? '0' + h : h;
+          return h.length === 1 ? "0" + h : h;
         };
         return `#${hex(r)}${hex(g)}${hex(b)}`;
       }
     }
 
     // 3. Handle hex
-    if (v.startsWith('#')) {
+    if (v.startsWith("#")) {
       // expand #ccc -> #cccccc
       if (v.length === 4) {
         return `#${v[1]}${v[1]}${v[2]}${v[2]}${v[3]}${v[3]}`;
@@ -733,19 +733,19 @@ function ColorEditor() {
     }
 
     // 4. Handle rgb/rgba
-    if (v.startsWith('rgb')) {
+    if (v.startsWith("rgb")) {
       const nums = getNumbers(v);
       if (nums.length >= 3) {
         const [r, g, b] = nums;
-        const hex = x => {
+        const hex = (x) => {
           const h = Math.round(x || 0).toString(16);
-          return h.length === 1 ? '0' + h : h;
+          return h.length === 1 ? "0" + h : h;
         };
         return `#${hex(r)}${hex(g)}${hex(b)}`;
       }
     }
 
-    return '#000000';
+    return "#000000";
   };
 
   const handlePickerChange = (key, hexValue, originalValue) => {
@@ -775,11 +775,11 @@ function ColorEditor() {
       }
     }
     // Case 3: rgba(...) - Try to preserve alpha
-    else if (v.startsWith('rgb')) {
+    else if (v.startsWith("rgb")) {
       const nums = v.match(/[\d\.]+/g);
       const alpha = nums && nums.length > 3 ? nums[3] : null;
 
-      if (v.startsWith('rgba') || alpha) {
+      if (v.startsWith("rgba") || alpha) {
         newValue = `rgba(${r}, ${g}, ${b}, ${alpha || 1})`;
       } else {
         newValue = `rgb(${r}, ${g}, ${b})`;
@@ -790,12 +790,12 @@ function ColorEditor() {
   };
 
   // Normalize background style string
-  const getBackgroundStyle = val => {
-    if (!val) return 'transparent';
+  const getBackgroundStyle = (val) => {
+    if (!val) return "transparent";
     const v = val.trim();
     // If it's just numbers, wrap it
     if (/^\d{1,3}\s+\d{1,3}\s+\d{1,3}$/.test(v)) {
-      return `rgb(${v.split(' ').join(',')})`;
+      return `rgb(${v.split(" ").join(",")})`;
     }
     if (/^(\d{1,3},\s*){2,3}\d{1,3}(\.?\d+)?$/.test(v)) {
       return `rgba(${v})`;
@@ -804,7 +804,7 @@ function ColorEditor() {
   };
 
   const updateVar = (key, val) => {
-    setAllVariables(prev => ({
+    setAllVariables((prev) => ({
       ...prev,
       [mode]: {
         ...prev[mode],
@@ -821,7 +821,7 @@ function ColorEditor() {
   const darkVars = allVariables.dark || {};
 
   let displayKeys = [];
-  if (mode === 'light') {
+  if (mode === "light") {
     displayKeys = Object.keys(lightVars);
   } else {
     const allKeys = new Set([
@@ -832,16 +832,16 @@ function ColorEditor() {
   }
 
   // FILTER: Remove references (containing 'var(')
-  displayKeys = displayKeys.filter(k => {
+  displayKeys = displayKeys.filter((k) => {
     // check value in current mode
-    let val = '';
-    if (mode === 'light') val = lightVars[k];
+    let val = "";
+    if (mode === "light") val = lightVars[k];
     else val = darkVars[k] !== undefined ? darkVars[k] : lightVars[k];
 
     // If not found (shouldn't happen), skip
     if (!val) return false;
 
-    return !val.includes('var(');
+    return !val.includes("var(");
   });
 
   const handleAlphaChange = (key, newAlpha, originalValue) => {
@@ -854,7 +854,7 @@ function ColorEditor() {
       [r, g, b] = v.split(/\s+/);
     }
     // Comma sep
-    else if (v.includes(',')) {
+    else if (v.includes(",")) {
       const nums = v.match(/[\d\.]+/g) || [];
       r = nums[0];
       g = nums[1];
@@ -873,7 +873,7 @@ function ColorEditor() {
   };
 
   // Helper to extract current alpha
-  const getAlpha = val => {
+  const getAlpha = (val) => {
     if (!val) return 1;
     const v = val.trim();
     const nums = v.match(/[\d\.]+/g);
@@ -895,21 +895,21 @@ function ColorEditor() {
           <div className="bg-muted p-1 rounded-lg flex text-sm font-medium">
             <button
               className={`px-3 py-1.5 rounded-md transition-all ${
-                mode === 'light'
-                  ? 'bg-white text-black shadow'
-                  : 'text-muted-foreground hover:text-foreground'
+                mode === "light"
+                  ? "bg-white text-black shadow"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
-              onClick={() => setMode('light')}
+              onClick={() => setMode("light")}
             >
               <i className="fas fa-sun mr-2"></i> Light
             </button>
             <button
               className={`px-3 py-1.5 rounded-md transition-all ${
-                mode === 'dark'
-                  ? 'bg-black text-white shadow'
-                  : 'text-muted-foreground hover:text-foreground'
+                mode === "dark"
+                  ? "bg-black text-white shadow"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
-              onClick={() => setMode('dark')}
+              onClick={() => setMode("dark")}
             >
               <i className="fas fa-moon mr-2"></i> Dark
             </button>
@@ -924,19 +924,19 @@ function ColorEditor() {
         <div className="p-12 text-center">Loading variables...</div>
       ) : (
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {displayKeys.map(key => {
+          {displayKeys.map((key) => {
             // Determine current value
-            let val = '';
+            let val = "";
             let isInherited = false;
 
-            if (mode === 'light') {
-              val = lightVars[key] || '';
+            if (mode === "light") {
+              val = lightVars[key] || "";
             } else {
               // Dark mode logic
               if (darkVars[key] !== undefined) {
                 val = darkVars[key];
               } else {
-                val = lightVars[key] || '';
+                val = lightVars[key] || "";
                 isInherited = true;
               }
             }
@@ -948,7 +948,7 @@ function ColorEditor() {
               <div
                 key={key}
                 className={`card p-0 overflow-hidden group border transition-all ${
-                  isInherited ? 'opacity-80' : ''
+                  isInherited ? "opacity-80" : ""
                 } hover:border-primary hover:opacity-100`}
               >
                 {isColor ? (
@@ -964,7 +964,7 @@ function ColorEditor() {
                         type="color"
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         value={toHexForPicker(val)}
-                        onChange={e =>
+                        onChange={(e) =>
                           handlePickerChange(key, e.target.value, val)
                         }
                       />
@@ -999,7 +999,7 @@ function ColorEditor() {
                             max="1"
                             step="0.01"
                             value={currentAlpha}
-                            onChange={e =>
+                            onChange={(e) =>
                               handleAlphaChange(key, e.target.value, val)
                             }
                             className="range range-xs range-primary flex-1"
@@ -1013,7 +1013,7 @@ function ColorEditor() {
                         <input
                           className="input w-full px-2 py-1 text-[11px] font-mono bg-muted/30 h-8"
                           value={val}
-                          onChange={e => updateVar(key, e.target.value)}
+                          onChange={(e) => updateVar(key, e.target.value)}
                         />
                       </div>
                     </div>
@@ -1040,7 +1040,7 @@ function ColorEditor() {
                       <input
                         className="input w-full text-sm font-mono"
                         value={val}
-                        onChange={e => updateVar(key, e.target.value)}
+                        onChange={(e) => updateVar(key, e.target.value)}
                       />
                     </div>
                   </div>
@@ -1086,39 +1086,39 @@ function EmailSettings({ type }) {
     emails: {
       ownerEnabled: true,
       userEnabled: true,
-      ownerTemplate: '',
-      userTemplate: '',
+      ownerTemplate: "",
+      userTemplate: "",
       ownerTemplateJson: null,
       userTemplateJson: null,
-      ownerTemplateHtml: '',
-      userTemplateHtml: '',
-      ownerSubject: '',
-      userSubject: '',
+      ownerTemplateHtml: "",
+      userTemplateHtml: "",
+      ownerSubject: "",
+      userSubject: "",
     },
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  const isOwner = type === 'owner';
-  const enabledKey = isOwner ? 'ownerEnabled' : 'userEnabled';
-  const templateKey = isOwner ? 'ownerTemplate' : 'userTemplate';
-  const jsonKey = isOwner ? 'ownerTemplateJson' : 'userTemplateJson';
-  const htmlKey = isOwner ? 'ownerTemplateHtml' : 'userTemplateHtml';
-  const subjectKey = isOwner ? 'ownerSubject' : 'userSubject';
+  const isOwner = type === "owner";
+  const enabledKey = isOwner ? "ownerEnabled" : "userEnabled";
+  const templateKey = isOwner ? "ownerTemplate" : "userTemplate";
+  const jsonKey = isOwner ? "ownerTemplateJson" : "userTemplateJson";
+  const htmlKey = isOwner ? "ownerTemplateHtml" : "userTemplateHtml";
+  const subjectKey = isOwner ? "ownerSubject" : "userSubject";
 
-  const title = isOwner ? 'Store Inquiry Emails' : 'Confirmation User Emails';
+  const title = isOwner ? "Store Inquiry Emails" : "Confirmation User Emails";
   const description = isOwner
-    ? 'These emails are sent to YOU when someone fills out the contact form.'
-    : 'These emails are sent to the CUSTOMER to confirm their request was received.';
+    ? "These emails are sent to YOU when someone fills out the contact form."
+    : "These emails are sent to the CUSTOMER to confirm their request was received.";
 
   const defaultSubject = isOwner
-    ? '[Contact] {{subject}}'
-    : 'We received your request at Star Electronic';
+    ? "[Contact] {{subject}}"
+    : "We received your request at Star Electronic";
 
   useEffect(() => {
-    fetch('/api/settings')
-      .then(res => res.json())
-      .then(data => {
+    fetch("/api/settings")
+      .then((res) => res.json())
+      .then((data) => {
         // Ensure structure exists
         if (!data.emails) data.emails = {};
         if (data.emails.ownerEnabled === undefined)
@@ -1143,7 +1143,7 @@ function EmailSettings({ type }) {
 
     // Export HTML and JSON from the editor
     if (emailEditorRef.current) {
-      emailEditorRef.current.editor.exportHtml(async data => {
+      emailEditorRef.current.editor.exportHtml(async (data) => {
         const { design, html } = data;
 
         const newSettings = {
@@ -1157,15 +1157,15 @@ function EmailSettings({ type }) {
           },
         };
 
-        await fetch('/api/settings', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await fetch("/api/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newSettings),
         });
 
         setSettings(newSettings);
         setSaving(false);
-        alert('Settings saved!');
+        alert("Settings saved!");
       });
     } else {
       // Fallback if editor not loaded (shouldn't happen)
@@ -1190,7 +1190,7 @@ function EmailSettings({ type }) {
           disabled={saving}
           className="btn btn-primary px-6 py-2 w-full md:w-auto"
         >
-          {saving ? 'Saving...' : 'Save Changes'}
+          {saving ? "Saving..." : "Save Changes"}
         </button>
       </div>
 
@@ -1200,23 +1200,23 @@ function EmailSettings({ type }) {
           <div
             className={`w-10 h-10 rounded-full flex items-center justify-center text-lg shrink-0 ${
               isEnabled
-                ? 'bg-green-500/10 text-green-600 dark:text-green-400'
-                : 'bg-red-500/10 text-red-600 dark:text-red-400'
+                ? "bg-green-500/10 text-green-600 dark:text-green-400"
+                : "bg-red-500/10 text-red-600 dark:text-red-400"
             }`}
           >
-            <i className={`fas ${isEnabled ? 'fa-check' : 'fa-ban'}`}></i>
+            <i className={`fas ${isEnabled ? "fa-check" : "fa-ban"}`}></i>
           </div>
           <div>
             <h3 className="text-base font-semibold">
-              {isEnabled ? 'Active' : 'Disabled'}
+              {isEnabled ? "Active" : "Disabled"}
             </h3>
             <p className="text-sm text-muted-foreground">
               {isEnabled
                 ? `Sending ${
-                    isOwner ? 'inquiry' : 'confirmation'
+                    isOwner ? "inquiry" : "confirmation"
                   } emails is currently enabled.`
                 : `Sending ${
-                    isOwner ? 'inquiry' : 'confirmation'
+                    isOwner ? "inquiry" : "confirmation"
                   } emails is currently disabled.`}
             </p>
           </div>
@@ -1234,7 +1234,9 @@ function EmailSettings({ type }) {
               })
             }
           />
-          <div className="w-11 h-6 bg-[rgb(var(--border))] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-[rgb(var(--background))] after:border-[rgb(var(--border))] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary ring-2 ring-[rgb(var(--border))]"></div>
+          <div
+            className={`w-11 h-6 ${isEnabled ? "bg-primary ring-primary" : "bg-[rgb(var(--border))] ring-[rgb(var(--border))]"} rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-[rgb(var(--background))] after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary ring-2`}
+          ></div>
         </label>
       </div>
 
@@ -1245,8 +1247,8 @@ function EmailSettings({ type }) {
           </label>
           <p className="text-xs text-muted-foreground mb-2">
             {isOwner
-              ? 'Available variables: {{name}}, {{subject}}'
-              : 'Available variables: {{name}}, {{subject}}'}
+              ? "Available variables: {{name}}, {{subject}}"
+              : "Available variables: {{name}}, {{subject}}"}
           </p>
           <input
             type="text"
@@ -1256,7 +1258,7 @@ function EmailSettings({ type }) {
                 ? settings.emails[subjectKey]
                 : defaultSubject
             }
-            onChange={e =>
+            onChange={(e) =>
               setSettings({
                 ...settings,
                 emails: { ...settings.emails, [subjectKey]: e.target.value },
@@ -1272,8 +1274,8 @@ function EmailSettings({ type }) {
           </label>
           <p className="text-xs text-muted-foreground mb-2">
             {isOwner
-              ? 'Available variables: {{name}}, {{email}}, {{phone}}, {{company}}, {{subject}}, {{message}}, {{date}}'
-              : 'Available variables: {{name}}, {{subject}}, {{date}}'}
+              ? "Available variables: {{name}}, {{email}}, {{phone}}, {{company}}, {{subject}}, {{message}}, {{date}}"
+              : "Available variables: {{name}}, {{subject}}, {{date}}"}
           </p>
 
           <div className="border border-border rounded-lg overflow-hidden h-[800px]">
@@ -1283,7 +1285,7 @@ function EmailSettings({ type }) {
               minHeight="800px"
               options={{
                 appearance: {
-                  theme: 'modern_light',
+                  theme: "modern_light",
                 },
               }}
             />

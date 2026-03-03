@@ -1,12 +1,12 @@
 /** @format */
-'use client';
+"use client";
 
-import Link from 'next/link';
-import ThemeToggle from './ThemeToggle';
-import StarBackground from './StarBackground';
-import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
+import StarBackground from "./StarBackground";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export default function Navbar({ messages, locale }) {
   const [open, setOpen] = useState(false);
@@ -14,18 +14,18 @@ export default function Navbar({ messages, locale }) {
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
     if (open) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [open]);
 
   const t = (key, fallback) =>
     key
-      .split('.')
+      .split(".")
       .reduce(
         (o, k) => (o && o[k] !== undefined ? o[k] : undefined),
         messages,
@@ -33,11 +33,11 @@ export default function Navbar({ messages, locale }) {
     fallback ??
     key;
   const pathname = usePathname();
-  const base = `/${locale || 'en'}`;
+  const base = `/${locale || "en"}`;
   const links = [
-    { href: `${base}`, label: t ? t('nav.home') : 'Home' },
-    { href: `${base}/gallery`, label: t ? t('nav.gallery') : 'Gallery' },
-    { href: `${base}/contact`, label: t ? t('nav.contact') : 'Contact' },
+    { href: `${base}`, label: t ? t("nav.home") : "Home" },
+    { href: `${base}/gallery`, label: t ? t("nav.gallery") : "Gallery" },
+    { href: `${base}/contact`, label: t ? t("nav.contact") : "Contact" },
   ];
   return (
     <>
@@ -45,7 +45,7 @@ export default function Navbar({ messages, locale }) {
       <header className="lg:hidden z-[110] sticky top-0">
         <div
           className="flex items-center justify-between p-3 border-b-2 bg-background"
-          style={{ borderColor: 'var(--primary-color)' }}
+          style={{ borderColor: "var(--primary-color)" }}
         >
           <Link
             href={base}
@@ -62,10 +62,10 @@ export default function Navbar({ messages, locale }) {
           </Link>
           <div className="flex items-center gap-2">
             <button
-              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               className="p-2 rounded-md focus:outline-none focus:ring"
-              onClick={() => setOpen(o => !o)}
+              onClick={() => setOpen((o) => !o)}
             >
               {/* simple hamburger / close icon */}
               <svg
@@ -119,11 +119,11 @@ export default function Navbar({ messages, locale }) {
         )}
         <aside
           className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-background z-50 transform transition-transform duration-300 ease-out shadow-2xl border-l border-border ${
-            open ? 'translate-x-0' : 'translate-x-full'
+            open ? "translate-x-0" : "translate-x-full"
           }`}
           aria-hidden={!open}
           role="menu"
-          onClick={e => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
         >
           <div className="h-full flex flex-col bg-background">
             <div className="flex items-center justify-between p-6 border-b border-border">
@@ -163,15 +163,15 @@ export default function Navbar({ messages, locale }) {
 
             <nav className="flex-1 px-6 py-8 overflow-y-auto">
               <ul className="space-y-1">
-                {links.map(l => (
+                {links.map((l) => (
                   <li key={l.href}>
                     <Link
                       href={l.href}
                       onClick={() => setOpen(false)}
                       className={`block px-4 py-3 rounded-lg text-lg font-medium transition-all duration-200 ${
                         pathname === l.href
-                          ? 'bg-primary/10 text-primary'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-muted/5'
+                          ? "bg-primary/10 text-primary"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted/5"
                       }`}
                     >
                       {l.label}
@@ -189,7 +189,7 @@ export default function Navbar({ messages, locale }) {
                   </span>
                   <div className="bg-background rounded-lg border border-border shadow-sm">
                     <LangSwitcher
-                      currentLocale={locale || 'en'}
+                      currentLocale={locale || "en"}
                       pathname={pathname || base}
                       mobile={true}
                     />
@@ -211,10 +211,10 @@ export default function Navbar({ messages, locale }) {
 
       {/* PC navbar */}
       <header
-        className={`sticky hidden lg:block top-0 z-[110] bg-background ${
-          pathname !== base ? 'border-b-2' : ''
+        className={`sticky hidden lg:block top-0 z-[500] bg-background ${
+          pathname !== base ? "border-b-2" : ""
         }`}
-        style={pathname !== base ? { borderColor: 'var(--primary-color)' } : {}}
+        style={pathname !== base ? { borderColor: "var(--primary-color)" } : {}}
       >
         {/* Star Layer - Only on Home Page */}
         {pathname === base && (
@@ -233,9 +233,9 @@ export default function Navbar({ messages, locale }) {
             href={base}
             className="font-extrabold tracking-wide text-xl flex items-center"
           >
-            {(pathname?.endsWith('/gallery') ||
-              pathname?.endsWith('/contact') ||
-              pathname?.endsWith('/dashboard')) && (
+            {(pathname?.endsWith("/gallery") ||
+              pathname?.endsWith("/contact") ||
+              pathname?.endsWith("/dashboard")) && (
               <Image
                 src="/onebyone.png"
                 alt="Logo"
@@ -247,19 +247,19 @@ export default function Navbar({ messages, locale }) {
             <h2>Star Electronic</h2>
           </Link>
           <div className="flex items-center gap-2">
-            {links.map(l => (
+            {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 className={`btn btn-link ${
-                  pathname === l.href ? 'text-primary' : ''
+                  pathname === l.href ? "text-primary" : ""
                 }`}
               >
                 {l.label}
               </Link>
             ))}
             <LangSwitcher
-              currentLocale={locale || 'en'}
+              currentLocale={locale || "en"}
               pathname={pathname || base}
             />
             <ThemeToggle />
@@ -279,16 +279,16 @@ function useHasMounted() {
 }
 
 function LangSwitcher({ currentLocale, pathname, mobile }) {
-  const locales = ['en', 'sk', 'cs', 'pl', 'de', 'fr', 'hu', 'uk'];
+  const locales = ["en", "sk", "cs", "pl", "de", "fr", "hu", "uk"];
   const labels = {
-    en: 'English',
-    sk: 'Slovenský',
-    cs: 'Čeština',
-    pl: 'Polski',
-    de: 'Deutsch',
-    fr: 'Français',
-    hu: 'Magyar',
-    uk: 'Українська',
+    en: "English",
+    sk: "Slovenský",
+    cs: "Čeština",
+    pl: "Polski",
+    de: "Deutsch",
+    fr: "Français",
+    hu: "Magyar",
+    uk: "Українська",
   };
   // SVG flag icons for each language
   const flagSVG = {
@@ -448,33 +448,33 @@ function LangSwitcher({ currentLocale, pathname, mobile }) {
   };
   // Emoji fallback for SSR
   const flagEmoji = {
-    en: '🇬🇧',
-    sk: '🇸🇰',
-    cs: '🇨🇿',
-    pl: '🇵🇱',
-    de: '🇩🇪',
-    fr: '🇫🇷',
-    hu: '🇭🇺',
-    uk: '🇺🇦',
+    en: "🇬🇧",
+    sk: "🇸🇰",
+    cs: "🇨🇿",
+    pl: "🇵🇱",
+    de: "🇩🇪",
+    fr: "🇫🇷",
+    hu: "🇭🇺",
+    uk: "🇺🇦",
   };
   function replaceLocale(path, to) {
-    const parts = path.split('/').filter(Boolean);
+    const parts = path.split("/").filter(Boolean);
     if (!parts.length) return `/${to}`;
     parts[0] = to;
-    return `/${parts.join('/')}`;
+    return `/${parts.join("/")}`;
   }
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   useEffect(() => {
-    const onClick = e => {
+    const onClick = (e) => {
       if (!ref.current) return;
       if (!ref.current.contains(e.target)) setOpen(false);
     };
-    document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click', onClick);
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
   }, []);
 
-  const current = currentLocale in labels ? currentLocale : 'en';
+  const current = currentLocale in labels ? currentLocale : "en";
 
   const hasMounted = useHasMounted();
   // Always render British flag emoji and 'English' label on server, swap to correct SVG/label after hydration
@@ -483,27 +483,27 @@ function LangSwitcher({ currentLocale, pathname, mobile }) {
       <button
         type="button"
         className={`btn btn-ghost h-10 px-3 flex items-center gap-2 ${
-          mobile ? 'w-full justify-center' : ''
+          mobile ? "w-full justify-center" : ""
         }`}
         aria-haspopup="menu"
         aria-expanded={open}
         title="Language"
-        onClick={() => setOpen(o => !o)}
+        onClick={() => setOpen((o) => !o)}
         style={{ minWidth: 0 }}
       >
         <span className="inline-flex items-center justify-center w-5 h-5 text-lg leading-none">
-          {hasMounted ? flagSVG[current] : flagSVG['en']}
+          {hasMounted ? flagSVG[current] : flagSVG["en"]}
         </span>
         <span
           className="text-sm text-left translate-y-0.5"
           style={{ minWidth: 0 }}
         >
-          {hasMounted ? labels[current] : 'English'}
+          {hasMounted ? labels[current] : "English"}
         </span>
         {!mobile && (
           <i
             className={`fa-solid fa-caret-down ml-2 opacity-70 duration-300 ease-in-out ${
-              open ? '-rotate-180' : ''
+              open ? "-rotate-180" : ""
             }`}
           ></i>
         )}
@@ -513,21 +513,21 @@ function LangSwitcher({ currentLocale, pathname, mobile }) {
           role="menu"
           className={`absolute z-50 bg-background shadow-lg ${
             mobile
-              ? 'bottom-full mb-2 left-1/2 -translate-x-1/2 w-[180px] rounded-2xl border border-border p-1'
-              : 'right-0 mt-[0.97rem] w-[143.7px] rounded-bl-lg rounded-br-lg border-[0_2px_2px_2px] border-border inset-shadow-sm inset-shadow-top'
+              ? "bottom-full mb-2 left-1/2 -translate-x-1/2 w-[180px] rounded-2xl border border-border p-1"
+              : "right-0 mt-[0.97rem] w-[143.7px] rounded-bl-lg rounded-br-lg border-[0_2px_2px_2px] border-border inset-shadow-sm inset-shadow-top"
           }`}
         >
-          {locales.map(l => (
+          {locales.map((l) => (
             <button
               key={l}
               role="menuitem"
               className={`flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-[color-mix(in_srgb,var(--fg)_6%,transparent)] ${
-                l === (hasMounted ? current : 'en') ? 'text-primary' : ''
-              } ${mobile ? 'rounded-xl justify-center' : ''}`}
+                l === (hasMounted ? current : "en") ? "text-primary" : ""
+              } ${mobile ? "rounded-xl justify-center" : ""}`}
               style={{ minWidth: 0 }}
               onClick={() => {
                 setOpen(false);
-                window.location.assign(replaceLocale(pathname || '/en', l));
+                window.location.assign(replaceLocale(pathname || "/en", l));
               }}
             >
               <span className="inline-flex items-center justify-center w-5 h-5 text-lg leading-none">
