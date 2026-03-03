@@ -91,10 +91,10 @@ export default function Footer({ messages, locale }) {
                 </span>
               </li>
               <li
-                className="flex items-center gap-3 cursor-pointer"
+                className="flex items-start gap-3 cursor-pointer"
                 onClick={(e) => handleCopy(e, "email")}
               >
-                <i className="fas fa-envelope text-primary"></i>
+                <i className="fas fa-envelope text-primary mt-1"></i>
                 <a className="hover:text-[rgb(var(--primary))] transition-all duration-100">
                   {t("footer.email")}
                 </a>
