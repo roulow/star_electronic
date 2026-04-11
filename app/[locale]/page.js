@@ -145,7 +145,7 @@ export default async function HomePage({ params }) {
       ></div>
 
       {/* Features Section - Mobile: Horizontal Scroll Snap, Desktop: Grid */}
-      <section className="relative z-10 bg-background py-12 lg:py-[50px] top-shadow-middle">
+      <section className="relative z-10 bg-background py-12 lg:py-[60px] top-shadow-middle">
         <div className="container mx-auto px-4">
           <div className="text-left lg:text-center mb-8 lg:mb-16">
             <h2 className="text-4xl lg:text-4xl font-black mb-2 lg:mb-4 uppercase tracking-tighter">
