@@ -540,7 +540,7 @@ function LangSwitcher({ currentLocale, pathname, mobile }) {
           className={`absolute z-50 bg-background shadow-lg ${
             mobile
               ? "bottom-full mb-2 left-1/2 -translate-x-1/2 w-[180px] rounded-2xl border border-border p-1"
-              : "right-0 mt-[0.97rem] w-[143.7px] rounded-bl-lg rounded-br-lg border-[0_2px_2px_2px] border-border inset-shadow-sm inset-shadow-top"
+              : "right-0 mt-[0.75rem] w-[134.33px] rounded-bl-lg rounded-br-lg border-[0_2px_2px_2px] border-border inset-shadow-sm inset-shadow-top"
           }`}
         >
           {locales.map((l) => (
