@@ -420,7 +420,7 @@ export default function DocumentsBrowser({ messages }) {
                 key={doc.id}
                 className="card p-4 md:p-5 border border-border rounded-2xl bg-background/70 backdrop-blur-sm"
               >
-                <div className="flex items-start justify-between gap-3 mb-3">
+                <div className="flex items-start justify-between gap-3 mb-3 max-w-[calc(100vw-5rem)]">
                   <div className="min-w-0">
                     <h3 className="text-base md:text-lg font-semibold truncate">
                       {doc.title}
@@ -458,7 +458,7 @@ export default function DocumentsBrowser({ messages }) {
                   )}
                 />
 
-                <div className="flex flex-wrap gap-2">
+                <div className="md:flex md:flex-wrap grid grid-cols-2 gap-2">
                   <a
                     href={doc.url}
                     target="_blank"
