@@ -81,6 +81,14 @@ export default function Footer({ messages, locale }) {
               </li>
               <li>
                 <Link
+                  href={`/${locale || "en"}/documents`}
+                  className="hover:text-[rgb(var(--primary))] transition-colors"
+                >
+                  {t("nav.documents", "Documents")}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href={`/${locale || "en"}/contact`}
                   className="hover:text-[rgb(var(--primary))] transition-colors"
                 >

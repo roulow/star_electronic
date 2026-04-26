@@ -2,10 +2,12 @@
   "nav": {
     "home": "Home",
     "gallery": "Gallery",
+    "documents": "Documents",
     "contact": "Contact",
     "dashboard": "Dashboard",
     "homeDesc": "Return home",
     "galleryDesc": "Browse our gallery",
+    "documentsDesc": "Browse PDF documents",
     "contactDesc": "Send us a message",
     "language": "Language",
     "theme": "Theme"
@@ -43,6 +45,28 @@
     "title": "Gallery",
     "intro": "A selection of recent products and projects.",
     "viewFull": "View Fullscreen"
+  },
+  "documents": {
+    "title": "Documents",
+    "intro": "Search and browse technical PDFs, manuals, and references stored in our document library.",
+    "findTitle": "Find Documents",
+    "findSubtitle": "Search by document title or by the text found inside each PDF.",
+    "searchPlaceholder": "Search by title or content...",
+    "searching": "Searching documents...",
+    "fileMatches": "File names",
+    "contentMatches": "Content inside PDFs",
+    "noFileMatches": "No file-name matches",
+    "noContentMatches": "No content matches",
+    "noPredictions": "No suggestions yet. Try a different term.",
+    "results": "results",
+    "total": "documents",
+    "open": "Open",
+    "download": "Download",
+    "openDocumentAria": "Open {title}",
+    "previewFrameTitle": "{title} first page preview",
+    "previewUnavailable": "Preview unavailable",
+    "noResults": "No documents match your current search.",
+    "empty": "No documents uploaded yet. Add PDFs from the dashboard."
   },
   "contact": {
     "title": "Contact us",

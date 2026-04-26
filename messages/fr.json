@@ -2,10 +2,12 @@
   "nav": {
     "home": "Accueil",
     "gallery": "Galerie",
+    "documents": "Documents",
     "contact": "Contact",
     "dashboard": "Admin",
     "homeDesc": "Retour à l'accueil",
     "galleryDesc": "Parcourez notre galerie",
+    "documentsDesc": "Parcourez les documents PDF",
     "contactDesc": "Envoyez-nous un message",
     "language": "Langue",
     "theme": "Thème"
@@ -43,6 +45,28 @@
     "title": "Galerie",
     "intro": "Une sélection de produits et projets récents.",
     "viewFull": "Plein écran"
+  },
+  "documents": {
+    "title": "Documents",
+    "intro": "Recherchez et parcourez les PDF techniques, manuels et références stockés dans notre bibliothèque de documents.",
+    "findTitle": "Trouver des documents",
+    "findSubtitle": "Recherchez par titre du document ou par texte contenu dans chaque PDF.",
+    "searchPlaceholder": "Rechercher par titre ou contenu...",
+    "searching": "Recherche des documents...",
+    "fileMatches": "Noms de fichiers",
+    "contentMatches": "Contenu dans les PDF",
+    "noFileMatches": "Aucune correspondance de nom de fichier",
+    "noContentMatches": "Aucune correspondance de contenu",
+    "noPredictions": "Aucune suggestion pour le moment. Essayez un autre terme.",
+    "results": "résultats",
+    "total": "documents",
+    "open": "Ouvrir",
+    "download": "Télécharger",
+    "openDocumentAria": "Ouvrir {title}",
+    "previewFrameTitle": "Aperçu de la première page : {title}",
+    "previewUnavailable": "Aperçu indisponible",
+    "noResults": "Aucun document ne correspond à votre recherche actuelle.",
+    "empty": "Aucun document n'a encore été téléversé. Ajoutez des PDF depuis le tableau de bord."
   },
   "contact": {
     "title": "Contactez-nous",

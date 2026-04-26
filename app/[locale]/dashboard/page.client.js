@@ -4,18 +4,14 @@
 
 import StarBackground from "@/components/StarBackground";
 import { useEffect, useMemo, useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import { locales } from "../../../i18n.config";
 import EmailEditor from "react-email-editor";
 import Editor from "@monaco-editor/react";
 import ActionPopover from "@/components/ActionPopover";
 
-const FOLDERS = [
-  { key: "star_electronic_carousel", label: "Carousel" },
-  { key: "star_electronic_gallery", label: "Gallery" },
-];
-
 export default function DashboardClient({ locale, messages }) {
-  const [activeTab, setActiveTab] = useState("carousel"); // 'carousel' | 'gallery' | 'content' | 'colors'
+  const [activeTab, setActiveTab] = useState("carousel"); // 'carousel' | 'gallery' | 'documents' | 'content' | 'colors'
   const [authed, setAuthed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -106,6 +102,7 @@ export default function DashboardClient({ locale, messages }) {
   const bottomNavItems = [
     { id: "carousel", icon: "fa-images", label: "Carousel" },
     { id: "gallery", icon: "fa-photo-video", label: "Gallery" },
+    { id: "documents", icon: "fa-file-pdf", label: "Documents" },
     { id: "content", icon: "fa-language", label: "Content" },
     { id: "colors", icon: "fa-palette", label: "Theme" },
     { id: "user-emails", icon: "fa-envelope-open-text", label: "User Emails" },
@@ -193,7 +190,7 @@ export default function DashboardClient({ locale, messages }) {
       </header>
 
       {/* Mobile Bottom Nav */}
-      <div className="lg:hidden fixed -bottom-1 left-0 right-0 bg-background z-40 flex justify-around items-center h-16 px-1 pb-safe top-shadow-middle">
+      <div className="lg:hidden fixed -bottom-1 left-0 right-0 bg-background z-40 flex items-center h-16 px-1 pb-safe top-shadow-middle overflow-x-auto">
         {bottomNavItems.map((item) => (
           <button
             key={item.id}
@@ -201,7 +198,7 @@ export default function DashboardClient({ locale, messages }) {
               setActiveTab(item.id);
               setMobileMenuOpen(false);
             }}
-            className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${
+            className={`flex-none min-w-[74px] flex flex-col items-center justify-center h-full space-y-1 px-1 ${
               activeTab === item.id
                 ? "text-primary"
                 : "text-muted-foreground hover:text-foreground"
@@ -231,6 +228,7 @@ export default function DashboardClient({ locale, messages }) {
             <div className="space-y-1">
               <NavItem tab="carousel" icon="fa-images" label="Carousel" />
               <NavItem tab="gallery" icon="fa-photo-video" label="Gallery" />
+              <NavItem tab="documents" icon="fa-file-pdf" label="Documents" />
             </div>
           </div>
           <div>
@@ -303,6 +301,12 @@ export default function DashboardClient({ locale, messages }) {
               showDescriptions={true}
             />
           )}
+          {activeTab === "documents" && (
+            <DocumentManager
+              folderKey="star_electronic_documents"
+              title="Documents Manager"
+            />
+          )}
           {activeTab === "content" && <ContentEditor currentLocale={locale} />}
           {activeTab === "colors" && <ColorEditor />}
           {activeTab === "user-emails" && <EmailSettings type="user" />}
@@ -310,6 +314,309 @@ export default function DashboardClient({ locale, messages }) {
         </div>
       </main>
     </div>
+  );
+}
+
+function DeleteConfirmDialog({ open, itemLabel, onCancel, onConfirm }) {
+  const [portalReady, setPortalReady] = useState(false);
+
+  useEffect(() => {
+    setPortalReady(true);
+  }, []);
+
+  if (!open || !portalReady || typeof document === "undefined") return null;
+
+  return createPortal(
+    <>
+      <div
+        className="fixed inset-0 z-[9990] bg-black/55 backdrop-blur-sm"
+        onClick={onCancel}
+        aria-hidden="true"
+      />
+      <div className="fixed inset-0 z-[9991] flex items-end sm:items-center justify-center p-3 sm:p-4">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Confirm deletion"
+          className="w-full max-w-md rounded-2xl border border-border bg-background p-5 sm:p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-200"
+        >
+          <div className="mb-5 flex items-start gap-3">
+            <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-500/12 text-red-500">
+              <i className="fas fa-triangle-exclamation"></i>
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-foreground">
+                Confirm Deletion
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Are you sure you want to remove this {itemLabel}? This action
+                cannot be undone.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+            <button
+              type="button"
+              className="btn w-full sm:w-auto border border-border bg-background text-foreground transition-all duration-200 active:scale-[0.98] hover:bg-muted/40 hover:-translate-y-0.5"
+              onClick={onCancel}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-500 transition-all duration-200 active:scale-[0.98] hover:-translate-y-0.5 hover:bg-red-500 hover:text-white hover:shadow-lg hover:shadow-red-500/30"
+              onClick={onConfirm}
+            >
+              <i className="fas fa-trash-alt mr-2"></i>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </>,
+    document.body,
+  );
+}
+
+function DocumentManager({ folderKey, title }) {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [nameMap, setNameMap] = useState({});
+  const [deletingItem, setDeletingItem] = useState(null);
+  const [popover, setPopover] = useState(null);
+
+  const folder = folderKey;
+
+  useEffect(() => {
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [folder]);
+
+  function defaultTitle(name = "") {
+    return name
+      .replace(/\.pdf$/i, "")
+      .replace(/[_-]+/g, " ")
+      .trim();
+  }
+
+  async function refresh() {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `/api/documents?folder=${encodeURIComponent(folder)}`,
+        { cache: "no-store" },
+      );
+      const data = await res.json();
+      const nextItems = data.items || [];
+      setItems(nextItems);
+      setNameMap(
+        Object.fromEntries(
+          nextItems.map((doc) => [doc.id, doc.title || defaultTitle(doc.name)]),
+        ),
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function onUpload(e) {
+    const files = e.target.files;
+    if (!files?.length) return;
+    const form = new FormData();
+    [...files].forEach((f) => form.append("files", f));
+    form.append("folder", folder);
+    await fetch("/api/media/upload", { method: "POST", body: form });
+    e.target.value = "";
+    refresh();
+  }
+
+  async function onSaveNames(e) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    await fetch("/api/media/descriptions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ folder, descriptions: nameMap }),
+    });
+    setPopover({
+      id: Date.now(),
+      message: "Document names saved!",
+      x: rect.x + rect.width / 2,
+      y: rect.y,
+    });
+    refresh();
+  }
+
+  async function onReorder(newOrder) {
+    await fetch("/api/media/reorder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ folder, order: newOrder.map((i) => i.id) }),
+    });
+    refresh();
+  }
+
+  async function onConfirmDelete(e) {
+    if (!deletingItem) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    try {
+      await fetch("/api/media/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ folder, id: deletingItem.id }),
+      });
+      setDeletingItem(null);
+      refresh();
+    } catch (err) {
+      setPopover({
+        id: Date.now(),
+        message: "Failed: " + err.message,
+        x: rect.x + rect.width / 2,
+        y: rect.y,
+        isError: true,
+      });
+    }
+  }
+
+  return (
+    <>
+      {popover && (
+        <ActionPopover
+          key={popover.id}
+          message={popover.message}
+          x={popover.x}
+          y={popover.y}
+          isError={popover.isError}
+          onClose={() => setPopover(null)}
+        />
+      )}
+      <div className="space-y-6 fade-in-up">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border pb-6">
+          <div>
+            <h2 className="text-lg md:text-3xl font-bold mb-2">{title}</h2>
+            <p className="text-muted-foreground text-sm md:text-base">
+              Upload PDF files, set display names, and reorder how they appear
+              on the documents page.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <label className="btn btn-outline cursor-pointer w-full sm:w-auto justify-center">
+              <i className="fas fa-file-upload mr-2"></i> Upload PDFs
+              <input
+                type="file"
+                accept="application/pdf,.pdf"
+                multiple
+                className="hidden"
+                onChange={onUpload}
+              />
+            </label>
+            <button
+              className="btn btn-primary w-full sm:w-auto justify-center"
+              onClick={onSaveNames}
+            >
+              <i className="fas fa-save mr-2"></i> Save Names
+            </button>
+          </div>
+        </div>
+
+        {loading ? (
+          <div className="flex justify-center p-20">
+            <i className="fas fa-circle-notch fa-spin text-4xl text-primary opacity-50"></i>
+          </div>
+        ) : (
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {items.map((item, idx) => (
+              <div
+                key={item.id}
+                className="bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md transition-all"
+              >
+                <div className="flex items-start gap-3 mb-3">
+                  <i className="fas fa-file-pdf text-primary text-2xl mt-1"></i>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs text-muted-foreground truncate">
+                      {item.name}
+                    </p>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm text-primary hover:underline"
+                    >
+                      Open document
+                    </a>
+                  </div>
+                  <button
+                    className="h-8 w-8 rounded-full bg-muted hover:bg-red-500/15 text-muted-foreground hover:text-red-500 transition-colors"
+                    onClick={() => setDeletingItem(item)}
+                    title="Delete document"
+                  >
+                    <i className="fas fa-trash"></i>
+                  </button>
+                </div>
+
+                <label className="label">Display name</label>
+                <input
+                  className="input w-full mb-3"
+                  value={nameMap[item.id] || ""}
+                  onChange={(e) =>
+                    setNameMap((prev) => ({
+                      ...prev,
+                      [item.id]: e.target.value,
+                    }))
+                  }
+                  placeholder="Document title"
+                />
+
+                <div className="flex items-center gap-2">
+                  <button
+                    className="btn btn-ghost flex-1"
+                    disabled={idx === 0}
+                    onClick={() =>
+                      onReorder([
+                        ...items.slice(0, idx - 1),
+                        items[idx],
+                        items[idx - 1],
+                        ...items.slice(idx + 1),
+                      ])
+                    }
+                  >
+                    <i className="fas fa-arrow-up mr-2"></i> Up
+                  </button>
+                  <button
+                    className="btn btn-ghost flex-1"
+                    disabled={idx === items.length - 1}
+                    onClick={() =>
+                      onReorder([
+                        ...items.slice(0, idx),
+                        items[idx + 1],
+                        items[idx],
+                        ...items.slice(idx + 2),
+                      ])
+                    }
+                  >
+                    <i className="fas fa-arrow-down mr-2"></i> Down
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            {items.length === 0 && (
+              <div className="col-span-full py-20 text-center text-muted-foreground border-2 border-dashed border-border rounded-xl">
+                <i className="fas fa-folder-open text-4xl mb-4 opacity-30"></i>
+                <p>No documents yet. Upload your first PDF to get started.</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      <DeleteConfirmDialog
+        open={!!deletingItem}
+        itemLabel="document"
+        onCancel={() => setDeletingItem(null)}
+        onConfirm={onConfirmDelete}
+      />
+    </>
   );
 }
 
@@ -344,6 +651,7 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
     try {
       const res = await fetch(
         `/api/media?folder=${encodeURIComponent(folder)}`,
+        { cache: "no-store" },
       );
       const data = await res.json();
       setItems(data.items || []);
@@ -406,8 +714,8 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
       refresh();
     } catch (err) {
       setPopover({
-      id: Date.now(),
-      message: "Failed: " + err.message,
+        id: Date.now(),
+        message: "Failed: " + err.message,
         x: rect.x + rect.width / 2,
         y: rect.y,
         isError: true,
@@ -418,7 +726,9 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
   return (
     <>
       {popover && (
-        <ActionPopover key={popover.id} message={popover.message}
+        <ActionPopover
+          key={popover.id}
+          message={popover.message}
           x={popover.x}
           y={popover.y}
           isError={popover.isError}
@@ -549,28 +859,12 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
         )}
       </div>
 
-      {deletingItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <div className="card w-full max-w-sm bg-base-100 p-6 shadow-xl border border-border">
-            <h3 className="text-lg font-bold mb-4">Confirm Deletion</h3>
-            <p className="mb-6 text-sm text-muted-foreground">
-              Are you sure you want to remove this image? This action cannot be
-              undone.
-            </p>
-            <div className="flex justify-end gap-3">
-              <button
-                className="btn btn-ghost"
-                onClick={() => setDeletingItem(null)}
-              >
-                Cancel
-              </button>
-              <button className="btn btn-error" onClick={onConfirmDelete}>
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <DeleteConfirmDialog
+        open={!!deletingItem}
+        itemLabel="image"
+        onCancel={() => setDeletingItem(null)}
+        onConfirm={onConfirmDelete}
+      />
     </>
   );
 }
@@ -603,7 +897,9 @@ function ContentEditor({ currentLocale }) {
   async function loadContent(loc) {
     setLoading(true);
     try {
-      const res = await fetch(`/api/content?locale=${loc}`);
+      const res = await fetch(`/api/content?locale=${loc}`, {
+        cache: "no-store",
+      });
       const json = await res.json();
       setData(json.messages);
       setJsonString(JSON.stringify(json.messages, null, 2));
@@ -623,20 +919,24 @@ function ContentEditor({ currentLocale }) {
         body: JSON.stringify({ locale: selectedLocale, content }),
       });
       if (res.ok) {
-        setPopover({ id: Date.now(), message: "Saved content successfully!", ...coords });
+        setPopover({
+          id: Date.now(),
+          message: "Saved content successfully!",
+          ...coords,
+        });
         loadContent(selectedLocale);
       } else {
         setPopover({
-      id: Date.now(),
-      message: "Failed to save content.",
+          id: Date.now(),
+          message: "Failed to save content.",
           isError: true,
           ...coords,
         });
       }
     } catch (err) {
       setPopover({
-      id: Date.now(),
-      message: "Invalid JSON. Please fix syntax errors.",
+        id: Date.now(),
+        message: "Invalid JSON. Please fix syntax errors.",
         isError: true,
         ...coords,
       });
@@ -646,7 +946,9 @@ function ContentEditor({ currentLocale }) {
   return (
     <div className="space-y-6 fade-in-up">
       {popover && (
-        <ActionPopover key={popover.id} message={popover.message}
+        <ActionPopover
+          key={popover.id}
+          message={popover.message}
           x={popover.x}
           y={popover.y}
           isError={popover.isError}
@@ -726,7 +1028,7 @@ function ColorEditor() {
 
   useEffect(() => {
     setLoading(true);
-    fetch("/api/colors")
+    fetch("/api/colors", { cache: "no-store" })
       .then((r) => r.json())
       .then((data) => {
         if (data.variables) {
@@ -748,14 +1050,14 @@ function ColorEditor() {
 
     if (res.ok)
       setPopover({
-      id: Date.now(),
-      message: "Theme saved! Refresh to see changes.",
+        id: Date.now(),
+        message: "Theme saved! Refresh to see changes.",
         ...coords,
       });
     else
       setPopover({
-      id: Date.now(),
-      message: "Failed to save theme.",
+        id: Date.now(),
+        message: "Failed to save theme.",
         isError: true,
         ...coords,
       });
@@ -978,7 +1280,9 @@ function ColorEditor() {
   return (
     <div className="space-y-6 fade-in-up">
       {popover && (
-        <ActionPopover key={popover.id} message={popover.message}
+        <ActionPopover
+          key={popover.id}
+          message={popover.message}
           x={popover.x}
           y={popover.y}
           isError={popover.isError}
@@ -1218,7 +1522,7 @@ function EmailSettings({ type }) {
     : "We received your request at Star Electronic";
 
   useEffect(() => {
-    fetch("/api/settings")
+    fetch("/api/settings", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         // Ensure structure exists
@@ -1409,7 +1713,9 @@ function EmailSettings({ type }) {
   return (
     <div className="space-y-6">
       {popover && (
-        <ActionPopover key={popover.id} message={popover.message}
+        <ActionPopover
+          key={popover.id}
+          message={popover.message}
           x={popover.x}
           y={popover.y}
           isError={popover.isError}

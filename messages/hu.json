@@ -2,10 +2,12 @@
   "nav": {
     "home": "Főoldal",
     "gallery": "Galéria",
+    "documents": "Dokumentumok",
     "contact": "Kapcsolat",
     "dashboard": "Admin",
     "homeDesc": "Vissza a kezdőlapra",
     "galleryDesc": "Böngésszen galériánkban",
+    "documentsDesc": "PDF dokumentumok böngészése",
     "contactDesc": "Küldjön nekünk üzenetet",
     "language": "Nyelv",
     "theme": "Téma"
@@ -43,6 +45,28 @@
     "title": "Galéria",
     "intro": "Válogatás a legutóbbi termékekből és projektekből.",
     "viewFull": "Teljes képernyő"
+  },
+  "documents": {
+    "title": "Dokumentumok",
+    "intro": "Keressen és böngésszen műszaki PDF-ek, kézikönyvek és hivatkozások között a dokumentumtárunkban.",
+    "findTitle": "Dokumentumok keresése",
+    "findSubtitle": "Keresés dokumentumcím alapján vagy a PDF-ekben található szöveg szerint.",
+    "searchPlaceholder": "Keresés cím vagy tartalom alapján...",
+    "searching": "Dokumentumok keresése...",
+    "fileMatches": "Fájlnevek",
+    "contentMatches": "Tartalom a PDF-ekben",
+    "noFileMatches": "Nincs találat a fájlnevekben",
+    "noContentMatches": "Nincs találat a tartalomban",
+    "noPredictions": "Még nincs javaslat. Próbáljon másik kifejezést.",
+    "results": "találat",
+    "total": "dokumentum",
+    "open": "Megnyitás",
+    "download": "Letöltés",
+    "openDocumentAria": "{title} megnyitása",
+    "previewFrameTitle": "Első oldal előnézete: {title}",
+    "previewUnavailable": "Az előnézet nem érhető el",
+    "noResults": "Nincs a keresésnek megfelelő dokumentum.",
+    "empty": "Még nincs feltöltött dokumentum. Adjon hozzá PDF-eket a dashboardról."
   },
   "contact": {
     "title": "Lépjen kapcsolatba velünk",

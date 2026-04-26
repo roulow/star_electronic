@@ -2,10 +2,12 @@
   "nav": {
     "home": "Strona główna",
     "gallery": "Galeria",
+    "documents": "Dokumenty",
     "contact": "Kontakt",
     "dashboard": "Panel",
     "homeDesc": "Powrót na stronę główną",
     "galleryDesc": "Przeglądaj galerię",
+    "documentsDesc": "Przeglądaj dokumenty PDF",
     "contactDesc": "Wyślij nam wiadomość",
     "language": "Język",
     "theme": "Motyw"
@@ -43,6 +45,28 @@
     "title": "Galeria",
     "intro": "Wybrane ostatnie produkty i projekty.",
     "viewFull": "Pełny ekran"
+  },
+  "documents": {
+    "title": "Dokumenty",
+    "intro": "Wyszukuj i przeglądaj techniczne pliki PDF, instrukcje oraz materiały referencyjne zapisane w naszej bibliotece dokumentów.",
+    "findTitle": "Znajdź dokumenty",
+    "findSubtitle": "Szukaj po tytule dokumentu lub po treści wewnątrz PDF.",
+    "searchPlaceholder": "Szukaj po tytule lub treści...",
+    "searching": "Wyszukiwanie dokumentów...",
+    "fileMatches": "Nazwy plików",
+    "contentMatches": "Treść wewnątrz PDF",
+    "noFileMatches": "Brak dopasowań nazw plików",
+    "noContentMatches": "Brak dopasowań treści",
+    "noPredictions": "Brak podpowiedzi. Spróbuj innego hasła.",
+    "results": "wyników",
+    "total": "dokumentów",
+    "open": "Otwórz",
+    "download": "Pobierz",
+    "openDocumentAria": "Otwórz {title}",
+    "previewFrameTitle": "Podgląd pierwszej strony: {title}",
+    "previewUnavailable": "Podgląd niedostępny",
+    "noResults": "Brak dokumentów pasujących do bieżącego wyszukiwania.",
+    "empty": "Brak wgranych dokumentów. Dodaj pliki PDF z panelu."
   },
   "contact": {
     "title": "Skontaktuj się z nami",

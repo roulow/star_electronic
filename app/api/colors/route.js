@@ -1,15 +1,26 @@
-import { readSettings, writeSettings } from '@/lib/storage';
+/** @format */
+
+import { readSettings, writeSettings } from "@/lib/storage";
 
 export async function GET() {
   try {
     const settings = await readSettings();
     // Return the theme object, or empty defaults if not set
-    return Response.json({
-      variables: settings.theme || { light: {}, dark: {} },
-    });
+    return new Response(
+      JSON.stringify({
+        variables: settings.theme || { light: {}, dark: {} },
+      }),
+      {
+        headers: {
+          "content-type": "application/json",
+          "cache-control":
+            "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+        },
+      },
+    );
   } catch (error) {
     console.error(error);
-    return Response.json({ error: 'Failed to read settings' }, { status: 500 });
+    return Response.json({ error: "Failed to read settings" }, { status: 500 });
   }
 }
 
@@ -33,6 +44,6 @@ export async function POST(request) {
     return Response.json({ success: true });
   } catch (error) {
     console.error(error);
-    return Response.json({ error: 'Failed to save settings' }, { status: 500 });
+    return Response.json({ error: "Failed to save settings" }, { status: 500 });
   }
 }

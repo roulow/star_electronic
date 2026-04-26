@@ -11,7 +11,9 @@ export default function GalleryGrid({ folder, viewFullText }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/media?folder=${encodeURIComponent(folder)}`)
+    fetch(`/api/media?folder=${encodeURIComponent(folder)}`, {
+      cache: "force-cache",
+    })
       .then((r) => r.json())
       .then((d) => setItems(d.items || []))
       .finally(() => setLoading(false));
@@ -43,6 +45,8 @@ export default function GalleryGrid({ folder, viewFullText }) {
               src={it.url}
               alt={it.name}
               loading="lazy"
+              decoding="async"
+              fetchPriority="low"
               className="w-full h-auto object-cover transform lg:group-hover:scale-105 transition-transform duration-500"
             />
 
@@ -103,6 +107,8 @@ export default function GalleryGrid({ folder, viewFullText }) {
               <img
                 src={selectedImage.url}
                 alt={selectedImage.description || "Expanded view"}
+                loading="eager"
+                decoding="async"
                 className="max-w-full max-h-full object-contain rounded-md shadow-2xl pointer-events-auto"
               />
             </div>

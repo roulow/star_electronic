@@ -5,7 +5,7 @@ import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import StarBackground from "./StarBackground";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 export default function Navbar({ messages, locale }) {
@@ -46,6 +46,12 @@ export default function Navbar({ messages, locale }) {
       label: t("nav.gallery", "Gallery"),
       desc: t("nav.galleryDesc", "Browse our gallery"),
       icon: "fa-image",
+    },
+    {
+      href: `${base}/documents`,
+      label: t("nav.documents", "Documents"),
+      desc: t("nav.documentsDesc", "Browse PDF documents"),
+      icon: "fa-file-lines",
     },
     {
       href: `${base}/contact`,
@@ -260,6 +266,7 @@ export default function Navbar({ messages, locale }) {
             className="font-extrabold tracking-wide text-xl flex items-center"
           >
             {(pathname?.endsWith("/gallery") ||
+              pathname?.endsWith("/documents") ||
               pathname?.endsWith("/contact") ||
               pathname?.endsWith("/dashboard")) && (
               <Image
@@ -497,7 +504,7 @@ function LangSwitcher({ currentLocale, pathname, mobile }) {
     width: 0,
   });
 
-  function updateDesktopMenuPosition() {
+  const updateDesktopMenuPosition = useCallback(() => {
     if (mobile || !buttonRef.current || !ref.current) return;
     const nav = ref.current.closest("nav");
     if (!nav) return;
@@ -507,7 +514,7 @@ function LangSwitcher({ currentLocale, pathname, mobile }) {
       left: buttonRect.left - navRect.left,
       width: buttonRect.width,
     });
-  }
+  }, [mobile]);
 
   useEffect(() => {
     if (!open || mobile) return;
@@ -516,7 +523,7 @@ function LangSwitcher({ currentLocale, pathname, mobile }) {
     const onResize = () => updateDesktopMenuPosition();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [open, mobile, currentLocale, pathname]);
+  }, [open, mobile, currentLocale, pathname, updateDesktopMenuPosition]);
 
   useEffect(() => {
     const onClick = (e) => {

@@ -2,10 +2,12 @@
   "nav": {
     "home": "Domů",
     "gallery": "Galerie",
+    "documents": "Dokumenty",
     "contact": "Kontakt",
     "dashboard": "Správa",
     "homeDesc": "Zpět na úvodní stránku",
     "galleryDesc": "Prohlédněte si galerii",
+    "documentsDesc": "Procházejte PDF dokumenty",
     "contactDesc": "Pošlete nám zprávu",
     "language": "Jazyk",
     "theme": "Motiv"
@@ -43,6 +45,28 @@
     "title": "Galerie",
     "intro": "Výběr nedávných produktů a projektů.",
     "viewFull": "Zobrazit"
+  },
+  "documents": {
+    "title": "Dokumenty",
+    "intro": "Vyhledávejte a procházejte technické PDF, manuály a reference uložené v naší knihovně dokumentů.",
+    "findTitle": "Najít dokumenty",
+    "findSubtitle": "Hledejte podle názvu dokumentu nebo textu uvnitř PDF.",
+    "searchPlaceholder": "Hledat podle názvu nebo obsahu...",
+    "searching": "Vyhledávám dokumenty...",
+    "fileMatches": "Názvy souborů",
+    "contentMatches": "Obsah uvnitř PDF",
+    "noFileMatches": "Žádná shoda v názvech souborů",
+    "noContentMatches": "Žádná shoda v obsahu",
+    "noPredictions": "Zatím žádné návrhy. Zkuste jiný výraz.",
+    "results": "výsledků",
+    "total": "dokumentů",
+    "open": "Otevřít",
+    "download": "Stáhnout",
+    "openDocumentAria": "Otevřít {title}",
+    "previewFrameTitle": "Náhled první stránky: {title}",
+    "previewUnavailable": "Náhled není k dispozici",
+    "noResults": "Žádné dokumenty neodpovídají aktuálnímu hledání.",
+    "empty": "Zatím nejsou nahrány žádné dokumenty. Přidejte PDF z dashboardu."
   },
   "contact": {
     "title": "Kontaktujte nás",

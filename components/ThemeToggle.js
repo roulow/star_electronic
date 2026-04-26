@@ -1,7 +1,7 @@
 /** @format */
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const opts = [
   { key: "light", label: "Light" },
@@ -41,14 +41,14 @@ export default function ThemeToggle({ mobile }) {
   const wrapperRef = useRef(null);
   const [desktopMenuTop, setDesktopMenuTop] = useState(0);
 
-  function updateDesktopMenuTop() {
+  const updateDesktopMenuTop = useCallback(() => {
     if (mobile || !wrapperRef.current) return;
     const nav = wrapperRef.current.closest("nav");
     if (!nav) return;
     const navRect = nav.getBoundingClientRect();
     const wrapperRect = wrapperRef.current.getBoundingClientRect();
     setDesktopMenuTop(navRect.bottom - wrapperRect.top);
-  }
+  }, [mobile]);
 
   useEffect(() => {
     if (!open || mobile) return;
@@ -57,7 +57,7 @@ export default function ThemeToggle({ mobile }) {
     const onResize = () => updateDesktopMenuTop();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [open, mobile]);
+  }, [open, mobile, updateDesktopMenuTop]);
 
   useEffect(() => {
     const onDocClick = (e) => {

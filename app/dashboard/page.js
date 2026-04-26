@@ -1,13 +1,13 @@
 /** @format */
 /* eslint-disable @next/next/no-img-element */
-'use client';
+"use client";
 
-import StarBackground from '@/components/StarBackground';
-import { useEffect, useState } from 'react';
+import StarBackground from "@/components/StarBackground";
+import { useEffect, useState } from "react";
 
 const FOLDERS = [
-  { key: 'star_electronic_carousel', label: 'Carousel' },
-  { key: 'star_electronic_gallery', label: 'Gallery' },
+  { key: "star_electronic_carousel", label: "Carousel" },
+  { key: "star_electronic_gallery", label: "Gallery" },
 ];
 
 export default function DashboardPage() {
@@ -29,14 +29,17 @@ export default function DashboardPage() {
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/media?folder=${encodeURIComponent(folder)}`
+        `/api/media?folder=${encodeURIComponent(folder)}`,
+        {
+          cache: "no-store",
+        },
       );
       const data = await res.json();
       setItems(data.items || []);
       setDescMap(
         Object.fromEntries(
-          (data.items || []).map(i => [i.id, i.description || ''])
-        )
+          (data.items || []).map((i) => [i.id, i.description || ""]),
+        ),
       );
     } finally {
       setLoading(false);
@@ -44,22 +47,22 @@ export default function DashboardPage() {
   }
 
   function promptKey() {
-    const k = window.prompt('Enter access key');
+    const k = window.prompt("Enter access key");
     if (!k) return;
-    fetch('/api/auth', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("/api/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ key: k }),
     })
-      .then(r => (r.ok ? setAuthed(true) : alert('Invalid key')))
-      .catch(() => alert('Error'));
+      .then((r) => (r.ok ? setAuthed(true) : alert("Invalid key")))
+      .catch(() => alert("Error"));
   }
 
   async function onReorder(newOrder) {
-    await fetch('/api/media/reorder', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ folder, order: newOrder.map(i => i.id) }),
+    await fetch("/api/media/reorder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ folder, order: newOrder.map((i) => i.id) }),
     });
     refresh();
   }
@@ -71,29 +74,29 @@ export default function DashboardPage() {
     setLoading(true); // Show loading state immediately
     try {
       const form = new FormData();
-      [...files].forEach(f => form.append('files', f));
-      form.append('folder', folder);
+      [...files].forEach((f) => form.append("files", f));
+      form.append("folder", folder);
 
-      const res = await fetch('/api/media/upload', {
-        method: 'POST',
+      const res = await fetch("/api/media/upload", {
+        method: "POST",
         body: form,
       });
-      if (!res.ok) throw new Error('Upload failed');
+      if (!res.ok) throw new Error("Upload failed");
 
-      e.target.value = '';
+      e.target.value = "";
       // Wait a short moment for Cloudinary to index/process if needed, though Admin API is fast
-      await new Promise(r => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, 1000));
       await refresh();
     } catch (err) {
-      alert('Upload failed: ' + err.message);
+      alert("Upload failed: " + err.message);
       setLoading(false);
     }
   }
 
   async function onSaveDescriptions() {
-    await fetch('/api/media/descriptions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    await fetch("/api/media/descriptions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ folder, descriptions: descMap }),
     });
     refresh();
@@ -102,15 +105,15 @@ export default function DashboardPage() {
   async function onConfirmDelete() {
     if (!deletingItem) return;
     try {
-      await fetch('/api/media/delete', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      await fetch("/api/media/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ folder, id: deletingItem.id }),
       });
       setDeletingItem(null);
       refresh();
     } catch (e) {
-      alert('Failed to delete item: ' + e.message);
+      alert("Failed to delete item: " + e.message);
     }
   }
 
@@ -137,9 +140,9 @@ export default function DashboardPage() {
           <select
             className="input w-auto"
             value={folder}
-            onChange={e => setFolder(e.target.value)}
+            onChange={(e) => setFolder(e.target.value)}
           >
-            {FOLDERS.map(f => (
+            {FOLDERS.map((f) => (
               <option key={f.key} value={f.key}>
                 {f.label}
               </option>
@@ -195,9 +198,9 @@ export default function DashboardPage() {
                     className="textarea w-full"
                     rows={2}
                     placeholder="Description"
-                    value={descMap[item.id] || ''}
-                    onChange={e =>
-                      setDescMap(m => ({ ...m, [item.id]: e.target.value }))
+                    value={descMap[item.id] || ""}
+                    onChange={(e) =>
+                      setDescMap((m) => ({ ...m, [item.id]: e.target.value }))
                     }
                   />
                   <div className="flex items-center justify-between text-xs">
