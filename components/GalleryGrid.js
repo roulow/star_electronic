@@ -8,16 +8,32 @@ export default function GalleryGrid({ folder, viewFullText }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [cacheVersion, setCacheVersion] = useState(null);
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/media?folder=${encodeURIComponent(folder)}`, {
+    setCacheVersion(null);
+    fetch(`/api/media/version?folder=${encodeURIComponent(folder)}`, {
+      cache: "no-store",
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        const nextVersion = Number(d?.version);
+        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
+      })
+      .catch(() => setCacheVersion(0));
+  }, [folder]);
+
+  useEffect(() => {
+    if (cacheVersion === null) return;
+    setLoading(true);
+    fetch(`/api/media?folder=${encodeURIComponent(folder)}&v=${cacheVersion}`, {
       cache: "force-cache",
     })
       .then((r) => r.json())
       .then((d) => setItems(d.items || []))
       .finally(() => setLoading(false));
-  }, [folder]);
+  }, [folder, cacheVersion]);
 
   if (loading) {
     return (

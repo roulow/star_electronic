@@ -1,6 +1,7 @@
 /** @format */
 import { requireKey } from "../../auth/_utils";
 import {
+  bumpMediaVersion,
   uploadFiles,
   readMediaMeta,
   writeMediaMeta,
@@ -57,6 +58,8 @@ export async function POST(req) {
 
   const uploaded = (await uploadFiles(folder, incoming)) || [];
 
+  let version = null;
+
   if (folder === DOCUMENTS_FOLDER) {
     const meta = await readMediaMeta(folder);
     const descriptions = { ...(meta.descriptions || {}) };
@@ -73,12 +76,17 @@ export async function POST(req) {
       contentIndex[uploadedItem.id] = await extractPdfText(file);
     }
 
+    const nextVersion = Date.now();
     await writeMediaMeta(folder, {
       ...meta,
       descriptions,
       contentIndex,
+      version: nextVersion,
     });
+    version = nextVersion;
+  } else {
+    version = await bumpMediaVersion(folder);
   }
 
-  return Response.json({ ok: true, items: uploaded });
+  return Response.json({ ok: true, items: uploaded, version });
 }

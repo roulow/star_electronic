@@ -1,6 +1,6 @@
 /** @format */
 
-import { deleteMedia } from "@/lib/storage";
+import { deleteMedia, getMediaVersion } from "@/lib/storage";
 import { requireKey } from "../../auth/_utils";
 
 export async function POST(req) {
@@ -16,7 +16,8 @@ export async function POST(req) {
     }
 
     await deleteMedia(folder, id);
-    return Response.json({ success: true });
+    const version = await getMediaVersion(folder, { bypassCache: true });
+    return Response.json({ success: true, version });
   } catch (e) {
     return new Response(JSON.stringify({ error: e.message }), { status: 500 });
   }

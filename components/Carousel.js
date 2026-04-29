@@ -6,6 +6,7 @@ import Image from "next/image";
 
 export default function Carousel({ folder }) {
   const [items, setItems] = useState([]);
+  const [cacheVersion, setCacheVersion] = useState(null);
   // index of the currently centered item in items[]
   const [idx, setIdx] = useState(0);
   // animation state: -1 (animating right -> show prev), 0 idle, 1 (animating left -> show next)
@@ -27,7 +28,29 @@ export default function Carousel({ folder }) {
 
   useEffect(() => {
     let active = true;
-    fetch(`/api/media?folder=${encodeURIComponent(folder)}`, {
+    setCacheVersion(null);
+    fetch(`/api/media/version?folder=${encodeURIComponent(folder)}`, {
+      cache: "no-store",
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (!active) return;
+        const nextVersion = Number(d?.version);
+        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
+      })
+      .catch(() => {
+        if (!active) return;
+        setCacheVersion(0);
+      });
+    return () => {
+      active = false;
+    };
+  }, [folder]);
+
+  useEffect(() => {
+    if (cacheVersion === null) return;
+    let active = true;
+    fetch(`/api/media?folder=${encodeURIComponent(folder)}&v=${cacheVersion}`, {
       cache: "force-cache",
     })
       .then((r) => r.json())
@@ -43,7 +66,7 @@ export default function Carousel({ folder }) {
     return () => {
       active = false;
     };
-  }, [folder]);
+  }, [folder, cacheVersion]);
 
   // auto-advance
   useEffect(() => {

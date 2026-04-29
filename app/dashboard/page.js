@@ -3,7 +3,7 @@
 "use client";
 
 import StarBackground from "@/components/StarBackground";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const FOLDERS = [
   { key: "star_electronic_carousel", label: "Carousel" },
@@ -18,20 +18,51 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [descMap, setDescMap] = useState({});
+  const [cacheVersion, setCacheVersion] = useState(null);
+  const skipRefreshRef = useRef(false);
 
   useEffect(() => {
     if (!authed) return;
-    refresh();
+    let active = true;
+    setCacheVersion(null);
+    fetch(`/api/media/version?folder=${encodeURIComponent(folder)}`, {
+      cache: "no-store",
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (!active) return;
+        const nextVersion = Number(data?.version);
+        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
+      })
+      .catch(() => {
+        if (active) setCacheVersion(0);
+      });
+    return () => {
+      active = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authed, folder]);
+
+  useEffect(() => {
+    if (!authed) return;
+    if (cacheVersion === null) return;
+    if (skipRefreshRef.current) {
+      skipRefreshRef.current = false;
+      return;
+    }
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authed, folder, cacheVersion]);
 
   async function refresh() {
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/media?folder=${encodeURIComponent(folder)}`,
+        `/api/media?folder=${encodeURIComponent(
+          folder,
+        )}&v=${cacheVersion ?? 0}`,
         {
-          cache: "no-store",
+          cache: "force-cache",
         },
       );
       const data = await res.json();
@@ -41,6 +72,11 @@ export default function DashboardPage() {
           (data.items || []).map((i) => [i.id, i.description || ""]),
         ),
       );
+      const nextVersion = Number(data?.version);
+      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+        skipRefreshRef.current = true;
+        setCacheVersion(nextVersion);
+      }
     } finally {
       setLoading(false);
     }
@@ -59,19 +95,24 @@ export default function DashboardPage() {
   }
 
   async function onReorder(newOrder) {
-    await fetch("/api/media/reorder", {
+    const res = await fetch("/api/media/reorder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ folder, order: newOrder.map((i) => i.id) }),
     });
-    refresh();
+    const data = await res.json();
+    const nextVersion = Number(data?.version);
+    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+      skipRefreshRef.current = true;
+      setCacheVersion(nextVersion);
+    }
+    setItems(newOrder);
   }
 
   async function onUpload(e) {
     const files = e.target.files;
     if (!files?.length) return;
 
-    setLoading(true); // Show loading state immediately
     try {
       const form = new FormData();
       [...files].forEach((f) => form.append("files", f));
@@ -81,12 +122,32 @@ export default function DashboardPage() {
         method: "POST",
         body: form,
       });
+      const data = await res.json();
+      const uploadedItems = Array.isArray(data?.items) ? data.items : [];
+      if (uploadedItems.length) {
+        const uploadedIds = new Set(uploadedItems.map((item) => item.id));
+        setItems((prev) => [
+          ...uploadedItems,
+          ...prev.filter((item) => !uploadedIds.has(item.id)),
+        ]);
+        setDescMap((prev) => {
+          const next = { ...prev };
+          for (const item of uploadedItems) {
+            if (next[item.id] === undefined) {
+              next[item.id] = "";
+            }
+          }
+          return next;
+        });
+      }
+      const nextVersion = Number(data?.version);
+      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+        skipRefreshRef.current = true;
+        setCacheVersion(nextVersion);
+      }
       if (!res.ok) throw new Error("Upload failed");
 
       e.target.value = "";
-      // Wait a short moment for Cloudinary to index/process if needed, though Admin API is fast
-      await new Promise((r) => setTimeout(r, 1000));
-      await refresh();
     } catch (err) {
       alert("Upload failed: " + err.message);
       setLoading(false);
@@ -94,24 +155,41 @@ export default function DashboardPage() {
   }
 
   async function onSaveDescriptions() {
-    await fetch("/api/media/descriptions", {
+    const res = await fetch("/api/media/descriptions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ folder, descriptions: descMap }),
     });
-    refresh();
+    const data = await res.json();
+    const nextVersion = Number(data?.version);
+    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+      skipRefreshRef.current = true;
+      setCacheVersion(nextVersion);
+    }
   }
 
   async function onConfirmDelete() {
     if (!deletingItem) return;
     try {
-      await fetch("/api/media/delete", {
+      const res = await fetch("/api/media/delete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ folder, id: deletingItem.id }),
       });
+      const data = await res.json();
+      const nextVersion = Number(data?.version);
+      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+        skipRefreshRef.current = true;
+        setCacheVersion(nextVersion);
+      }
+      const deletingId = deletingItem.id;
       setDeletingItem(null);
-      refresh();
+      setItems((prev) => prev.filter((item) => item.id !== deletingId));
+      setDescMap((prev) => {
+        const next = { ...prev };
+        delete next[deletingId];
+        return next;
+      });
     } catch (e) {
       alert("Failed to delete item: " + e.message);
     }

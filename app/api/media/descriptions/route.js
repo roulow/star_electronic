@@ -1,6 +1,6 @@
 /** @format */
 import { requireKey } from "../../auth/_utils";
-import { updateDescriptions } from "../../../../lib/storage";
+import { getMediaVersion, updateDescriptions } from "../../../../lib/storage";
 
 export async function POST(req) {
   await requireKey(req);
@@ -11,5 +11,6 @@ export async function POST(req) {
     });
   }
   await updateDescriptions(folder, descriptions);
-  return Response.json({ ok: true });
+  const version = await getMediaVersion(folder, { bypassCache: true });
+  return Response.json({ ok: true, version });
 }

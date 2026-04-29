@@ -385,13 +385,40 @@ function DocumentManager({ folderKey, title }) {
   const [nameMap, setNameMap] = useState({});
   const [deletingItem, setDeletingItem] = useState(null);
   const [popover, setPopover] = useState(null);
+  const [cacheVersion, setCacheVersion] = useState(null);
+  const skipRefreshRef = useRef(false);
 
   const folder = folderKey;
 
   useEffect(() => {
+    let active = true;
+    setCacheVersion(null);
+    fetch(`/api/media/version?folder=${encodeURIComponent(folder)}`, {
+      cache: "no-store",
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (!active) return;
+        const nextVersion = Number(data?.version);
+        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
+      })
+      .catch(() => {
+        if (active) setCacheVersion(0);
+      });
+    return () => {
+      active = false;
+    };
+  }, [folder]);
+
+  useEffect(() => {
+    if (cacheVersion === null) return;
+    if (skipRefreshRef.current) {
+      skipRefreshRef.current = false;
+      return;
+    }
     refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [folder]);
+  }, [folder, cacheVersion]);
 
   function defaultTitle(name = "") {
     return name
@@ -404,8 +431,10 @@ function DocumentManager({ folderKey, title }) {
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/documents?folder=${encodeURIComponent(folder)}`,
-        { cache: "no-store" },
+        `/api/documents?folder=${encodeURIComponent(
+          folder,
+        )}&v=${cacheVersion ?? 0}`,
+        { cache: "force-cache" },
       );
       const data = await res.json();
       const nextItems = data.items || [];
@@ -415,6 +444,11 @@ function DocumentManager({ folderKey, title }) {
           nextItems.map((doc) => [doc.id, doc.title || defaultTitle(doc.name)]),
         ),
       );
+      const nextVersion = Number(data?.version);
+      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+        skipRefreshRef.current = true;
+        setCacheVersion(nextVersion);
+      }
     } finally {
       setLoading(false);
     }
@@ -426,47 +460,100 @@ function DocumentManager({ folderKey, title }) {
     const form = new FormData();
     [...files].forEach((f) => form.append("files", f));
     form.append("folder", folder);
-    await fetch("/api/media/upload", { method: "POST", body: form });
+    const res = await fetch("/api/media/upload", {
+      method: "POST",
+      body: form,
+    });
+    const data = await res.json();
+    const uploadedItems = Array.isArray(data?.items)
+      ? data.items.map((item) => ({
+          ...item,
+          title: defaultTitle(item.name) || item.name,
+        }))
+      : [];
+    if (uploadedItems.length) {
+      const uploadedIds = new Set(uploadedItems.map((item) => item.id));
+      setItems((prev) => [
+        ...uploadedItems,
+        ...prev.filter((item) => !uploadedIds.has(item.id)),
+      ]);
+      setNameMap((prev) => {
+        const next = { ...prev };
+        for (const item of uploadedItems) {
+          if (!next[item.id]) {
+            next[item.id] = defaultTitle(item.name) || item.name;
+          }
+        }
+        return next;
+      });
+    }
+    const nextVersion = Number(data?.version);
+    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+      skipRefreshRef.current = true;
+      setCacheVersion(nextVersion);
+    }
     e.target.value = "";
-    refresh();
   }
 
   async function onSaveNames(e) {
     const rect = e.currentTarget.getBoundingClientRect();
-    await fetch("/api/media/descriptions", {
+    const res = await fetch("/api/media/descriptions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ folder, descriptions: nameMap }),
     });
+    const data = await res.json();
+    const nextVersion = Number(data?.version);
+    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+      skipRefreshRef.current = true;
+      setCacheVersion(nextVersion);
+    }
     setPopover({
       id: Date.now(),
       message: "Document names saved!",
       x: rect.x + rect.width / 2,
       y: rect.y,
     });
-    refresh();
   }
 
   async function onReorder(newOrder) {
-    await fetch("/api/media/reorder", {
+    const res = await fetch("/api/media/reorder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ folder, order: newOrder.map((i) => i.id) }),
     });
-    refresh();
+    const data = await res.json();
+    const nextVersion = Number(data?.version);
+    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+      skipRefreshRef.current = true;
+      setCacheVersion(nextVersion);
+    }
+    setItems(newOrder);
   }
 
   async function onConfirmDelete(e) {
     if (!deletingItem) return;
     const rect = e.currentTarget.getBoundingClientRect();
     try {
-      await fetch("/api/media/delete", {
+      const res = await fetch("/api/media/delete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ folder, id: deletingItem.id }),
       });
+      const data = await res.json();
+      const nextVersion = Number(data?.version);
+      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+        skipRefreshRef.current = true;
+        setCacheVersion(nextVersion);
+      }
+      const deletingId = deletingItem.id;
       setDeletingItem(null);
-      refresh();
+      setItems((prev) => prev.filter((item) => item.id !== deletingId));
+      setNameMap((prev) => {
+        const next = { ...prev };
+        delete next[deletingId];
+        return next;
+      });
     } catch (err) {
       setPopover({
         id: Date.now(),
@@ -629,14 +716,41 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
   const [deletingItem, setDeletingItem] = useState(null);
   const [popover, setPopover] = useState(null);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [cacheVersion, setCacheVersion] = useState(null);
+  const skipRefreshRef = useRef(false);
 
   // Use folderKey immediately
   const folder = folderKey;
 
   useEffect(() => {
+    let active = true;
+    setCacheVersion(null);
+    fetch(`/api/media/version?folder=${encodeURIComponent(folder)}`, {
+      cache: "no-store",
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (!active) return;
+        const nextVersion = Number(data?.version);
+        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
+      })
+      .catch(() => {
+        if (active) setCacheVersion(0);
+      });
+    return () => {
+      active = false;
+    };
+  }, [folder]);
+
+  useEffect(() => {
+    if (cacheVersion === null) return;
+    if (skipRefreshRef.current) {
+      skipRefreshRef.current = false;
+      return;
+    }
     refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [folder]);
+  }, [folder, cacheVersion]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -650,8 +764,10 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/media?folder=${encodeURIComponent(folder)}`,
-        { cache: "no-store" },
+        `/api/media?folder=${encodeURIComponent(
+          folder,
+        )}&v=${cacheVersion ?? 0}`,
+        { cache: "force-cache" },
       );
       const data = await res.json();
       setItems(data.items || []);
@@ -660,6 +776,11 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
           (data.items || []).map((i) => [i.id, i.description || ""]),
         ),
       );
+      const nextVersion = Number(data?.version);
+      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+        skipRefreshRef.current = true;
+        setCacheVersion(nextVersion);
+      }
     } finally {
       setLoading(false);
     }
@@ -671,47 +792,95 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
     const form = new FormData();
     [...files].forEach((f) => form.append("files", f));
     form.append("folder", folder);
-    await fetch("/api/media/upload", { method: "POST", body: form });
+    const res = await fetch("/api/media/upload", {
+      method: "POST",
+      body: form,
+    });
+    const data = await res.json();
+    const uploadedItems = Array.isArray(data?.items) ? data.items : [];
+    if (uploadedItems.length) {
+      const uploadedIds = new Set(uploadedItems.map((item) => item.id));
+      setItems((prev) => [
+        ...uploadedItems,
+        ...prev.filter((item) => !uploadedIds.has(item.id)),
+      ]);
+      setDescMap((prev) => {
+        const next = { ...prev };
+        for (const item of uploadedItems) {
+          if (next[item.id] === undefined) {
+            next[item.id] = "";
+          }
+        }
+        return next;
+      });
+    }
+    const nextVersion = Number(data?.version);
+    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+      skipRefreshRef.current = true;
+      setCacheVersion(nextVersion);
+    }
     e.target.value = "";
-    refresh();
   }
 
   async function onSaveDescriptions(e) {
     const rect = e.currentTarget.getBoundingClientRect();
-    await fetch("/api/media/descriptions", {
+    const res = await fetch("/api/media/descriptions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ folder, descriptions: descMap }),
     });
+    const data = await res.json();
+    const nextVersion = Number(data?.version);
+    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+      skipRefreshRef.current = true;
+      setCacheVersion(nextVersion);
+    }
     setPopover({
       id: Date.now(),
       message: "Descriptions saved!",
       x: rect.x + rect.width / 2,
       y: rect.y,
     });
-    refresh();
   }
 
   async function onReorder(newOrder) {
-    await fetch("/api/media/reorder", {
+    const res = await fetch("/api/media/reorder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ folder, order: newOrder.map((i) => i.id) }),
     });
-    refresh();
+    const data = await res.json();
+    const nextVersion = Number(data?.version);
+    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+      skipRefreshRef.current = true;
+      setCacheVersion(nextVersion);
+    }
+    setItems(newOrder);
   }
 
   async function onConfirmDelete(e) {
     if (!deletingItem) return;
     const rect = e.currentTarget.getBoundingClientRect();
     try {
-      await fetch("/api/media/delete", {
+      const res = await fetch("/api/media/delete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ folder, id: deletingItem.id }),
       });
+      const data = await res.json();
+      const nextVersion = Number(data?.version);
+      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
+        skipRefreshRef.current = true;
+        setCacheVersion(nextVersion);
+      }
+      const deletingId = deletingItem.id;
       setDeletingItem(null);
-      refresh();
+      setItems((prev) => prev.filter((item) => item.id !== deletingId));
+      setDescMap((prev) => {
+        const next = { ...prev };
+        delete next[deletingId];
+        return next;
+      });
     } catch (err) {
       setPopover({
         id: Date.now(),

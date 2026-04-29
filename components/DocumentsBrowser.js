@@ -70,6 +70,7 @@ export default function DocumentsBrowser({ messages }) {
   const [searching, setSearching] = useState(false);
   const [predictionOpen, setPredictionOpen] = useState(false);
   const [contentMatches, setContentMatches] = useState([]);
+  const [cacheVersion, setCacheVersion] = useState(null);
 
   const wrapperRef = useRef(null);
   const contentSearchCacheRef = useRef(new Map());
@@ -87,10 +88,39 @@ export default function DocumentsBrowser({ messages }) {
   useEffect(() => {
     let mounted = true;
     setLoading(true);
+    setCacheVersion(null);
 
-    fetch(`/api/documents?folder=${encodeURIComponent(DOCUMENTS_FOLDER)}`, {
+    fetch(`/api/media/version?folder=${encodeURIComponent(DOCUMENTS_FOLDER)}`, {
       cache: "no-store",
     })
+      .then((r) => r.json())
+      .then((data) => {
+        if (!mounted) return;
+        const nextVersion = Number(data?.version);
+        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
+      })
+      .catch(() => {
+        if (mounted) setCacheVersion(0);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (cacheVersion === null) return;
+    let mounted = true;
+    setLoading(true);
+
+    fetch(
+      `/api/documents?folder=${encodeURIComponent(
+        DOCUMENTS_FOLDER,
+      )}&v=${cacheVersion}`,
+      {
+        cache: "force-cache",
+      },
+    )
       .then((r) => r.json())
       .then((data) => {
         if (!mounted) return;
@@ -103,7 +133,7 @@ export default function DocumentsBrowser({ messages }) {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [cacheVersion]);
 
   useEffect(() => {
     const closeOnOutside = (event) => {

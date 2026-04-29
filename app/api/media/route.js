@@ -1,16 +1,26 @@
 /** @format */
-import { listMedia } from "../../../lib/storage";
+import { getMediaVersion, listMedia } from "../../../lib/storage";
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const folder = searchParams.get("folder") || "star_electronic_gallery";
+  const versionParam = searchParams.get("v");
   try {
-    const items = await listMedia(folder);
-    return new Response(JSON.stringify({ items }), {
+    const items = await listMedia(
+      folder,
+      versionParam
+        ? {
+            cacheKey: `${folder}@${versionParam}`,
+            bypassMetaCache: true,
+          }
+        : undefined,
+    );
+    const version = await getMediaVersion(folder);
+    return new Response(JSON.stringify({ items, version }), {
       headers: {
         "content-type": "application/json",
         "cache-control":
-          "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+          "public, max-age=31536000, s-maxage=31536000, immutable",
       },
     });
   } catch (e) {

@@ -1,6 +1,6 @@
 /** @format */
 import { requireKey } from "../../auth/_utils";
-import { reorderMedia } from "../../../../lib/storage";
+import { getMediaVersion, reorderMedia } from "../../../../lib/storage";
 
 export async function POST(req) {
   await requireKey(req);
@@ -11,5 +11,6 @@ export async function POST(req) {
     });
   }
   await reorderMedia(folder, order);
-  return Response.json({ ok: true });
+  const version = await getMediaVersion(folder, { bypassCache: true });
+  return Response.json({ ok: true, version });
 }
