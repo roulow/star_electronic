@@ -1,0 +1,19 @@
+{
+  // Static site (out/) + a small API Worker. Public pages are static assets
+  // and never invoke the Worker; it only runs for /api/* and redirects.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "star-electronic",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  // Secrets and variables are managed in the Cloudflare dashboard (see README).
+  "keep_vars": true,
+  "preview_urls": false,
+  "observability": { "enabled": true }
+}

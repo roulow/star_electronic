@@ -3,12 +3,68 @@
 "use client";
 
 import StarBackground from "@/components/StarBackground";
-import { useEffect, useMemo, useState, useRef } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+} from "react";
 import { createPortal } from "react-dom";
-import { locales } from "../../../i18n.config";
+import { locales } from "../../../i18n.config.mjs";
 import EmailEditor from "react-email-editor";
 import Editor from "@monaco-editor/react";
 import ActionPopover from "@/components/ActionPopover";
+import { extractPdfText } from "@/lib/pdfText";
+
+// Saves that change the public site report back here so the dashboard can
+// explain that the site is being rebuilt.
+const PublishContext = createContext(() => {});
+
+async function postJson(url, body) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+  return data;
+}
+
+// Files go straight from the browser to Cloudinary using a signature from the
+// API, so large uploads never pass through the server.
+async function uploadToCloudinary(folder, files) {
+  const sign = await postJson("/api/media/sign-upload", { folder });
+  return Promise.all(
+    files.map(async (file) => {
+      const form = new FormData();
+      form.append("file", file);
+      form.append("api_key", sign.apiKey);
+      form.append("signature", sign.signature);
+      for (const [key, value] of Object.entries(sign.params)) {
+        form.append(key, String(value));
+      }
+      const res = await fetch(sign.uploadUrl, { method: "POST", body: form });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(
+          data?.error?.message || `Upload of ${file.name} failed`,
+        );
+      }
+      return {
+        id: data.public_id,
+        name: data.original_filename
+          ? `${data.original_filename}${data.format ? `.${data.format}` : ""}`
+          : data.public_id.split("/").pop(),
+        url: data.secure_url,
+        file,
+      };
+    }),
+  );
+}
 
 export default function DashboardClient({ locale, messages }) {
   const [activeTab, setActiveTab] = useState("carousel"); // 'carousel' | 'gallery' | 'documents' | 'content' | 'colors'
@@ -30,15 +86,31 @@ export default function DashboardClient({ locale, messages }) {
 
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState(false);
+  const [publishNotice, setPublishNotice] = useState(false);
 
-  // Auth Effect
+  const notePublished = useCallback((data) => {
+    if (data?.publishing) setPublishNotice(true);
+  }, []);
+
+  // Auth Effect: the session lives in an httpOnly cookie.
   useEffect(() => {
-    const key = window.localStorage.getItem("dashboard_key");
-    if (key) {
-      checkKey(key).then((valid) => {
-        if (valid) setAuthed(true);
-      });
-    }
+    let active = true;
+    fetch("/api/auth", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then(async (data) => {
+        if (data?.authed) {
+          if (active) setAuthed(true);
+          return;
+        }
+        // Earlier versions kept the key in the browser; exchange it once.
+        const key = window.localStorage.getItem("dashboard_key");
+        if (key && (await checkKey(key)) && active) setAuthed(true);
+      })
+      .catch(() => {})
+      .finally(() => window.localStorage.removeItem("dashboard_key"));
+    return () => {
+      active = false;
+    };
   }, []);
 
   // Prevent scrolling when locked
@@ -73,7 +145,6 @@ export default function DashboardClient({ locale, messages }) {
     checkKey(passwordInput).then((valid) => {
       if (valid) {
         setAuthed(true);
-        window.localStorage.setItem("dashboard_key", passwordInput);
         setError(false);
       } else {
         setError(true);
@@ -275,7 +346,7 @@ export default function DashboardClient({ locale, messages }) {
           <button
             onClick={() => {
               setAuthed(false);
-              window.localStorage.removeItem("dashboard_key");
+              fetch("/api/auth", { method: "DELETE" }).catch(() => {});
             }}
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
           >
@@ -286,32 +357,52 @@ export default function DashboardClient({ locale, messages }) {
 
       {/* Main Content */}
       <main className={`flex-1 p-4 pt-8 pb-24 lg:p-8 relative z-10`}>
-        <div className="max-w-6xl mx-auto">
-          {activeTab === "carousel" && (
-            <MediaManager
-              folderKey="star_electronic_carousel"
-              title="Carousel Manager"
-              showDescriptions={false}
-            />
-          )}
-          {activeTab === "gallery" && (
-            <MediaManager
-              folderKey="star_electronic_gallery"
-              title="Gallery Manager"
-              showDescriptions={true}
-            />
-          )}
-          {activeTab === "documents" && (
-            <DocumentManager
-              folderKey="star_electronic_documents"
-              title="Documents Manager"
-            />
-          )}
-          {activeTab === "content" && <ContentEditor currentLocale={locale} />}
-          {activeTab === "colors" && <ColorEditor />}
-          {activeTab === "user-emails" && <EmailSettings type="user" />}
-          {activeTab === "owner-emails" && <EmailSettings type="owner" />}
-        </div>
+        <PublishContext.Provider value={notePublished}>
+          <div className="max-w-6xl mx-auto">
+            {publishNotice && (
+              <div className="mb-6 flex items-start gap-3 bg-blue-500/10 border border-blue-500/20 p-4 rounded-xl text-sm text-blue-600 dark:text-blue-400">
+                <i className="fas fa-info-circle mt-0.5"></i>
+                <p className="flex-1">
+                  Changes saved. The public website is being rebuilt and will
+                  show them in a few minutes.
+                </p>
+                <button
+                  onClick={() => setPublishNotice(false)}
+                  aria-label="Dismiss"
+                  className="opacity-70 hover:opacity-100"
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+            )}
+            {activeTab === "carousel" && (
+              <MediaManager
+                folderKey="star_electronic_carousel"
+                title="Carousel Manager"
+                showDescriptions={false}
+              />
+            )}
+            {activeTab === "gallery" && (
+              <MediaManager
+                folderKey="star_electronic_gallery"
+                title="Gallery Manager"
+                showDescriptions={true}
+              />
+            )}
+            {activeTab === "documents" && (
+              <DocumentManager
+                folderKey="star_electronic_documents"
+                title="Documents Manager"
+              />
+            )}
+            {activeTab === "content" && (
+              <ContentEditor currentLocale={locale} />
+            )}
+            {activeTab === "colors" && <ColorEditor />}
+            {activeTab === "user-emails" && <EmailSettings type="user" />}
+            {activeTab === "owner-emails" && <EmailSettings type="owner" />}
+          </div>
+        </PublishContext.Provider>
       </main>
     </div>
   );
@@ -385,40 +476,60 @@ function DocumentManager({ folderKey, title }) {
   const [nameMap, setNameMap] = useState({});
   const [deletingItem, setDeletingItem] = useState(null);
   const [popover, setPopover] = useState(null);
-  const [cacheVersion, setCacheVersion] = useState(null);
-  const skipRefreshRef = useRef(false);
+  const [indexingCount, setIndexingCount] = useState(0);
+  const indexedRequestsRef = useRef(new Set());
+  const notePublished = useContext(PublishContext);
 
   const folder = folderKey;
 
   useEffect(() => {
-    let active = true;
-    setCacheVersion(null);
-    fetch(`/api/media/version?folder=${encodeURIComponent(folder)}`, {
-      cache: "no-store",
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (!active) return;
-        const nextVersion = Number(data?.version);
-        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
-      })
-      .catch(() => {
-        if (active) setCacheVersion(0);
-      });
-    return () => {
-      active = false;
-    };
-  }, [folder]);
-
-  useEffect(() => {
-    if (cacheVersion === null) return;
-    if (skipRefreshRef.current) {
-      skipRefreshRef.current = false;
-      return;
-    }
     refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [folder, cacheVersion]);
+  }, [folder]);
+
+  // PDFs without searchable text (e.g. uploaded before text indexing existed)
+  // are indexed here in the browser, once per visit.
+  useEffect(() => {
+    const pending = items.filter(
+      (doc) => doc.indexed === false && !indexedRequestsRef.current.has(doc.id),
+    );
+    if (!pending.length) return;
+    pending.forEach((doc) => indexedRequestsRef.current.add(doc.id));
+    setIndexingCount((count) => count + pending.length);
+
+    (async () => {
+      const texts = {};
+      for (const doc of pending) {
+        try {
+          const res = await fetch(doc.url);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          texts[doc.id] = await extractPdfText(await res.arrayBuffer());
+        } catch (err) {
+          console.warn(`Could not index ${doc.name} for search`, err);
+        } finally {
+          setIndexingCount((count) => count - 1);
+        }
+      }
+      const ids = Object.keys(texts);
+      for (let i = 0; i < ids.length; i += 20) {
+        const batch = Object.fromEntries(
+          ids.slice(i, i + 20).map((id) => [id, texts[id]]),
+        );
+        try {
+          notePublished(
+            await postJson("/api/documents/text", { texts: batch }),
+          );
+          setItems((prev) =>
+            prev.map((doc) =>
+              doc.id in batch ? { ...doc, indexed: true } : doc,
+            ),
+          );
+        } catch (err) {
+          console.warn("Saving document text failed", err);
+        }
+      }
+    })();
+  }, [items, notePublished]);
 
   function defaultTitle(name = "") {
     return name
@@ -430,12 +541,7 @@ function DocumentManager({ folderKey, title }) {
   async function refresh() {
     setLoading(true);
     try {
-      const res = await fetch(
-        `/api/documents?folder=${encodeURIComponent(
-          folder,
-        )}&v=${cacheVersion ?? 0}`,
-        { cache: "force-cache" },
-      );
+      const res = await fetch("/api/documents", { cache: "no-store" });
       const data = await res.json();
       const nextItems = data.items || [];
       setItems(nextItems);
@@ -444,34 +550,48 @@ function DocumentManager({ folderKey, title }) {
           nextItems.map((doc) => [doc.id, doc.title || defaultTitle(doc.name)]),
         ),
       );
-      const nextVersion = Number(data?.version);
-      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
-        skipRefreshRef.current = true;
-        setCacheVersion(nextVersion);
-      }
     } finally {
       setLoading(false);
     }
   }
 
   async function onUpload(e) {
-    const files = e.target.files;
-    if (!files?.length) return;
-    const form = new FormData();
-    [...files].forEach((f) => form.append("files", f));
-    form.append("folder", folder);
-    const res = await fetch("/api/media/upload", {
-      method: "POST",
-      body: form,
-    });
-    const data = await res.json();
-    const uploadedItems = Array.isArray(data?.items)
-      ? data.items.map((item) => ({
-          ...item,
-          title: defaultTitle(item.name) || item.name,
-        }))
-      : [];
-    if (uploadedItems.length) {
+    const input = e.target;
+    const files = [...(input.files || [])].filter(
+      (f) => f.type === "application/pdf" || /\.pdf$/i.test(f.name),
+    );
+    if (!files.length) return;
+    try {
+      // Text for the documents search is extracted while the files upload.
+      const [uploaded, texts] = await Promise.all([
+        uploadToCloudinary(folder, files),
+        Promise.all(
+          files.map((file) => extractPdfText(file).catch(() => null)),
+        ),
+      ]);
+      const textById = {};
+      uploaded.forEach((item, i) => {
+        if (texts[i] !== null) textById[item.id] = texts[i];
+      });
+      const data = await postJson("/api/media/upload", {
+        folder,
+        texts: textById,
+        items: uploaded.map(({ id, name, url, file }) => ({
+          id,
+          name,
+          url,
+          title: defaultTitle(file.name) || file.name,
+        })),
+      });
+      notePublished(data);
+
+      const uploadedItems = uploaded.map(({ id, name, url, file }) => ({
+        id,
+        name,
+        url,
+        title: defaultTitle(file.name) || file.name,
+        indexed: id in textById,
+      }));
       const uploadedIds = new Set(uploadedItems.map((item) => item.id));
       setItems((prev) => [
         ...uploadedItems,
@@ -480,72 +600,71 @@ function DocumentManager({ folderKey, title }) {
       setNameMap((prev) => {
         const next = { ...prev };
         for (const item of uploadedItems) {
-          if (!next[item.id]) {
-            next[item.id] = defaultTitle(item.name) || item.name;
-          }
+          if (!next[item.id]) next[item.id] = item.title;
         }
         return next;
       });
+    } catch (err) {
+      setPopover({
+        id: Date.now(),
+        message: "Upload failed: " + err.message,
+        isError: true,
+      });
+    } finally {
+      input.value = "";
     }
-    const nextVersion = Number(data?.version);
-    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
-      skipRefreshRef.current = true;
-      setCacheVersion(nextVersion);
-    }
-    e.target.value = "";
   }
 
   async function onSaveNames(e) {
     const rect = e.currentTarget.getBoundingClientRect();
-    const res = await fetch("/api/media/descriptions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ folder, descriptions: nameMap }),
-    });
-    const data = await res.json();
-    const nextVersion = Number(data?.version);
-    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
-      skipRefreshRef.current = true;
-      setCacheVersion(nextVersion);
+    const coords = { x: rect.x + rect.width / 2, y: rect.y };
+    try {
+      notePublished(
+        await postJson("/api/media/descriptions", {
+          folder,
+          descriptions: nameMap,
+        }),
+      );
+      setPopover({
+        id: Date.now(),
+        message: "Document names saved!",
+        ...coords,
+      });
+    } catch (err) {
+      setPopover({
+        id: Date.now(),
+        message: "Failed: " + err.message,
+        isError: true,
+        ...coords,
+      });
     }
-    setPopover({
-      id: Date.now(),
-      message: "Document names saved!",
-      x: rect.x + rect.width / 2,
-      y: rect.y,
-    });
   }
 
   async function onReorder(newOrder) {
-    const res = await fetch("/api/media/reorder", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ folder, order: newOrder.map((i) => i.id) }),
-    });
-    const data = await res.json();
-    const nextVersion = Number(data?.version);
-    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
-      skipRefreshRef.current = true;
-      setCacheVersion(nextVersion);
-    }
     setItems(newOrder);
+    try {
+      notePublished(
+        await postJson("/api/media/reorder", {
+          folder,
+          order: newOrder.map((i) => i.id),
+        }),
+      );
+    } catch (err) {
+      setPopover({
+        id: Date.now(),
+        message: "Failed to save order: " + err.message,
+        isError: true,
+      });
+    }
   }
 
   async function onConfirmDelete(e) {
     if (!deletingItem) return;
     const rect = e.currentTarget.getBoundingClientRect();
     try {
-      const res = await fetch("/api/media/delete", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ folder, id: deletingItem.id }),
-      });
-      const data = await res.json();
-      const nextVersion = Number(data?.version);
-      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
-        skipRefreshRef.current = true;
-        setCacheVersion(nextVersion);
-      }
+      notePublished(
+        await postJson("/api/media/delete", { folder, id: deletingItem.id }),
+      );
       const deletingId = deletingItem.id;
       setDeletingItem(null);
       setItems((prev) => prev.filter((item) => item.id !== deletingId));
@@ -585,6 +704,13 @@ function DocumentManager({ folderKey, title }) {
               Upload PDF files, set display names, and reorder how they appear
               on the documents page.
             </p>
+            {indexingCount > 0 && (
+              <p className="text-xs text-muted-foreground mt-2">
+                <i className="fas fa-circle-notch fa-spin mr-2"></i>
+                Indexing {indexingCount} PDF{indexingCount === 1 ? "" : "s"} for
+                search…
+              </p>
+            )}
           </div>
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
             <label className="btn btn-outline cursor-pointer w-full sm:w-auto justify-center">
@@ -716,41 +842,15 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
   const [deletingItem, setDeletingItem] = useState(null);
   const [popover, setPopover] = useState(null);
   const [isMobileView, setIsMobileView] = useState(false);
-  const [cacheVersion, setCacheVersion] = useState(null);
-  const skipRefreshRef = useRef(false);
+  const notePublished = useContext(PublishContext);
 
   // Use folderKey immediately
   const folder = folderKey;
 
   useEffect(() => {
-    let active = true;
-    setCacheVersion(null);
-    fetch(`/api/media/version?folder=${encodeURIComponent(folder)}`, {
-      cache: "no-store",
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (!active) return;
-        const nextVersion = Number(data?.version);
-        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
-      })
-      .catch(() => {
-        if (active) setCacheVersion(0);
-      });
-    return () => {
-      active = false;
-    };
-  }, [folder]);
-
-  useEffect(() => {
-    if (cacheVersion === null) return;
-    if (skipRefreshRef.current) {
-      skipRefreshRef.current = false;
-      return;
-    }
     refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [folder, cacheVersion]);
+  }, [folder]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -764,10 +864,8 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/media?folder=${encodeURIComponent(
-          folder,
-        )}&v=${cacheVersion ?? 0}`,
-        { cache: "force-cache" },
+        `/api/media?folder=${encodeURIComponent(folder)}`,
+        { cache: "no-store" },
       );
       const data = await res.json();
       setItems(data.items || []);
@@ -776,103 +874,96 @@ function MediaManager({ folderKey, title, showDescriptions = true }) {
           (data.items || []).map((i) => [i.id, i.description || ""]),
         ),
       );
-      const nextVersion = Number(data?.version);
-      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
-        skipRefreshRef.current = true;
-        setCacheVersion(nextVersion);
-      }
     } finally {
       setLoading(false);
     }
   }
 
   async function onUpload(e) {
-    const files = e.target.files;
-    if (!files?.length) return;
-    const form = new FormData();
-    [...files].forEach((f) => form.append("files", f));
-    form.append("folder", folder);
-    const res = await fetch("/api/media/upload", {
-      method: "POST",
-      body: form,
-    });
-    const data = await res.json();
-    const uploadedItems = Array.isArray(data?.items) ? data.items : [];
-    if (uploadedItems.length) {
-      const uploadedIds = new Set(uploadedItems.map((item) => item.id));
-      setItems((prev) => [
-        ...uploadedItems,
-        ...prev.filter((item) => !uploadedIds.has(item.id)),
-      ]);
-      setDescMap((prev) => {
-        const next = { ...prev };
-        for (const item of uploadedItems) {
-          if (next[item.id] === undefined) {
-            next[item.id] = "";
-          }
-        }
-        return next;
+    const input = e.target;
+    const files = [...(input.files || [])];
+    if (!files.length) return;
+    try {
+      const uploaded = await uploadToCloudinary(folder, files);
+      const data = await postJson("/api/media/upload", {
+        folder,
+        items: uploaded.map(({ id, name, url }) => ({ id, name, url })),
       });
+      notePublished(data);
+      const uploadedItems = Array.isArray(data?.items) ? data.items : [];
+      if (uploadedItems.length) {
+        const uploadedIds = new Set(uploadedItems.map((item) => item.id));
+        setItems((prev) => [
+          ...uploadedItems,
+          ...prev.filter((item) => !uploadedIds.has(item.id)),
+        ]);
+        setDescMap((prev) => {
+          const next = { ...prev };
+          for (const item of uploadedItems) {
+            if (next[item.id] === undefined) {
+              next[item.id] = "";
+            }
+          }
+          return next;
+        });
+      }
+    } catch (err) {
+      setPopover({
+        id: Date.now(),
+        message: "Upload failed: " + err.message,
+        isError: true,
+      });
+    } finally {
+      input.value = "";
     }
-    const nextVersion = Number(data?.version);
-    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
-      skipRefreshRef.current = true;
-      setCacheVersion(nextVersion);
-    }
-    e.target.value = "";
   }
 
   async function onSaveDescriptions(e) {
     const rect = e.currentTarget.getBoundingClientRect();
-    const res = await fetch("/api/media/descriptions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ folder, descriptions: descMap }),
-    });
-    const data = await res.json();
-    const nextVersion = Number(data?.version);
-    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
-      skipRefreshRef.current = true;
-      setCacheVersion(nextVersion);
+    const coords = { x: rect.x + rect.width / 2, y: rect.y };
+    try {
+      notePublished(
+        await postJson("/api/media/descriptions", {
+          folder,
+          descriptions: descMap,
+        }),
+      );
+      setPopover({ id: Date.now(), message: "Descriptions saved!", ...coords });
+    } catch (err) {
+      setPopover({
+        id: Date.now(),
+        message: "Failed: " + err.message,
+        isError: true,
+        ...coords,
+      });
     }
-    setPopover({
-      id: Date.now(),
-      message: "Descriptions saved!",
-      x: rect.x + rect.width / 2,
-      y: rect.y,
-    });
   }
 
   async function onReorder(newOrder) {
-    const res = await fetch("/api/media/reorder", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ folder, order: newOrder.map((i) => i.id) }),
-    });
-    const data = await res.json();
-    const nextVersion = Number(data?.version);
-    if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
-      skipRefreshRef.current = true;
-      setCacheVersion(nextVersion);
-    }
     setItems(newOrder);
+    try {
+      notePublished(
+        await postJson("/api/media/reorder", {
+          folder,
+          order: newOrder.map((i) => i.id),
+        }),
+      );
+    } catch (err) {
+      setPopover({
+        id: Date.now(),
+        message: "Failed to save order: " + err.message,
+        isError: true,
+      });
+    }
   }
 
   async function onConfirmDelete(e) {
     if (!deletingItem) return;
     const rect = e.currentTarget.getBoundingClientRect();
     try {
-      const res = await fetch("/api/media/delete", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ folder, id: deletingItem.id }),
-      });
-      const data = await res.json();
-      const nextVersion = Number(data?.version);
-      if (Number.isFinite(nextVersion) && nextVersion !== cacheVersion) {
-        skipRefreshRef.current = true;
-        setCacheVersion(nextVersion);
-      }
+      notePublished(
+        await postJson("/api/media/delete", { folder, id: deletingItem.id }),
+      );
       const deletingId = deletingItem.id;
       setDeletingItem(null);
       setItems((prev) => prev.filter((item) => item.id !== deletingId));
@@ -1045,6 +1136,7 @@ function ContentEditor({ currentLocale }) {
   const [popover, setPopover] = useState(null);
   const [jsonString, setJsonString] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const notePublished = useContext(PublishContext);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -1088,6 +1180,7 @@ function ContentEditor({ currentLocale }) {
         body: JSON.stringify({ locale: selectedLocale, content }),
       });
       if (res.ok) {
+        notePublished(await res.json().catch(() => null));
         setPopover({
           id: Date.now(),
           message: "Saved content successfully!",
@@ -1194,6 +1287,7 @@ function ColorEditor() {
   const [mode, setMode] = useState("light"); // 'light' | 'dark'
   const [loading, setLoading] = useState(false);
   const [popover, setPopover] = useState(null);
+  const notePublished = useContext(PublishContext);
 
   useEffect(() => {
     setLoading(true);
@@ -1217,13 +1311,14 @@ function ColorEditor() {
       body: JSON.stringify(allVariables),
     });
 
-    if (res.ok)
+    if (res.ok) {
+      notePublished(await res.json().catch(() => null));
       setPopover({
         id: Date.now(),
-        message: "Theme saved! Refresh to see changes.",
+        message: "Theme saved!",
         ...coords,
       });
-    else
+    } else
       setPopover({
         id: Date.now(),
         message: "Failed to save theme.",
@@ -1673,6 +1768,7 @@ function EmailSettings({ type }) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [popover, setPopover] = useState(null);
+  const notePublished = useContext(PublishContext);
 
   const isOwner = type === "owner";
   const enabledKey = isOwner ? "ownerEnabled" : "userEnabled";
@@ -1858,15 +1954,20 @@ function EmailSettings({ type }) {
           },
         };
 
-        await fetch("/api/settings", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newSettings),
-        });
-
-        setSettings(newSettings);
-        setSaving(false);
-        setPopover({ id: Date.now(), message: "Settings saved!", ...coords });
+        try {
+          notePublished(await postJson("/api/settings", newSettings));
+          setSettings(newSettings);
+          setPopover({ id: Date.now(), message: "Settings saved!", ...coords });
+        } catch (err) {
+          setPopover({
+            id: Date.now(),
+            message: "Failed: " + err.message,
+            isError: true,
+            ...coords,
+          });
+        } finally {
+          setSaving(false);
+        }
       });
     } else {
       // Fallback if editor not loaded (shouldn't happen)

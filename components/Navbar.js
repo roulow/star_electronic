@@ -74,6 +74,7 @@ export default function Navbar({ messages, locale }) {
           >
             <Image
               src="/onebyone.png"
+              unoptimized
               alt="Logo"
               width={32}
               height={32}
@@ -151,6 +152,7 @@ export default function Navbar({ messages, locale }) {
               <div className="flex items-center gap-3">
                 <Image
                   src="/onebyone.png"
+                  unoptimized
                   alt="Logo"
                   width={32}
                   height={32}
@@ -271,6 +273,7 @@ export default function Navbar({ messages, locale }) {
               pathname?.endsWith("/dashboard")) && (
               <Image
                 src="/onebyone.png"
+                unoptimized
                 alt="Logo"
                 width={40}
                 height={40}

@@ -1,6 +1,8 @@
 /** @format */
 import GalleryGrid from "../../../components/GalleryGrid";
 import { getMessages } from "../../../lib/i18n";
+import { getMedia } from "../../../lib/content";
+import { GALLERY_FOLDER } from "../../../lib/cloudinary.mjs";
 
 export default async function GalleryPage({ params }) {
   const { locale } = await params;
@@ -26,7 +28,7 @@ export default async function GalleryPage({ params }) {
           </p>
         </div>
         <GalleryGrid
-          folder="star_electronic_gallery"
+          items={getMedia(GALLERY_FOLDER)}
           viewFullText={t("gallery.viewFull")}
         />
       </div>

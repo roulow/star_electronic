@@ -2,51 +2,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function GalleryGrid({ folder, viewFullText }) {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function GalleryGrid({ items = [], viewFullText }) {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [cacheVersion, setCacheVersion] = useState(null);
-
-  useEffect(() => {
-    setLoading(true);
-    setCacheVersion(null);
-    fetch(`/api/media/version?folder=${encodeURIComponent(folder)}`, {
-      cache: "no-store",
-    })
-      .then((r) => r.json())
-      .then((d) => {
-        const nextVersion = Number(d?.version);
-        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
-      })
-      .catch(() => setCacheVersion(0));
-  }, [folder]);
-
-  useEffect(() => {
-    if (cacheVersion === null) return;
-    setLoading(true);
-    fetch(`/api/media?folder=${encodeURIComponent(folder)}&v=${cacheVersion}`, {
-      cache: "force-cache",
-    })
-      .then((r) => r.json())
-      .then((d) => setItems(d.items || []))
-      .finally(() => setLoading(false));
-  }, [folder, cacheVersion]);
-
-  if (loading) {
-    return (
-      <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="skeleton h-64 w-full rounded-xl break-inside-avoid"
-          />
-        ))}
-      </div>
-    );
-  }
 
   return (
     <>

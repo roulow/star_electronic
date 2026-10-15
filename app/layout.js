@@ -2,7 +2,8 @@
 
 import './globals.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import ThemeApplicator from '@/components/ThemeApplicator';
+import { getTheme } from '@/lib/content';
+import { themeToCss } from '@/lib/theme';
 
 export const metadata = {
   title: 'Star Electronic',
@@ -11,10 +12,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   // Locale layout under app/[locale]/layout.js renders Navbar/Footer and theme script.
+  const themeCss = themeToCss(getTheme());
   return (
     <html lang="en">
       <head>
-        <ThemeApplicator />
+        {themeCss ? (
+          <style
+            id="dynamic-theme"
+            dangerouslySetInnerHTML={{ __html: themeCss }}
+          />
+        ) : null}
         <script
           dangerouslySetInnerHTML={{
             __html: `
