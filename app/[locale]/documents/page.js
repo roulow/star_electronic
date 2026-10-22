@@ -1,6 +1,7 @@
 /** @format */
 import DocumentsBrowser from "@/components/DocumentsBrowser";
 import { getMessages } from "@/lib/i18n";
+import { getDocuments } from "@/lib/content";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -37,7 +38,7 @@ export default async function DocumentsPage({ params }) {
           )}
         </p>
       </div>
-      <DocumentsBrowser messages={messages} />
+      <DocumentsBrowser messages={messages} documents={getDocuments()} />
     </div>
   );
 }

@@ -4,9 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-export default function Carousel({ folder }) {
-  const [items, setItems] = useState([]);
-  const [cacheVersion, setCacheVersion] = useState(null);
+export default function Carousel({ items = [] }) {
   // index of the currently centered item in items[]
   const [idx, setIdx] = useState(0);
   // animation state: -1 (animating right -> show prev), 0 idle, 1 (animating left -> show next)
@@ -25,48 +23,6 @@ export default function Carousel({ folder }) {
   const [showRightArrow, setShowRightArrow] = useState(false);
   const leftHoverTimeoutRef = useRef(null);
   const rightHoverTimeoutRef = useRef(null);
-
-  useEffect(() => {
-    let active = true;
-    setCacheVersion(null);
-    fetch(`/api/media/version?folder=${encodeURIComponent(folder)}`, {
-      cache: "no-store",
-    })
-      .then((r) => r.json())
-      .then((d) => {
-        if (!active) return;
-        const nextVersion = Number(d?.version);
-        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
-      })
-      .catch(() => {
-        if (!active) return;
-        setCacheVersion(0);
-      });
-    return () => {
-      active = false;
-    };
-  }, [folder]);
-
-  useEffect(() => {
-    if (cacheVersion === null) return;
-    let active = true;
-    fetch(`/api/media?folder=${encodeURIComponent(folder)}&v=${cacheVersion}`, {
-      cache: "force-cache",
-    })
-      .then((r) => r.json())
-      .then((d) => {
-        if (!active) return;
-        setItems(d.items || []);
-        setIdx(0);
-      })
-      .catch(() => {
-        if (!active) return;
-        setItems([]);
-      });
-    return () => {
-      active = false;
-    };
-  }, [folder, cacheVersion]);
 
   // auto-advance
   useEffect(() => {

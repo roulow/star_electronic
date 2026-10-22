@@ -1,46 +1,16 @@
+// Uploads the local messages/*.json files to Cloudinary (overwrites the
+// texts edited in the dashboard). Usage: node scripts/upload-messages.mjs
 import fs from 'fs';
 import path from 'path';
-import { v2 as cloudinary } from 'cloudinary';
+import nextEnv from '@next/env';
+import { getCloudinaryConfig, writeRawJson } from '../lib/cloudinary.mjs';
 
-// Load env
-const envPath = path.join(process.cwd(), '.env.local');
-if (fs.existsSync(envPath)) {
-  const envConfig = fs.readFileSync(envPath, 'utf8');
-  envConfig.split('\n').forEach(line => {
-    const [key, value] = line.split('=');
-    if (key && value) {
-      process.env[key.trim()] = value.trim();
-    }
-  });
-}
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true,
-});
-
-async function writeJson(filename, content) {
-  const buffer = Buffer.from(JSON.stringify(content, null, 2));
-  await new Promise((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
-      {
-        public_id: `data/${filename}`,
-        resource_type: 'raw',
-        invalidate: true,
-        overwrite: true,
-      },
-      (error, result) => {
-        if (error) reject(error);
-        else resolve(result);
-      }
-    );
-    stream.end(buffer);
-  });
-}
+nextEnv.loadEnvConfig(process.cwd());
 
 async function main() {
+  const cfg = getCloudinaryConfig(process.env);
+  if (!cfg) throw new Error('Cloudinary credentials are missing');
+
   const messagesDir = path.join(process.cwd(), 'messages');
   const files = fs.readdirSync(messagesDir).filter(f => f.endsWith('.json'));
 
@@ -48,10 +18,10 @@ async function main() {
     const content = JSON.parse(
       fs.readFileSync(path.join(messagesDir, file), 'utf8')
     );
-    console.log(`Uploading ${file}...`);
-    await writeJson(`messages/${file}`, content);
+    console.info(`Uploading ${file}...`);
+    await writeRawJson(cfg, `data/messages/${file}`, content);
   }
-  console.log('Done');
+  console.info('Done');
 }
 
 main().catch(console.error);

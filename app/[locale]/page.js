@@ -2,6 +2,8 @@
 import Carousel from "../../components/Carousel";
 import Link from "next/link";
 import { getMessages } from "../../lib/i18n";
+import { getMedia } from "../../lib/content";
+import { CAROUSEL_FOLDER } from "../../lib/cloudinary.mjs";
 import StarBackground from "@/components/StarBackground";
 
 function spanify(text) {
@@ -11,6 +13,7 @@ function spanify(text) {
 export default async function HomePage({ params }) {
   const { locale } = await params;
   const messages = await getMessages(locale);
+  const carouselItems = getMedia(CAROUSEL_FOLDER);
   const t = (key, fallback) =>
     key
       .split(".")
@@ -28,7 +31,7 @@ export default async function HomePage({ params }) {
         {/* Featured Carousel Card */}
         <div className="relative z-10">
           <div className="relative w-full aspect-[4/3] rounded-b-4xl overflow-hidden shadow-2xl">
-            <Carousel folder="star_electronic_carousel" />
+            <Carousel items={carouselItems} />
             {/* Subtle gradient overlay at bottom for polish */}
             <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
           </div>
@@ -103,7 +106,7 @@ export default async function HomePage({ params }) {
             {/* Carousel */}
             <div className="order-2 relative w-[600px] translate-x-14">
               <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border-2 border-border shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                <Carousel folder="star_electronic_carousel" />
+                <Carousel items={carouselItems} />
               </div>
             </div>
 

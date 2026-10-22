@@ -1,7 +1,7 @@
 /** @format */
 "use client";
 
-import { useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import ActionPopover from "./ActionPopover";
 
 export default function ContactForm({ messages }) {
@@ -20,6 +20,12 @@ export default function ContactForm({ messages }) {
   const [loading, setLoading] = useState(false);
   const [popover, setPopover] = useState(null);
   const formRef = useRef(null);
+  // Bots submit within moments of loading the page; the server ignores those.
+  const openedAtRef = useRef(0);
+
+  useEffect(() => {
+    openedAtRef.current = Date.now();
+  }, []);
 
   function handleCopy(e, key, value) {
     e.preventDefault();
@@ -42,6 +48,7 @@ export default function ContactForm({ messages }) {
     setStatus(null);
     const form = new FormData(formRef.current);
     const payload = Object.fromEntries(form.entries());
+    payload.elapsedMs = Date.now() - openedAtRef.current;
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -233,6 +240,24 @@ export default function ContactForm({ messages }) {
       {/* Form Section */}
       <div className="card bg-transparent lg:bg-card p-0 lg:p-8 shadow-none lg:shadow-lg">
         <form ref={formRef} onSubmit={onSubmit} className="space-y-6">
+          {/* Honeypot: invisible to people, filled in by bots. */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "-10000px",
+              width: "1px",
+              height: "1px",
+              overflow: "hidden",
+            }}
+          >
+            <input
+              type="text"
+              name="_gotcha"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="label hidden lg:block">

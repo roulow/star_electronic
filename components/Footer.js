@@ -2,11 +2,18 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActionPopover from "./ActionPopover";
 
-export default function Footer({ messages, locale }) {
+export default function Footer({ messages, locale, year: buildYear }) {
   const [popover, setPopover] = useState(null);
+  // Pages are pre-built, so the build year renders first and the visitor's
+  // clock corrects it if the build is from an earlier year.
+  const [year, setYear] = useState(buildYear ?? new Date().getFullYear());
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   const t = (key, fallback) =>
     key
@@ -146,9 +153,7 @@ export default function Footer({ messages, locale }) {
         </div>
 
         <div className="border-t border-neutral-800 pt-8 text-center text-sm text-neutral-500">
-          <p>
-            {t("footer.copyright").replace("{year}", new Date().getFullYear())}
-          </p>
+          <p>{t("footer.copyright").replace("{year}", year)}</p>
         </div>
       </div>
     </footer>

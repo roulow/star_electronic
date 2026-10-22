@@ -2,7 +2,7 @@
 import "../globals.css";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { locales, defaultLocale } from "../../i18n.config";
+import { locales, defaultLocale } from "../../i18n.config.mjs";
 import { getMessages } from "../../lib/i18n";
 
 export const viewport = {
@@ -10,8 +10,8 @@ export const viewport = {
   initialScale: 1,
 };
 
-// Force dynamic rendering so runtime message changes are picked up immediately
-export const dynamic = "force-dynamic";
+// Every page is generated at build time; content changes trigger a rebuild.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -93,9 +93,19 @@ export default async function LocaleLayout({ children, params }) {
 
   return (
     <>
+      {/* Remember the visited language for the "/" redirect (done by middleware before). */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `try{var m=document.cookie.match(/(?:^|; )locale=([^;]*)/);if(!m||m[1]!==${JSON.stringify(locale)})document.cookie="locale=${locale}; path=/; max-age=31536000"}catch(e){}`,
+        }}
+      />
       <Navbar messages={messages} locale={locale} />
       <main className="min-h-[70vh]">{children}</main>
-      <Footer messages={messages} locale={locale} />
+      <Footer
+        messages={messages}
+        locale={locale}
+        year={new Date().getFullYear()}
+      />
     </>
   );
 }

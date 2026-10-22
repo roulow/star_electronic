@@ -2,12 +2,36 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-
-const DOCUMENTS_FOLDER = "star_electronic_documents";
+import {
+  normalizeForSearch,
+  searchDocumentText,
+} from "../lib/documentSearch.mjs";
 
 function includesAllTerms(haystack, terms) {
   const value = String(haystack || "").toLowerCase();
   return terms.every((term) => value.includes(term));
+}
+
+// The PDF text index is a static file generated at build time. It is only
+// downloaded once someone starts searching.
+let searchIndexPromise = null;
+function loadSearchIndex() {
+  if (!searchIndexPromise) {
+    searchIndexPromise = fetch("/documents-index.json")
+      .then((r) => (r.ok ? r.json() : { items: [] }))
+      .then((data) =>
+        (data.items || []).map((entry) => ({
+          id: entry.id,
+          text: entry.text,
+          normalized: normalizeForSearch(entry.text),
+        })),
+      )
+      .catch((err) => {
+        searchIndexPromise = null;
+        throw err;
+      });
+  }
+  return searchIndexPromise;
 }
 
 function PdfPreview({
@@ -18,7 +42,7 @@ function PdfPreview({
   previewUnavailableLabel,
 }) {
   const [failed, setFailed] = useState(false);
-  const previewUrl = `${url}${url.includes("?") ? "&" : "?"}preview=1#page=1&view=Fit&toolbar=0&navpanes=0&scrollbar=0`;
+  const previewUrl = `${url}#page=1&view=Fit&toolbar=0&navpanes=0&scrollbar=0`;
   const openAria = (openAriaTemplate || "Open {title}").replace(
     "{title}",
     title,
@@ -63,17 +87,13 @@ function PdfPreview({
   );
 }
 
-export default function DocumentsBrowser({ messages }) {
-  const [documents, setDocuments] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function DocumentsBrowser({ messages, documents = [] }) {
   const [query, setQuery] = useState("");
   const [searching, setSearching] = useState(false);
   const [predictionOpen, setPredictionOpen] = useState(false);
   const [contentMatches, setContentMatches] = useState([]);
-  const [cacheVersion, setCacheVersion] = useState(null);
 
   const wrapperRef = useRef(null);
-  const contentSearchCacheRef = useRef(new Map());
 
   const t = (key, fallback) =>
     key
@@ -84,56 +104,6 @@ export default function DocumentsBrowser({ messages }) {
       ) ??
     fallback ??
     key;
-
-  useEffect(() => {
-    let mounted = true;
-    setLoading(true);
-    setCacheVersion(null);
-
-    fetch(`/api/media/version?folder=${encodeURIComponent(DOCUMENTS_FOLDER)}`, {
-      cache: "no-store",
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (!mounted) return;
-        const nextVersion = Number(data?.version);
-        setCacheVersion(Number.isFinite(nextVersion) ? nextVersion : 0);
-      })
-      .catch(() => {
-        if (mounted) setCacheVersion(0);
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (cacheVersion === null) return;
-    let mounted = true;
-    setLoading(true);
-
-    fetch(
-      `/api/documents?folder=${encodeURIComponent(
-        DOCUMENTS_FOLDER,
-      )}&v=${cacheVersion}`,
-      {
-        cache: "force-cache",
-      },
-    )
-      .then((r) => r.json())
-      .then((data) => {
-        if (!mounted) return;
-        setDocuments(data.items || []);
-      })
-      .finally(() => {
-        if (mounted) setLoading(false);
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, [cacheVersion]);
 
   useEffect(() => {
     const closeOnOutside = (event) => {
@@ -159,47 +129,25 @@ export default function DocumentsBrowser({ messages }) {
       return;
     }
 
-    const cacheKey = value.toLowerCase();
-    const cached = contentSearchCacheRef.current.get(cacheKey);
-    if (Array.isArray(cached) && cached.length > 0) {
-      setContentMatches(cached);
-      setSearching(false);
-      return;
-    }
-
-    const controller = new AbortController();
+    let cancelled = false;
 
     const timer = setTimeout(() => {
       setSearching(true);
-      fetch(
-        `/api/documents/search?folder=${encodeURIComponent(
-          DOCUMENTS_FOLDER,
-        )}&contentOnly=1&q=${encodeURIComponent(value)}`,
-        { signal: controller.signal, cache: "no-store" },
-      )
-        .then((r) => r.json())
-        .then((data) => {
-          const nextContent = data.contentMatches || [];
-          if (nextContent.length > 0) {
-            contentSearchCacheRef.current.set(cacheKey, nextContent);
-          } else {
-            contentSearchCacheRef.current.delete(cacheKey);
-          }
-          setContentMatches(nextContent);
+      loadSearchIndex()
+        .then((index) => {
+          if (!cancelled) setContentMatches(searchDocumentText(index, value));
         })
-        .catch((err) => {
-          if (err?.name !== "AbortError") {
-            setContentMatches([]);
-          }
+        .catch(() => {
+          if (!cancelled) setContentMatches([]);
         })
         .finally(() => {
-          if (!controller.signal.aborted) setSearching(false);
+          if (!cancelled) setSearching(false);
         });
     }, 120);
 
     return () => {
+      cancelled = true;
       clearTimeout(timer);
-      controller.abort();
     };
   }, [query]);
 
@@ -431,13 +379,7 @@ export default function DocumentsBrowser({ messages }) {
         </div>
       </div>
 
-      {loading ? (
-        <div className="grid gap-4 sm:grid-cols-2">
-          {[...Array(4)].map((_, index) => (
-            <div key={index} className="skeleton h-36 rounded-2xl"></div>
-          ))}
-        </div>
-      ) : visibleDocuments.length ? (
+      {visibleDocuments.length ? (
         <>
           <div className="text-sm text-muted-foreground">
             {query.trim()
@@ -499,7 +441,7 @@ export default function DocumentsBrowser({ messages }) {
                     {t("documents.open", "Open")}
                   </a>
                   <a
-                    href={doc.url}
+                    href={doc.downloadUrl || doc.url}
                     className="btn btn-outline text-sm"
                     download
                   >

@@ -3,19 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "node scripts/dev.mjs",
+    "content": "node scripts/fetch-content.mjs",
+    "build": "node scripts/fetch-content.mjs && next build",
+    "preview": "node scripts/dev.mjs --preview",
+    "deploy": "npm run build && wrangler deploy",
     "lint": "next lint"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.1",
     "@monaco-editor/react": "^4.7.0",
-    "cloudinary": "^2.8.0",
-    "googleapis": "^140.0.1",
     "next": "15.5.9",
-    "nodemailer": "^6.9.14",
-    "pdf-parse": "^1.1.1",
+    "nodemailer": "^10.1.1",
     "pdfjs-dist": "^5.6.205",
     "react": "19.1.0",
     "react-dom": "19.1.0",
@@ -25,6 +27,7 @@
     "@tailwindcss/postcss": "^4",
     "eslint": "^9.37.0",
     "eslint-config-next": "^15.5.4",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "wrangler": "^4.151.0"
   }
 }
