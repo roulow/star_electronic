@@ -10,7 +10,17 @@
     "directory": "./out",
     "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    // Paths with no file that the Worker answers (language redirects, API).
+    // Without this, browser navigations to them get the 404 page directly.
+    "run_worker_first": [
+      "/",
+      "/api/*",
+      "/contact",
+      "/gallery",
+      "/documents",
+      "/dashboard"
+    ]
   },
   // Secrets and variables are managed in the Cloudflare dashboard (see README).
   "keep_vars": true,
